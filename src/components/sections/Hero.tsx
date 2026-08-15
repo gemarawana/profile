@@ -41,7 +41,7 @@ export function Hero({ slides }: { slides: HeroSlide[] }) {
             alt={s.label}
             fill
             priority={i === 0}
-            className="object-cover"
+            className="object-cover object-top"
             style={{ filter: 'brightness(0.38)' }}
             sizes="100vw"
           />

@@ -1,0 +1,18 @@
+export const C = {
+  crimson:      '#8B1A1A',
+  crimsonDark:  '#6B1414',
+  crimsonDeep:  '#140606',
+  crimsonCard:  '#2A0C0C',
+  crimsonMid:   '#3D1212',
+  white:        '#FFFFFF',
+  warmWhite:    '#FAF9F7',
+  lightGray:    '#F4F3F0',
+  border:       '#E8E5E0',
+  text:         '#1A0A0A',
+  textSub:      '#3A2A2A',
+  muted:        '#6B5A5A',
+  onDark:       '#FAF5F5',
+  onDarkDim:    'rgba(250,245,245,0.65)',
+  onDarkFaint:  'rgba(250,245,245,0.25)',
+  crimsonAlpha: 'rgba(139,26,26,0.08)',
+} as const

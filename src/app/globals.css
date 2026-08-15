@@ -1,0 +1,109 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-display: 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  --color-crimson: #8B1A1A;
+  --color-crimson-dark: #6B1414;
+  --color-crimson-deep: #140606;
+  --color-crimson-card: #2A0C0C;
+  --color-crimson-mid: #3D1212;
+  --color-warm-white: #FAF9F7;
+  --color-light-gray: #F4F3F0;
+  --color-border-color: #E8E5E0;
+  --color-text-main: #1A0A0A;
+  --color-text-sub: #3A2A2A;
+  --color-muted: #6B5A5A;
+
+  /* Global Spacing Tokens */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 48px;
+  --space-9: 64px;
+  --space-10: 72px;
+  --space-11: 96px;
+  --space-12: 120px;
+}
+
+:root {
+  --navbar-h: 80px;
+}
+
+*, ::before, ::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Safety net: clip does not create a scroll container, so sticky still works */
+  overflow-x: clip;
+}
+
+/* Ensure all anchor sections clear the fixed navbar when scrolled to */
+section[id] {
+  scroll-margin-top: var(--navbar-h);
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #FFFFFF;
+  color: #1A0A0A;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #8B1A1A;
+  border-radius: 3px;
+}
+
+.font-display {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Smooth image loading */
+img {
+  transition: opacity 0.3s ease;
+}
+
+/* Custom selection */
+::selection {
+  background: rgba(139, 26, 26, 0.2);
+  color: #140606;
+}
+
+/* Primary button specification: apply to .btn-primer */
+.btn-primer {
+  border-radius: 12px;
+}
+
+.btn-primer:focus {
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(139,26,26,0.12);
+}
+
+/* Enforce 12px radius for interactive controls across the site */
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+[role="button"] {
+  border-radius: 12px;
+}

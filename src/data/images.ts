@@ -1,0 +1,22 @@
+// // Legacy migration reference only. Runtime image URLs are supplied by public.images via the DAL.
+// export const IMG = {
+//   hero: 'https://images.unsplash.com/photo-1578592391689-0e3d1a1b52b9?w=1600&h=1000&fit=crop&auto=format',
+//   heroGroup: 'https://images.unsplash.com/photo-1506869640319-fe1a24fd76dc?w=1400&h=900&fit=crop&auto=format',
+//   intro: 'https://images.unsplash.com/photo-1629185752152-fe65698ddee4?w=900&h=1100&fit=crop&auto=format',
+//   hiking1: 'https://images.unsplash.com/photo-1501554728187-ce583db33af7?w=800&h=1000&fit=crop&auto=format',
+//   hiking2: 'https://images.unsplash.com/uploads/141148589884100082977/a816dbd7?w=800&h=600&fit=crop&auto=format',
+//   mountain1: 'https://images.unsplash.com/photo-1554629947-334ff61d85dc?w=800&h=1000&fit=crop&auto=format',
+//   mountain2: 'https://images.unsplash.com/photo-1604223190546-a43e4c7f29d7?w=800&h=600&fit=crop&auto=format',
+//   climbing: 'https://images.unsplash.com/photo-1758949868735-41ae958a0286?w=700&h=900&fit=crop&auto=format',
+//   climbingGroup: 'https://images.unsplash.com/photo-1769731897698-fad262ad1b37?w=800&h=600&fit=crop&auto=format',
+//   campfire: 'https://images.unsplash.com/photo-1758272959595-1d4113b1118b?w=800&h=600&fit=crop&auto=format',
+//   campfire2: 'https://images.unsplash.com/photo-1758272960155-3adf56c34870?w=800&h=600&fit=crop&auto=format',
+//   friends: 'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=600&fit=crop&auto=format',
+//   friendsSunset: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=800&h=600&fit=crop&auto=format',
+//   trail: 'https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?w=800&h=600&fit=crop&auto=format',
+//   forest: 'https://images.unsplash.com/photo-1597120590849-a1d5a743d155?w=800&h=1000&fit=crop&auto=format',
+//   mountainNight: 'https://images.unsplash.com/photo-1554176259-aa961fc32671?w=1400&h=900&fit=crop&auto=format',
+//   mountainAerial: 'https://images.unsplash.com/photo-1504870712357-65ea720d6078?w=900&h=700&fit=crop&auto=format',
+//   rocky: 'https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?w=800&h=600&fit=crop&auto=format',
+//   ctaBg: 'https://images.unsplash.com/photo-1547093349-65cdba98369a?w=1600&h=900&fit=crop&auto=format',
+// } as const

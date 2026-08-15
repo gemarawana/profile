@@ -8,15 +8,22 @@ type Props = {
   className?: string
 }
 
-export function ComingSoon({ children, message = 'Coming Soon', className = '' }: Props) {
+export function ComingSoon({
+  children,
+  message = 'Coming Soon',
+  className = '',
+}: Props) {
   const [visible, setVisible] = useState(false)
 
-  const show = (e: React.MouseEvent | any) => {
-    // prevent navigation / action
-    e?.preventDefault()
-    e?.stopPropagation()
+  const show = (e: React.MouseEvent | React.KeyboardEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+
     setVisible(true)
-    window.setTimeout(() => setVisible(false), 1500)
+
+    window.setTimeout(() => {
+      setVisible(false)
+    }, 1500)
   }
 
   const handleKey = (e: React.KeyboardEvent) => {

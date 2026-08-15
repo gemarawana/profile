@@ -107,7 +107,12 @@ export function Hero({ slides }: { slides: HeroSlide[] }) {
                   openModal({ title: 'Join Gemarawana', message: 'Open recruitment and membership details will be available soon.' })
                 }}
               >
-                JOIN GEMARAWANA ↗
+                <>JOIN GEMARAWANA
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="inline-block ml-1" aria-hidden>
+                    <path d="M14 3h7v7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                    <path d="M10 14L21 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </>
               </a>
               <a
                 href="#tentang"

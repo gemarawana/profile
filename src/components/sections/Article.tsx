@@ -76,7 +76,11 @@ export function Article({ articles }: { articles: NewsArticle[] }) {
                                 className="text-xs font-bold inline-flex items-center gap-1.5 group-hover:gap-2.5 transition-all duration-300"
                                 style={{ color: C.crimson, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
                             >
-                                Baca Selengkapnya <span>→</span>
+                                    Baca Selengkapnya
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="inline-block" style={{ marginLeft: 6 }} aria-hidden>
+                                            <path d="M5 12h14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                                            <path d="M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                                        </svg>
                             </span>
                         </div>
                     </div>
@@ -128,7 +132,11 @@ export function Article({ articles }: { articles: NewsArticle[] }) {
                                     {art.author}
                                 </span>
                                 <span className="inline-flex items-center gap-1 group-hover:gap-2 transition-all duration-300">
-                                    Baca →
+                                     Baca
+                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="inline-block" style={{ marginLeft: 6 }} aria-hidden>
+                                        <path d="M5 12h14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                                        <path d="M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                                     </svg>
                                 </span>
                             </div>
                         </div>

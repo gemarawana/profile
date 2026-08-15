@@ -49,7 +49,11 @@ function WhyCard({ card, delay }: { card: WhyCardType; delay: number }) {
         className="mt-6 flex items-center gap-2 text-xs font-bold opacity-0 group-hover:opacity-100 transition-all duration-300"
         style={{ color: C.crimson, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
       >
-        Learn more <span>→</span>
+        Learn more
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="inline-block" style={{ marginLeft: 6 }} aria-hidden>
+          <path d="M5 12h14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+          <path d="M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
       </div>
     </div>
   )

@@ -16,7 +16,11 @@ export function Modal({ open, title, message, onClose }: { open: boolean; title?
             <h3 className="font-display font-black text-lg" style={{ color: C.text }}>{title ?? 'Coming Soon'}</h3>
             <p className="text-sm mt-2" style={{ color: C.muted }}>{message ?? 'This feature is not available yet. Stay tuned or follow our socials for updates.'}</p>
           </div>
-          <button aria-label="Close modal" onClick={onClose} className="ml-4 text-sm font-semibold text-[#6B1414]">Close</button>
+          <button aria-label="Close modal" onClick={onClose} className="ml-4 text-sm font-semibold text-[#6B1414]">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path d="M6 6l12 12M6 18L18 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
         </div>
       </div>
     </div>

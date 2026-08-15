@@ -45,7 +45,11 @@ function ActivityCard({ act, className, style }: { act: Activity; className?: st
           className="text-xs font-bold text-white/60 group-hover:text-white transition-all duration-300 inline-flex items-center gap-1.5 group-hover:gap-2.5"
           style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}
         >
-          Explore →
+          Explore
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="inline-block ml-1" aria-hidden>
+            <path d="M5 12h14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+            <path d="M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
         </span>
       </div>
     </div>

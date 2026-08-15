@@ -46,7 +46,10 @@ export function FAQ({ faqs }: { faqs: FAQItem[] }) {
                     transform: open === i ? 'rotate(45deg)' : 'none',
                   }}
                 >
-                  +
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+                    <path d="M7 2v10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                    <path d="M2 7h10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                  </svg>
                 </span>
               </button>
               <div

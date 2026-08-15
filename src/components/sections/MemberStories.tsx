@@ -99,7 +99,11 @@ function Track({
               </div>
 
               <a href="#cerita" className="mt-4 inline-flex items-center gap-1 text-xs font-bold tracking-wide transition-all duration-200 group-hover:gap-2" style={{ color: C.crimson, fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
-                READ THEIR STORY →
+                READ THEIR STORY
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="inline-block ml-1" aria-hidden>
+                  <path d="M5 12h14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                  <path d="M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
               </a>
             </div>
           </article>

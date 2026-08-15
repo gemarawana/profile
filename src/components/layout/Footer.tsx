@@ -42,7 +42,7 @@ export function Footer({ navigation, socials }: { navigation: Link[]; socials: L
                 className="text-xs font-bold tracking-widest uppercase mb-5"
                 style={{ color: C.onDarkFaint, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
               >
-                Navigation
+                Contact
               </p>
               <nav className="flex flex-col gap-3" aria-label="Footer navigation">
                 {navigation.map(l => (
@@ -69,12 +69,13 @@ export function Footer({ navigation, socials }: { navigation: Link[]; socials: L
                   <a
                     key={s.label}
                     href={s.href}
-                    onClick={e => {
-                      e.preventDefault()
-                      openModal({ title: s.label, message: `Visit ${s.label}: ${s.href}` })
-                    }}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="text-sm transition-colors duration-200"
-                    style={{ color: C.onDarkDim, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                    style={{
+                      color: C.onDarkDim,
+                      fontFamily: 'Plus Jakarta Sans, sans-serif',
+                    }}
                   >
                     {s.label}
                   </a>

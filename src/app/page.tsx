@@ -37,12 +37,12 @@ export default async function Home() {
   const [
     heroSlides, whyCards, activities, journeySteps, galleryItems, memberStories,
     articles, impactStatistics, historyMilestones, organizationMembers, faqs,
-    navLinks, footerNavigation, footerSocials, imageUrls,
+    navLinks, contactInfo, footerSocials, imageUrls,
   ] = await Promise.all([
     getHeroSlides(), getWhyCards(), getActivities(), getJourneySteps(), getGalleryItems(),
     getMemberStories(), getArticles(), getImpactStatistics(), getHistoryMilestones(),
     getOrganizationMembers(), getFaqs(), getSiteSettings('nav_links'),
-    getSiteSettings('footer_nav_links'), getSiteSettings('footer_socials'),
+    getSiteSettings('contact'), getSiteSettings('footer_socials'),
     getImageUrls(),
   ])
 
@@ -65,7 +65,7 @@ export default async function Home() {
         <Partners />
         <RecruitmentCTA backgroundImage={imageUrls.ctaBg} />
       </main>
-      <Footer navigation={footerNavigation as Link[]} socials={footerSocials as Link[]} />
+      <Footer navigation={contactInfo as Link[]} socials={footerSocials as Link[]} />
       <ScrollToTop />
     </div>
   )

@@ -28,7 +28,7 @@ export function Footer({ navigation, socials }: { navigation: Link[]; socials: L
               </span>
             </a>
             <p className="text-base font-semibold mb-2" style={{ color: C.onDarkDim, fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
-              Tangguh Seperti Serigala
+              Mapala Telkom University
             </p>
             <p className="text-sm leading-relaxed" style={{ color: C.onDarkFaint }}>
               Jalan Telekomunikasi No. 1, Terusan Buahbatu, Sukapura, Kecamatan Dayeuhkolot, Kabupaten Bandung, Jawa Barat 40257.

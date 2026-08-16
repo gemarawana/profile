@@ -16,8 +16,8 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: 'Gemarawana — Mapala Telkom University',
-  description: 'Gemarawana adalah organisasi mahasiswa pecinta alam Telkom University yang menjadi ruang untuk menjelajah, belajar, berkembang, dan membangun pengalaman bersama.',
+  title: 'Gemarawana - Telkom University',
+  description: 'Gemarawana adalah organisasi mahasiswa penggiat alam Telkom University yang menjadi ruang untuk menjelajah, belajar, berkembang, dan membangun pengalaman bersama.',
   icons: {
     icon: '/gemarawana_color.png',
   },

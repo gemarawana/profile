@@ -1,5 +1,6 @@
 import React from 'react'
 import type { Database } from '@/types/database.types'
+import { BENTO_SPAN_CLASS, type BentoSpan } from '@/lib/constants/cms'
 import type {
   Activity,
   WhyCard,
@@ -78,10 +79,13 @@ export function mapWhyCard(row: Database['public']['Tables']['why_cards']['Row']
 }
 
 export function mapActivity(row: Database['public']['Tables']['activities']['Row']): Activity {
+  const bentoSpan = row.bento_span as BentoSpan
   return {
     title: row.title,
     sub: row.subtitle,
     img: row.image_url,
+    bentoSpan: row.bento_span,
+    bentoClass: BENTO_SPAN_CLASS[bentoSpan] ?? BENTO_SPAN_CLASS.normal,
   }
 }
 

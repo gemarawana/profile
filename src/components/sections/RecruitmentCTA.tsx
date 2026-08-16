@@ -13,14 +13,16 @@ export function RecruitmentCTA({ backgroundImage }: { backgroundImage: string })
     <section id="join" className="relative overflow-hidden flex items-center py-24 md:py-32" style={{ background: C.crimsonDeep, minHeight: '650px' }}>
       {/* Background */}
       <div className="absolute inset-0">
-        <Image
-          src={backgroundImage}
-          alt="Mountain landscape background"
-          fill
-          className="object-cover"
-          style={{ filter: 'brightness(0.2)' }}
-          sizes="100vw"
-        />
+        {backgroundImage && (
+          <Image
+            src={backgroundImage}
+            alt="Mountain landscape background"
+            fill
+            className="object-cover"
+            style={{ filter: 'brightness(0.2)' }}
+            sizes="100vw"
+          />
+        )}
         <div
           className="absolute inset-0 z-10"
           style={{ background: 'linear-gradient(135deg, rgba(20,6,6,0.95) 0%, rgba(42,12,12,0.72) 100%)' }}
@@ -72,9 +74,9 @@ export function RecruitmentCTA({ backgroundImage }: { backgroundImage: string })
               }}
             >
               <span>JOIN GEMARAWANA</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M15 3h6v6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M10 14L21 3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="inline-block" style={{ marginLeft: 6 }} aria-hidden>
+                <path d="M5 12h14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                <path d="M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </a>
             <a

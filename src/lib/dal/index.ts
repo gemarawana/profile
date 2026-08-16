@@ -1,9 +1,17 @@
-import { createClient } from '@/lib/supabase/server'
+import { createClient as createSupabaseClient } from '@supabase/supabase-js'
 import * as mappers from '@/lib/mappers'
 
-function handleQueryError(error: { message?: string }, context: string): never {
-  console.error(`Supabase DAL Error in ${context}:`, error)
-  throw new Error(`Database query failed in ${context}: ${error.message || error}`)
+async function createClient() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
+  if (!url || !key) throw new Error('Missing Supabase config')
+  return createSupabaseClient(url, key, { auth: { persistSession: false } })
+}
+
+function handleQueryError(error: any, context: string): never {
+  const msg = error instanceof Error ? error.message : (error?.message || JSON.stringify(error))
+  console.error(`Supabase DAL Error in ${context}:`, msg)
+  throw new Error(`Database query failed in ${context}: ${msg}`)
 }
 
 export async function getHeroSlides() {
@@ -250,6 +258,7 @@ export async function getImpactStatistics() {
   return data.map(row => ({
     value: row.stat_value,
     label: row.label,
+    suffix: row.stat_suffix,
   }))
 }
 
@@ -266,18 +275,4 @@ export async function getSiteSettings(key: string): Promise<unknown> {
   }
 
   return data?.value ?? null
-}
-
-export async function getImageUrls(): Promise<Record<string, string>> {
-  const supabase = await createClient()
-  const { data, error } = await supabase
-    .from('images')
-    .select('asset_key, image_url')
-    .eq('is_published', true)
-
-  if (error) {
-    handleQueryError(error, 'getImageUrls')
-  }
-
-  return Object.fromEntries(data.map(({ asset_key, image_url }) => [asset_key, image_url]))
 }

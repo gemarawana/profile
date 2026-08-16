@@ -69,7 +69,7 @@ export function Navbar({ links }: NavbarProps) {
           </a>
 
           <div className="hidden md:flex items-center gap-8" role="menubar">
-            {links.map(l => (
+            {(links || []).map(l => (
               <a
                 key={l.label}
                 href={l.href}
@@ -109,9 +109,9 @@ export function Navbar({ links }: NavbarProps) {
               }}
             >
               <>JOIN
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="inline-block ml-1" aria-hidden>
-                  <path d="M14 3h7v7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                  <path d="M10 14L21 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="inline-block" style={{ marginLeft: 6 }} aria-hidden>
+                  <path d="M5 12h14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                  <path d="M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
               </>
             </a>
@@ -144,7 +144,7 @@ export function Navbar({ links }: NavbarProps) {
         aria-hidden={!menuOpen}
       >
         <div className="p-5 flex flex-col gap-2">
-          {links.map(l => (
+          {(links || []).map(l => (
             <a
               key={l.label}
               href={l.href}
@@ -167,10 +167,10 @@ export function Navbar({ links }: NavbarProps) {
               openModal({ title: 'Join Gemarawana', message: 'Open recruitment and membership details will be available soon. Follow our socials for updates.' })
             }}
           >
-            <>JOIN 
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="inline-block ml-1" aria-hidden>
-                <path d="M14 3h7v7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M10 14L21 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            <>JOIN
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="inline-block" style={{ marginLeft: 6 }} aria-hidden>
+                <path d="M5 12h14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                <path d="M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
             </>
           </a>

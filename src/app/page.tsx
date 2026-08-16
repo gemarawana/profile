@@ -22,7 +22,6 @@ import {
   getGalleryItems,
   getHeroSlides,
   getHistoryMilestones,
-  getImageUrls,
   getImpactStatistics,
   getJourneySteps,
   getMemberStories,
@@ -37,13 +36,13 @@ export default async function Home() {
   const [
     heroSlides, whyCards, activities, journeySteps, galleryItems, memberStories,
     articles, impactStatistics, historyMilestones, organizationMembers, faqs,
-    navLinks, contactInfo, footerSocials, imageUrls,
+    navLinks, footerNavigation, footerSocials, introImage, ctaImage,
   ] = await Promise.all([
     getHeroSlides(), getWhyCards(), getActivities(), getJourneySteps(), getGalleryItems(),
     getMemberStories(), getArticles(), getImpactStatistics(), getHistoryMilestones(),
     getOrganizationMembers(), getFaqs(), getSiteSettings('nav_links'),
-    getSiteSettings('contact'), getSiteSettings('footer_socials'),
-    getImageUrls(),
+    getSiteSettings('footer_nav_links'), getSiteSettings('footer_socials'),
+    getSiteSettings('intro_image'), getSiteSettings('cta_image'),
   ])
 
   return (
@@ -51,7 +50,7 @@ export default async function Home() {
       <Navbar links={navLinks as Link[]} />
       <main>
         <Hero slides={heroSlides} />
-        <Introduction imageUrl={imageUrls.intro} />
+        <Introduction imageUrl={(introImage as string) || ''} />
         <WhyGemarawana cards={whyCards} />
         <OurStory milestones={historyMilestones} />
         <Organization members={organizationMembers} />
@@ -63,9 +62,9 @@ export default async function Home() {
         <GallerySection items={galleryItems} />
         <FAQ faqs={faqs} />
         <Partners />
-        <RecruitmentCTA backgroundImage={imageUrls.ctaBg} />
+        <RecruitmentCTA backgroundImage={(ctaImage as string) || ''} />
       </main>
-      <Footer navigation={contactInfo as Link[]} socials={footerSocials as Link[]} />
+      <Footer navigation={footerNavigation as Link[]} socials={footerSocials as Link[]} />
       <ScrollToTop />
     </div>
   )

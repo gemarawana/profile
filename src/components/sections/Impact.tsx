@@ -7,7 +7,7 @@ import { useInView } from '@/hooks/useInView'
 import { useCounter } from '@/hooks/useCounter'
 import type { ImpactStatistic } from '@/types'
 
-function ImpactStat({ value, label }: { value: number; label: string }) {
+function ImpactStat({ value, label, suffix = '+' }: { value: number; label: string; suffix?: string }) {
   const { ref, visible } = useInView()
   const count = useCounter(value, visible)
   return (
@@ -16,7 +16,7 @@ function ImpactStat({ value, label }: { value: number; label: string }) {
         className="font-display font-black leading-none"
         style={{ fontSize: 'clamp(3rem, 7vw, 5.5rem)', color: C.crimson }}
       >
-        {count}+
+        {count}{suffix}
       </span>
       <span
         className="text-xs font-bold mt-4 uppercase tracking-widest leading-relaxed"
@@ -54,7 +54,7 @@ export function Impact({ statistics }: { statistics: ImpactStatistic[] }) {
             className="border-r border-b md:border-b-0 last:border-r-0"
             style={{ borderColor: 'rgba(250,245,245,0.08)' }}
           >
-            <ImpactStat value={s.value} label={s.label} />
+            <ImpactStat value={s.value} label={s.label} suffix={s.suffix} />
           </div>
         ))}
       </div>

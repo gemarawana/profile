@@ -45,7 +45,7 @@ export function Footer({ navigation, socials }: { navigation: Link[]; socials: L
                 Contact
               </p>
               <nav className="flex flex-col gap-3" aria-label="Footer navigation">
-                {navigation.map(l => (
+                {(navigation || []).map(l => (
                   <a
                     key={l.label}
                     href={l.href}
@@ -65,7 +65,7 @@ export function Footer({ navigation, socials }: { navigation: Link[]; socials: L
                 Social
               </p>
               <div className="flex flex-col gap-3">
-                {socials.map(s => (
+                {(socials || []).map(s => (
                   <a
                     key={s.label}
                     href={s.href}

@@ -61,13 +61,15 @@ export function Introduction({ imageUrl }: { imageUrl: string }) {
             className="rounded-3xl overflow-hidden w-full max-w-md mx-auto lg:ml-auto relative"
             style={{ background: C.lightGray, aspectRatio: '3/4' }}
           >
-            <Image
-              src={imageUrl}
-              alt="Gemarawana members hiking together"
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 450px"
-            />
+            {imageUrl && (
+              <Image
+                src={imageUrl}
+                alt="Gemarawana members hiking together"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 450px"
+              />
+            )}
           </div>
 
           {/* Floating card — sits inside the pb-10 padding space below image */}

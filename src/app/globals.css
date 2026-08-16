@@ -16,7 +16,7 @@
   --color-text-sub: #3A2A2A;
   --color-muted: #6B5A5A;
 
-  /* Global Spacing Tokens */
+  /* Global Spacing */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -35,11 +35,14 @@
   --navbar-h: 80px;
 }
 
-*, ::before, ::after {
+*,
+::before,
+::after {
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
@@ -66,9 +69,11 @@ body {
 ::-webkit-scrollbar {
   width: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #8B1A1A;
   border-radius: 3px;
@@ -96,7 +101,7 @@ img {
 
 .btn-primer:focus {
   outline: none;
-  box-shadow: 0 0 0 4px rgba(139,26,26,0.12);
+  box-shadow: 0 0 0 4px rgba(139, 26, 26, 0.12);
 }
 
 /* Enforce 12px radius for interactive controls across the site */

@@ -73,3 +73,5 @@ gemarawana-v2/
 - **Informasi / Teks Umum & FAQ**: Edit [`src/data/site.ts`](file:///e:/Project/vibecoding/gemarawana-v2/src/data/site.ts).
 - **Gambar Unsplash**: Edit URL gambar pada [`src/data/images.ts`](file:///e:/Project/vibecoding/gemarawana-v2/src/data/images.ts).
 - **Warna & Theme**: Edit variabel warna pada [`src/lib/constants.ts`](file:///e:/Project/vibecoding/gemarawana-v2/src/lib/constants.ts) dan [`src/app/globals.css`](file:///e:/Project/vibecoding/gemarawana-v2/src/app/globals.css).
+
+yang belum dibenerin intoduction sama CTA karena image nya hilang harus diperbaiki

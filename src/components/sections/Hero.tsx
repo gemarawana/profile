@@ -89,7 +89,7 @@ export function Hero({ slides }: { slides: HeroSlide[] }) {
           {/* Left: description + CTAs */}
           <div className="max-w-2xl">
             <p className="text-base md:text-lg leading-relaxed mb-8" style={{ color: 'rgba(250,245,245,0.75)' }}>
-              Bangun Jiwa yang Tangguh, Setia pada Kawan, Berani Seperti Serigala.
+              Bangun Jiwa yang Berani, Setia pada Kawan, Tangguh Seperti Serigala.
             </p>
             <div className="flex gap-4">
               <a
@@ -108,24 +108,20 @@ export function Hero({ slides }: { slides: HeroSlide[] }) {
                 }}
               >
                 <>JOIN GEMARAWANA
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="inline-block ml-1" aria-hidden>
-                    <path d="M14 3h7v7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-                    <path d="M10 14L21 3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="inline-block" style={{ marginLeft: 6 }} aria-hidden>
+                    <path d="M5 12h14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+                    <path d="M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                 </>
               </a>
               <a
-                href="#tentang"
+                href="#berita"
                 className="btn-primer inline-flex items-center gap-2 px-8 py-4 text-sm font-semibold border transition-all duration-200 hover:bg-white/10"
                 style={{
                   borderColor: 'rgba(250,245,245,0.25)',
                   color: C.onDark,
                   fontFamily: 'Plus Jakarta Sans, sans-serif',
                   backdropFilter: 'blur(8px)',
-                }}
-                onClick={e => {
-                  e.preventDefault()
-                  openModal({ title: 'Explore Our Story', message: 'This section will be expanded soon. Stay tuned.' })
                 }}
               >
                 EXPLORE OUR STORY

@@ -2,6 +2,8 @@ export interface Activity {
   title: string
   sub: string
   img: string
+  bentoSpan?: string
+  bentoClass?: string
 }
 
 export interface HeroSlide {
@@ -13,6 +15,7 @@ export interface HeroSlide {
 export interface ImpactStatistic {
   value: number
   label: string
+  suffix?: string
 }
 
 export interface WhyCard {

@@ -68,20 +68,9 @@ export function WhatWeDo({ activities }: { activities: Activity[] }) {
 
       {/* Bento grid with uniform 24px gaps */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6" style={{ gridAutoRows: '290px' }}>
-        {/* Large left: mountaineering */}
-        <ActivityCard act={activities[0]} className="sm:col-span-2 md:col-span-1 md:row-span-2" />
-
-        {/* Middle top: climbing */}
-        <ActivityCard act={activities[1]} />
-
-        {/* Middle bottom: conservation */}
-        <ActivityCard act={activities[2]} />
-
-        {/* Right top: outdoor training */}
-        <ActivityCard act={activities[3]} />
-
-        {/* Wide bottom: expedition */}
-        <ActivityCard act={activities[4]} className="sm:col-span-2 md:col-span-1 md:row-span-1" />
+        {activities.map(act => (
+          <ActivityCard key={act.title} act={act} className={act.bentoClass} />
+        ))}
       </div>
     </Section>
   )

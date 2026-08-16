@@ -4,18 +4,34 @@ import * as mappers from '@/lib/mappers'
 async function createClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
   const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY
-  if (!url || !key) throw new Error('Missing Supabase config')
-  return createSupabaseClient(url, key, { auth: { persistSession: false } })
+
+  if (!url || !key) {
+    throw new Error('Missing Supabase config')
+  }
+
+  return createSupabaseClient(url, key, {
+    auth: {
+      persistSession: false,
+    },
+  })
 }
 
-function handleQueryError(error: any, context: string): never {
-  const msg = error instanceof Error ? error.message : (error?.message || JSON.stringify(error))
+function handleQueryError(error: unknown, context: string): never {
+  const msg =
+    error instanceof Error
+      ? error.message
+      : typeof error === 'object' && error !== null && 'message' in error
+        ? String(error.message)
+        : JSON.stringify(error)
+
   console.error(`Supabase DAL Error in ${context}:`, msg)
+
   throw new Error(`Database query failed in ${context}: ${msg}`)
 }
 
 export async function getHeroSlides() {
   const supabase = await createClient()
+
   const { data, error } = await supabase
     .from('hero_slides')
     .select('*')
@@ -31,6 +47,7 @@ export async function getHeroSlides() {
 
 export async function getWhyCards() {
   const supabase = await createClient()
+
   const { data, error } = await supabase
     .from('why_cards')
     .select('*')
@@ -46,6 +63,7 @@ export async function getWhyCards() {
 
 export async function getActivities() {
   const supabase = await createClient()
+
   const { data, error } = await supabase
     .from('activities')
     .select('*')
@@ -61,6 +79,7 @@ export async function getActivities() {
 
 export async function getActivityBySlug(slug: string) {
   const supabase = await createClient()
+
   const { data, error } = await supabase
     .from('activities')
     .select('*')
@@ -69,7 +88,7 @@ export async function getActivityBySlug(slug: string) {
     .single()
 
   if (error) {
-    if (error.code === 'PGRST116') return null // Not found
+    if (error.code === 'PGRST116') return null
     handleQueryError(error, 'getActivityBySlug')
   }
 
@@ -78,6 +97,7 @@ export async function getActivityBySlug(slug: string) {
 
 export async function getJourneySteps() {
   const supabase = await createClient()
+
   const { data, error } = await supabase
     .from('journey_steps')
     .select('*')
@@ -93,6 +113,7 @@ export async function getJourneySteps() {
 
 export async function getGalleryItems() {
   const supabase = await createClient()
+
   const { data, error } = await supabase
     .from('gallery_items')
     .select('*')
@@ -108,6 +129,7 @@ export async function getGalleryItems() {
 
 export async function getMemberStories() {
   const supabase = await createClient()
+
   const { data, error } = await supabase
     .from('member_stories')
     .select('*')
@@ -123,6 +145,7 @@ export async function getMemberStories() {
 
 export async function getArticles() {
   const supabase = await createClient()
+
   const { data, error } = await supabase
     .from('articles')
     .select('*')
@@ -138,6 +161,7 @@ export async function getArticles() {
 
 export async function getFeaturedArticle() {
   const supabase = await createClient()
+
   const { data, error } = await supabase
     .from('articles')
     .select('*')
@@ -151,7 +175,6 @@ export async function getFeaturedArticle() {
   }
 
   if (!data) {
-    // Fallback to latest article
     const { data: latest, error: latestError } = await supabase
       .from('articles')
       .select('*')
@@ -160,7 +183,10 @@ export async function getFeaturedArticle() {
       .limit(1)
       .maybeSingle()
 
-    if (latestError) handleQueryError(latestError, 'getFeaturedArticleFallback')
+    if (latestError) {
+      handleQueryError(latestError, 'getFeaturedArticleFallback')
+    }
+
     return latest ? mappers.mapArticle(latest) : null
   }
 
@@ -169,6 +195,7 @@ export async function getFeaturedArticle() {
 
 export async function getArticleBySlug(slug: string) {
   const supabase = await createClient()
+
   const { data, error } = await supabase
     .from('articles')
     .select('*')
@@ -177,7 +204,7 @@ export async function getArticleBySlug(slug: string) {
     .single()
 
   if (error) {
-    if (error.code === 'PGRST116') return null // Not found
+    if (error.code === 'PGRST116') return null
     handleQueryError(error, 'getArticleBySlug')
   }
 
@@ -186,6 +213,7 @@ export async function getArticleBySlug(slug: string) {
 
 export async function getOrganizationDivisions() {
   const supabase = await createClient()
+
   const { data, error } = await supabase
     .from('organization_divisions')
     .select('*')
@@ -201,6 +229,7 @@ export async function getOrganizationDivisions() {
 
 export async function getOrganizationMembers() {
   const supabase = await createClient()
+
   const { data, error } = await supabase
     .from('organization_members')
     .select('*, organization_divisions(*)')
@@ -216,6 +245,7 @@ export async function getOrganizationMembers() {
 
 export async function getHistoryMilestones() {
   const supabase = await createClient()
+
   const { data, error } = await supabase
     .from('history_milestones')
     .select('*')
@@ -231,6 +261,7 @@ export async function getHistoryMilestones() {
 
 export async function getFaqs() {
   const supabase = await createClient()
+
   const { data, error } = await supabase
     .from('faqs')
     .select('*')
@@ -246,6 +277,7 @@ export async function getFaqs() {
 
 export async function getImpactStatistics() {
   const supabase = await createClient()
+
   const { data, error } = await supabase
     .from('impact_statistics')
     .select('*')
@@ -264,6 +296,7 @@ export async function getImpactStatistics() {
 
 export async function getSiteSettings(key: string): Promise<unknown> {
   const supabase = await createClient()
+
   const { data, error } = await supabase
     .from('site_settings')
     .select('*')

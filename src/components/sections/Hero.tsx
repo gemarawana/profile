@@ -80,8 +80,8 @@ export function Hero({ slides }: { slides: HeroSlide[] }) {
             letterSpacing: '-0.02em',
           }}
         >
-          TANGGUH<br />SEPERTI<br />
-          <span style={{ color: C.crimson, textShadow: '0 0 60px rgba(139,26,26,0.7)' }}>SERIGALA.</span>
+          GEMA<br />
+          <span style={{ color: C.crimson, textShadow: '0 0 60px rgba(139,26,26,0.7)' }}>RAWANA.</span>
         </h1>
 
         {/* Bottom row */}
@@ -89,7 +89,7 @@ export function Hero({ slides }: { slides: HeroSlide[] }) {
           {/* Left: description + CTAs */}
           <div className="max-w-2xl">
             <p className="text-base md:text-lg leading-relaxed mb-8" style={{ color: 'rgba(250,245,245,0.75)' }}>
-              Jelajahi Alam, Hadapi Tantangan, dan Ukir Cerita Bersama Gemarawana.
+              Bangun Jiwa yang Tangguh, Setia pada Kawan, Berani Seperti Serigala.
             </p>
             <div className="flex gap-4">
               <a
@@ -133,7 +133,7 @@ export function Hero({ slides }: { slides: HeroSlide[] }) {
             </div>
           </div>
 
-          {/* Right: slide counter + dots */}
+          {/* Right: slide counter + dots
           <div className="flex items-center gap-6 self-start md:self-end">
             <div className="text-right">
               <div className="font-display font-black tabular-nums" style={{ fontSize: 'clamp(2rem, 4vw, 3.5rem)', color: 'rgba(250,245,245,0.18)', lineHeight: 1 }}>
@@ -168,7 +168,7 @@ export function Hero({ slides }: { slides: HeroSlide[] }) {
                 </button>
               ))}
             </div>
-          </div>
+          </div> */}
         </div>
       </Container>
     </section>

@@ -56,11 +56,17 @@ export function GallerySection({ items }: { items: GalleryItem[] }) {
         ))}
       </div>
 
-
-      {hasMoreItems && (<div className="mt-10 w-full"> <button type="button" onClick={handleLoadMore} className="w-full rounded-full border-[1.5px] border-[#8B1A1A] bg-transparent px-7 py-2 text-lg font-bold text-[#8B1A1A] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#8B1A1A] hover:text-white" > See More </button> </div>)}
-
-
-
+      {hasMoreItems && (
+        <div className="mt-10 w-full">
+          <button
+            type="button"
+            onClick={handleLoadMore}
+            className="w-full rounded-full border-[1.5px] border-[#8B1A1A] bg-transparent px-7 py-2 text-lg font-bold text-[#8B1A1A] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#8B1A1A] hover:text-white"
+          >
+            See More
+          </button>
+        </div>
+      )}
 
       {/* Lightbox */}
       {lightbox && (
@@ -72,15 +78,25 @@ export function GallerySection({ items }: { items: GalleryItem[] }) {
           aria-modal="true"
           aria-label="Photo lightbox"
         >
+          {/* 
+            PERUBAHAN 1: Pindahkan posisi button ke bawah container gambar 
+            atau berikan z-index yang lebih tinggi (z-[110]) agar selalu di atas 
+            dan tidak tertutup elemen lain di perangkat seluler.
+          */}
           <button
-            className="absolute top-6 right-6 w-11 h-11 rounded-full flex items-center justify-center text-white font-bold text-xl transition-colors duration-200"
-            style={{ background: 'rgba(250,245,245,0.15)' }}
-            onClick={() => setLightbox(null)}
+            type="button"
+            className="absolute top-6 right-6 z-[110] w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-2xl transition-all duration-200 hover:bg-[#8B1A1A] hover:scale-110 active:scale-95 shadow-lg cursor-pointer"
+            style={{ background: 'rgba(250,245,245,0.2)' }}
+            onClick={(e) => {
+              e.stopPropagation()
+              setLightbox(null)
+            }}
             aria-label="Close lightbox"
           >
             &times;
           </button>
-          <div className="relative max-w-5xl max-h-[85vh] w-full h-full" onClick={e => e.stopPropagation()}>
+
+          <div className="relative max-w-5xl max-h-[85vh] w-full h-full flex items-center justify-center" onClick={e => e.stopPropagation()}>
             <Image
               src={lightbox}
               alt="Gallery photo"

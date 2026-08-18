@@ -91,7 +91,7 @@ export function Hero({ slides }: { slides: HeroSlide[] }) {
             <p className="text-base md:text-lg leading-relaxed mb-8" style={{ color: 'rgba(250,245,245,0.75)' }}>
               Bangun Jiwa yang Berani, Setia pada Kawan, Tangguh Seperti Serigala.
             </p>
-            <div className="flex gap-4">
+            {/* <div className="flex gap-4">
               <a
                 id="hero-join-btn"
                 href="#join"
@@ -126,7 +126,7 @@ export function Hero({ slides }: { slides: HeroSlide[] }) {
               >
                 EXPLORE OUR STORY
               </a>
-            </div>
+            </div> */}
           </div>
 
           {/* Right: slide counter + dots

@@ -130,7 +130,7 @@ export const navLinkSchema = z.object({
 
 export const siteSettingsSchema = z.object({
   nav_links: z.array(navLinkSchema),
-  footer_nav_links: z.array(navLinkSchema),
+  contact: z.array(navLinkSchema),
   footer_socials: z.array(navLinkSchema),
   intro_image: z.string().optional(),
   cta_image: z.string().optional(),

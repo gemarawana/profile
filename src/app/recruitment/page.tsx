@@ -22,7 +22,7 @@ export default async function RecruitmentPage() {
   ] = await Promise.all([
     getFaqs(),
     getSiteSettings('nav_links'),
-    getSiteSettings('footer_nav_links'),
+    getSiteSettings('contact'),
     getSiteSettings('footer_socials'),
     getSiteSettings('cta_image'),
   ])

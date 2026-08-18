@@ -8,7 +8,7 @@ type Link = { label: string; href: string }
 
 export default async function ActivitiesPage() {
   const [activities, articles, navLinks, footerNavigation, footerSocials] = await Promise.all([
-    getActivities(), getArticles(), getSiteSettings('nav_links'), getSiteSettings('footer_nav_links'), getSiteSettings('footer_socials'),
+    getActivities(), getArticles(), getSiteSettings('nav_links'), getSiteSettings('contact'), getSiteSettings('footer_socials'),
   ])
   return (
     <div className="font-sans" style={{ paddingTop: 'var(--navbar-h)' }}>

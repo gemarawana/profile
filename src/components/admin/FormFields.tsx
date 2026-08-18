@@ -220,13 +220,7 @@ export function CheckboxField({
   defaultChecked?: boolean
 }) {
   return (
-    <label className="flex items-center gap-2 text-sm font-medium text-[#3A2A2A]">
-      <input
-        type="hidden"
-        name={name}
-        value="false"
-      />
-
+    <label className="flex items-center gap-2 text-sm font-medium text-[#3A2A2A] cursor-pointer">
       <input
         type="checkbox"
         name={name}
@@ -234,7 +228,6 @@ export function CheckboxField({
         defaultChecked={defaultChecked}
         className="h-4 w-4 rounded border-[#E8E5E0] text-[#8B1A1A] focus:ring-[#8B1A1A]"
       />
-
       {label}
     </label>
   )

@@ -1,6 +1,7 @@
 export interface Activity {
   title: string
   sub: string
+  desc: string
   img: string
   bentoSpan?: string
   bentoClass?: string

@@ -48,11 +48,11 @@ export async function saveSettings(
         'nav_links'
       ),
 
-      footer_nav_links: parseJsonArray(
+      contact: parseJsonArray(
         String(
-          formData.get('footer_nav_links') || '[]'
+          formData.get('contact') || '[]'
         ),
-        'footer_nav_links'
+        'contact'
       ),
 
       footer_socials: parseJsonArray(
@@ -85,7 +85,7 @@ export async function saveSettings(
 
     await updateAllSiteSettings({
       nav_links: parsed.data.nav_links,
-      footer_nav_links: parsed.data.footer_nav_links,
+      contact: parsed.data.contact,
       footer_socials: parsed.data.footer_socials,
       intro_image: parsed.data.intro_image ?? '',
       cta_image: parsed.data.cta_image ?? '',

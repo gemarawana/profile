@@ -60,7 +60,7 @@ export function RecruitmentCTA({ backgroundImage }: { backgroundImage: string })
             <span style={{ color: C.crimson, textShadow: '0 0 80px rgba(139,26,26,0.6)' }}>STARTS HERE.</span>
           </h2>
           <p className="text-lg md:text-xl mb-12 max-w-xl mx-auto leading-relaxed" style={{ color: C.onDarkDim }}>
-            Tidak perlu menunggu siap. Mulai perjalananmu bersama Gemarawana.
+            No need to wait to be ready. Start your journey with Gemarawana.
           </p>
           <div className="flex flex-wrap gap-4 justify-center">
             <a

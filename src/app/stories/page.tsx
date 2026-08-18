@@ -7,7 +7,7 @@ type Link = { label: string; href: string }
 
 export default async function StoriesPage() {
   const [stories, navLinks, footerNavigation, footerSocials] = await Promise.all([
-    getMemberStories(), getSiteSettings('nav_links'), getSiteSettings('footer_nav_links'), getSiteSettings('footer_socials'),
+    getMemberStories(), getSiteSettings('nav_links'), getSiteSettings('contact'), getSiteSettings('footer_socials'),
   ])
   return (
     <div className="font-sans" style={{ paddingTop: 'var(--navbar-h)' }}>

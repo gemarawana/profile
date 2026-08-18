@@ -41,7 +41,7 @@ export default async function Home() {
     getHeroSlides(), getWhyCards(), getActivities(), getJourneySteps(), getGalleryItems(),
     getMemberStories(), getArticles(), getImpactStatistics(), getHistoryMilestones(),
     getOrganizationMembers(), getFaqs(), getSiteSettings('nav_links'),
-    getSiteSettings('footer_nav_links'), getSiteSettings('footer_socials'),
+    getSiteSettings('contact'), getSiteSettings('footer_socials'),
     getSiteSettings('intro_image'), getSiteSettings('cta_image'),
   ])
 

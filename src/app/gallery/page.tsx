@@ -7,7 +7,7 @@ type Link = { label: string; href: string }
 
 export default async function GalleryPage() {
   const [galleryItems, navLinks, footerNavigation, footerSocials] = await Promise.all([
-    getGalleryItems(), getSiteSettings('nav_links'), getSiteSettings('footer_nav_links'), getSiteSettings('footer_socials'),
+    getGalleryItems(), getSiteSettings('nav_links'), getSiteSettings('contact'), getSiteSettings('footer_socials'),
   ])
   return (
     <div className="font-sans" style={{ paddingTop: 'var(--navbar-h)' }}>

@@ -23,8 +23,8 @@ export function SettingsForm({
       />
       <TextAreaField
         label="Footer Nav Links (JSON array of {label, href})"
-        name="footer_nav_links"
-        defaultValue={JSON.stringify(initial.footer_nav_links, null, 2)}
+        name="contact"
+        defaultValue={JSON.stringify(initial.contact, null, 2)}
         rows={8}
         required
       />

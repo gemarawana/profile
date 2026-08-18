@@ -83,6 +83,7 @@ export function mapActivity(row: Database['public']['Tables']['activities']['Row
   return {
     title: row.title,
     sub: row.subtitle,
+    desc: row.description as string,
     img: row.image_url,
     bentoSpan: row.bento_span,
     bentoClass: BENTO_SPAN_CLASS[bentoSpan] ?? BENTO_SPAN_CLASS.normal,

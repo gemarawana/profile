@@ -35,7 +35,7 @@ export function Footer({ navigation, socials }: { navigation: Link[]; socials: L
             </p>
           </div>
 
-          {/* Links */}
+          {/* Contact Footer */}
           <div className="flex flex-col sm:flex-row gap-12 md:gap-16">
             <div>
               <p

@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import { useState, useEffect } from 'react'
 import { useModal } from '@/components/ui/ModalProvider'
@@ -115,17 +115,30 @@ export function Navbar({ links }: NavbarProps) {
                 </svg>
               </>
             </a>
+
+            {/* PERUBAHAN DI SINI: Ukuran tombol & garis disesuaikan agar lebih proporsional di mobile */}
             <button
               id="mobile-menu-btn"
-              className="md:hidden w-10 h-10 flex flex-col items-center justify-center gap-1.5 rounded-xl transition-colors duration-200"
+              className="md:hidden w-8 h-8 flex items-center justify-center rounded-lg transition-colors duration-200 relative"
               onClick={() => setMenuOpen(!menuOpen)}
               aria-label={menuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={menuOpen}
               style={{ background: menuOpen ? C.crimsonAlpha : 'transparent' }}
             >
-              <span className="block w-5 h-0.5 rounded-full transition-all duration-300" style={{ background: C.text, transform: menuOpen ? 'rotate(45deg) translate(2px, 3px)' : 'none' }} />
-              <span className="block w-5 h-0.5 rounded-full transition-all duration-300" style={{ background: C.text, opacity: menuOpen ? 0 : 1, transform: menuOpen ? 'translateX(-8px)' : 'none' }} />
-              <span className="block w-5 h-0.5 rounded-full transition-all duration-300" style={{ background: C.text, transform: menuOpen ? 'rotate(-45deg) translate(2px, -3px)' : 'none' }} />
+              {menuOpen ? (
+                /* Icon X yang posisinya di-center secara absolut agar pas di tengah */
+                <div className="relative w-3.5 h-3.5 flex items-center justify-center">
+                  <span className="absolute block w-full h-[1.5px] rounded-full transition-all duration-300 rotate-45" style={{ background: C.text }} />
+                  <span className="absolute block w-full h-[1.5px] rounded-full transition-all duration-300 -rotate-45" style={{ background: C.text }} />
+                </div>
+              ) : (
+                /* Icon Hamburger biasa */
+                <div className="flex flex-col items-center justify-center gap-1">
+                  <span className="block w-3.5 h-[1.5px] rounded-full" style={{ background: C.text }} />
+                  <span className="block w-3.5 h-[1.5px] rounded-full" style={{ background: C.text }} />
+                  <span className="block w-3.5 h-[1.5px] rounded-full" style={{ background: C.text }} />
+                </div>
+              )}
             </button>
           </div>
         </div>

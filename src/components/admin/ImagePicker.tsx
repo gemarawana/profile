@@ -18,7 +18,7 @@ export function ImageUploadField({
   name,
   label = 'Image',
   value,
-  required = false,
+  required,
   folder,
 }: {
   name: string

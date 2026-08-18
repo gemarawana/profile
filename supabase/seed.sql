@@ -24,7 +24,7 @@ ON CONFLICT (asset_key) DO UPDATE SET image_url = EXCLUDED.image_url, alt_text =
 -- 2. site_settings
 INSERT INTO public.site_settings (key, value) VALUES
 ('nav_links', '[{"label": "Tentang", "href": "#tentang"}, {"label": "Kegiatan", "href": "#kegiatan"}, {"label": "Eksplorasi", "href": "#berita"}, {"label": "Cerita", "href": "#cerita"}, {"label": "Galeri", "href": "#galeri"}]'::jsonb),
-('footer_nav_links', '[{"label": "Tentang", "href": "#tentang"}, {"label": "Kegiatan", "href": "#kegiatan"}, {"label": "Cerita", "href": "#cerita"}, {"label": "Galeri", "href": "#galeri"}, {"label": "FAQ", "href": "#faq"}, {"label": "Join Us", "href": "#join"}]'::jsonb),
+('contact', '[{"label": "Tentang", "href": "#tentang"}, {"label": "Kegiatan", "href": "#kegiatan"}, {"label": "Cerita", "href": "#cerita"}, {"label": "Galeri", "href": "#galeri"}, {"label": "FAQ", "href": "#faq"}, {"label": "Join Us", "href": "#join"}]'::jsonb),
 ('footer_socials', '[{"label": "Instagram", "href": "#"}, {"label": "TikTok", "href": "#"}, {"label": "YouTube", "href": "#"}, {"label": "WhatsApp", "href": "#"}]'::jsonb)
 ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
 

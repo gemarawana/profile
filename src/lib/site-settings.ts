@@ -12,7 +12,7 @@ type Json = Database['public']['Tables']['site_settings']['Row']['value']
 
 export type TypedSiteSettings = {
   nav_links: NavLink[]
-  footer_nav_links: NavLink[]
+  contact: NavLink[]
   footer_socials: NavLink[]
   intro_image: string
   cta_image: string
@@ -20,7 +20,7 @@ export type TypedSiteSettings = {
 
 const DEFAULTS: TypedSiteSettings = {
   nav_links: [],
-  footer_nav_links: [],
+  contact: [],
   footer_socials: [],
   intro_image: '',
   cta_image: '',

@@ -18,12 +18,12 @@ function ActivityCard({ act, className, style }: { act: Activity; className?: st
       tabIndex={0}
       onClick={e => {
         e.preventDefault()
-        openModal({ title: act.title, message: act.sub ?? 'Explore this activity soon.' })
+        openModal({ title: act.title, message: act.desc ?? 'Explore this activity soon.' })
       }}
       onKeyDown={e => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault()
-          openModal({ title: act.title, message: act.sub ?? 'Explore this activity soon.' })
+          openModal({ title: act.title, message: act.desc ?? 'Explore this activity soon.' })
         }
       }}
     >

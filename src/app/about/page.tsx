@@ -8,7 +8,7 @@ type Link = { label: string; href: string }
 
 export default async function AboutPage() {
   const [milestones, navLinks, footerNavigation, footerSocials, introImage] = await Promise.all([
-    getHistoryMilestones(), getSiteSettings('nav_links'), getSiteSettings('footer_nav_links'), getSiteSettings('footer_socials'),
+    getHistoryMilestones(), getSiteSettings('nav_links'), getSiteSettings('contact'), getSiteSettings('footer_socials'),
     getSiteSettings('intro_image'),
   ])
   return (

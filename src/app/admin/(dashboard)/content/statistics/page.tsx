@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import { adminList } from '@/lib/dal/admin'
 import { Breadcrumb, PageHeader } from '@/components/admin/PageHeader'
-import { DataTable, Pagination, RowActions, SearchBar } from '@/components/admin/DataTable'
+import { DataTable, RowActions, SearchBar } from '@/components/admin/DataTable'
+import { DataTablePagination } from '@/components/admin/DataTablePagination'
 import { OrderButtons } from '@/components/admin/OrderButtons'
 import { Button } from '@/components/ui/button'
 import { deleteItem, reorderItem } from './actions'
@@ -9,14 +10,17 @@ import { deleteItem, reorderItem } from './actions'
 export default async function Page({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; page?: string }>
+  searchParams: Promise<{ q?: string; page?: string; limit?: string }>
 }) {
   const sp = await searchParams
-  const page = Number(sp.page || 1)
-  const { data, page: currentPage, totalPages } = await adminList('impact_statistics', {
+  const page = Math.max(1, Number(sp.page || 1))
+  const limit = Number(sp.limit || 10)
+
+  const { data, count } = await adminList('impact_statistics', {
     search: sp.q,
     searchColumns: ['stat_key', 'label'],
     page,
+    pageSize: limit,
   })
 
   return (
@@ -37,9 +41,16 @@ export default async function Page({
       <DataTable
         headers={['Key', 'Value', 'Label', 'Order', 'Reorder', 'Actions']}
         isEmpty={data.length === 0}
+        pagination={
+          <DataTablePagination
+            totalItems={count}
+            currentPage={page}
+            itemsPerPage={limit}
+          />
+        }
       >
         {data.map(row => (
-          <tr key={row.id} className="border-b border-[#E8E5E0] last:border-0">
+          <tr key={row.id} className="border-b border-[#E8E5E0] last:border-0 hover:bg-[#FAF9F7]/50 transition-colors">
             <td className="px-4 py-3 font-mono text-sm">{row.stat_key}</td>
             <td className="px-4 py-3 font-medium">
               {row.stat_value}
@@ -63,7 +74,6 @@ export default async function Page({
           </tr>
         ))}
       </DataTable>
-      <Pagination page={currentPage} totalPages={totalPages} />
     </div>
   )
 }

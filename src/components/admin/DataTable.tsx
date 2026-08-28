@@ -89,36 +89,41 @@ export function DataTable({
   children,
   emptyMessage = 'No items found.',
   isEmpty,
+  pagination,
 }: {
   headers: string[]
   children: React.ReactNode
   emptyMessage?: string
   isEmpty?: boolean
+  pagination?: React.ReactNode
 }) {
   return (
-    <div className="overflow-x-auto rounded-2xl border border-[#E8E5E0] bg-white">
-      <table className="min-w-full text-left text-sm">
-        <thead className="border-b border-[#E8E5E0] bg-[#FAF9F7] text-xs uppercase tracking-wide text-[#6B5A5A]">
-          <tr>
-            {headers.map(h => (
-              <th key={h} className="px-4 py-3 font-bold">
-                {h}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {isEmpty ? (
+    <div className="overflow-hidden rounded-2xl border border-[#E8E5E0] bg-white shadow-2xs">
+      <div className="overflow-x-auto">
+        <table className="min-w-full text-left text-sm">
+          <thead className="border-b border-[#E8E5E0] bg-[#FAF9F7] text-xs uppercase tracking-wide text-[#6B5A5A]">
             <tr>
-              <td colSpan={headers.length} className="px-4 py-10 text-center text-[#6B5A5A]">
-                {emptyMessage}
-              </td>
+              {headers.map(h => (
+                <th key={h} className="px-4 py-3 font-bold">
+                  {h}
+                </th>
+              ))}
             </tr>
-          ) : (
-            children
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {isEmpty ? (
+              <tr>
+                <td colSpan={headers.length} className="px-4 py-10 text-center text-[#6B5A5A]">
+                  {emptyMessage}
+                </td>
+              </tr>
+            ) : (
+              children
+            )}
+          </tbody>
+        </table>
+      </div>
+      {pagination}
     </div>
   )
 }

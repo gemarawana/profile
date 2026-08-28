@@ -11,7 +11,7 @@ export default async function SettingsPage() {
       <Breadcrumb items={[{ label: 'Settings' }, { label: 'Site Settings' }]} />
       <PageHeader
         title="Site Settings"
-        description="Edit navigation and footer link JSON for the public site."
+        description="Edit navigation, contact, and footer social links for the public site."
       />
       <SettingsForm initial={settings} onSubmit={saveSettings} />
     </div>

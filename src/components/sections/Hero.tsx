@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { useModal } from '@/components/ui/ModalProvider'
-import Image from 'next/image'
+import { SmoothImage } from '@/components/ui/SmoothImage'
 import { Container } from '@/components/ui/Container'
 import { C } from '@/lib/constants'
 import type { HeroSlide } from '@/types'
@@ -36,7 +36,7 @@ export function Hero({ slides }: { slides: HeroSlide[] }) {
           style={{ opacity: i === slide ? 1 : 0, transitionDuration: '1200ms' }}
           aria-hidden={i !== slide}
         >
-          <Image
+          <SmoothImage
             src={s.img}
             alt={s.label}
             fill

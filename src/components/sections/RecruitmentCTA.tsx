@@ -1,6 +1,6 @@
 "use client"
 
-import Image from 'next/image'
+import { SmoothImage } from '@/components/ui/SmoothImage'
 import { Container } from '@/components/ui/Container'
 import { C } from '@/lib/constants'
 import { useInView } from '@/hooks/useInView'
@@ -14,7 +14,7 @@ export function RecruitmentCTA({ backgroundImage }: { backgroundImage: string })
       {/* Background */}
       <div className="absolute inset-0">
         {backgroundImage && (
-          <Image
+          <SmoothImage
             src={backgroundImage}
             alt="Mountain landscape background"
             fill

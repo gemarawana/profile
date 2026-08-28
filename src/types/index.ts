@@ -56,6 +56,7 @@ export interface NewsArticle {
   id: string
   title: string
   excerpt: string
+  content?: string | null
   category: string
   date: string
   readTime: string

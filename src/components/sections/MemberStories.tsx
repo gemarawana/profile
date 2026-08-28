@@ -1,6 +1,6 @@
 'use client'
 
-import Image from 'next/image'
+import { SmoothImage } from '@/components/ui/SmoothImage'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Section } from '@/components/ui/Section'
 import { SectionHeading } from '@/components/ui/SectionHeading'
@@ -89,7 +89,7 @@ function Track({
           >
             {/* Konten Card (Tetap sama) */}
             <div className="relative h-60 overflow-hidden pointer-events-none" style={{ background: C.lightGray }}>
-              <Image
+              <SmoothImage
                 src={story.img}
                 alt={story.name}
                 fill

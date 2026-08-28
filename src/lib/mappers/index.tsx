@@ -121,6 +121,7 @@ export function mapArticle(row: Database['public']['Tables']['articles']['Row'])
     id: row.id,
     title: row.title,
     excerpt: row.excerpt,
+    content: row.content,
     category: row.category,
     date: row.publication_date,
     readTime: row.read_time,

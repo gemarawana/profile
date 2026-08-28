@@ -1,6 +1,6 @@
 'use client'
 
-import Image from 'next/image'
+import { SmoothImage } from '@/components/ui/SmoothImage'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Section } from '@/components/ui/Section'
 import { SectionHeading } from '@/components/ui/SectionHeading'
@@ -87,7 +87,7 @@ function Track({
             }}
           >
             <div className="overflow-hidden relative pointer-events-none" style={{ background: C.lightGray, aspectRatio: '3/4' }}>
-              <Image
+              <SmoothImage
                 src={member.img}
                 alt={member.name}
                 fill

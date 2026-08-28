@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
+import { SmoothImage } from '@/components/ui/SmoothImage'
 import { Section } from '@/components/ui/Section'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { C } from '@/lib/constants'
@@ -79,7 +79,7 @@ export function Journey({ steps }: { steps: JourneyStep[] }) {
             role="tabpanel"
             aria-label={`Journey step: ${activeStep.title}`}
           >
-            <Image
+            <SmoothImage
               src={activeStep.imageUrl}
               alt={activeStep.title}
               fill

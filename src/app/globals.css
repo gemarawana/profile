@@ -83,6 +83,30 @@ body {
   font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
+/* Category Filter Horizontal Scrollbar */
+.category-scrollbar::-webkit-scrollbar {
+  height: 6px;
+}
+
+.category-scrollbar::-webkit-scrollbar-track {
+  background: #F4F3F0;
+  border-radius: 9999px;
+}
+
+.category-scrollbar::-webkit-scrollbar-thumb {
+  background: #E5E7EB;
+  border-radius: 9999px;
+}
+
+.category-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #E5E7EB;
+}
+
+.category-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: #E5E7EB #F4F3F0;
+}
+
 /* Smooth image loading */
 img {
   transition: opacity 0.3s ease;

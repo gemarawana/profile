@@ -1,6 +1,6 @@
 "use client"
 
-import Image from 'next/image'
+import { SmoothImage } from '@/components/ui/SmoothImage'
 import { Section } from '@/components/ui/Section'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { C } from '@/lib/constants'
@@ -27,7 +27,7 @@ function ActivityCard({ act, className, style }: { act: Activity; className?: st
         }
       }}
     >
-      <Image
+      <SmoothImage
         src={act.img}
         alt={act.title}
         fill

@@ -1,6 +1,6 @@
 "use client"
 
-import Image from 'next/image'
+import { SmoothImage } from '@/components/ui/SmoothImage'
 import { Section } from '@/components/ui/Section'
 import { C } from '@/lib/constants'
 
@@ -12,7 +12,7 @@ export function Partners() {
           <div className="grid grid-cols-3 gap-3 sm:gap-6 md:gap-12 lg:gap-16 items-center justify-items-center">
             {/* Partner 1 */}
             <div className="flex items-center justify-center h-20 w-20 sm:h-28 sm:w-28 md:h-56 md:w-56 px-1 sm:px-2 md:px-4">
-              <Image 
+              <SmoothImage 
                 src="/gemarawana_color.png" 
                 alt="Gemarawana" 
                 width={200} 
@@ -24,7 +24,7 @@ export function Partners() {
 
             {/* Partner 2 */}
             <div className="flex items-center justify-center h-20 w-20 sm:h-28 sm:w-28 md:h-56 md:w-56 px-1 sm:px-2 md:px-4">
-              <Image 
+              <SmoothImage 
                 src="/kmpa.png" 
                 alt="KMPA" 
                 width={200} 
@@ -35,7 +35,7 @@ export function Partners() {
 
             {/* Partner 3 */}
             <div className="flex items-center justify-center h-20 w-20 sm:h-28 sm:w-28 md:h-56 md:w-56 px-1 sm:px-2 md:px-4">
-              <Image 
+              <SmoothImage 
                 src="/telkom.png" 
                 alt="Telkom" 
                 width={200} 

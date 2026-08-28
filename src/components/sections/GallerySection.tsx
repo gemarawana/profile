@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
+import { SmoothImage } from '@/components/ui/SmoothImage'
 import { Section } from '@/components/ui/Section'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { C } from '@/lib/constants'
@@ -37,7 +37,7 @@ export function GallerySection({ items }: { items: GalleryItem[] }) {
             onClick={() => setLightbox(g.img)}
             aria-label={`View photo: ${g.alt}`}
           >
-            <Image
+            <SmoothImage
               src={g.img}
               alt={g.alt}
               fill
@@ -97,7 +97,7 @@ export function GallerySection({ items }: { items: GalleryItem[] }) {
           </button>
 
           <div className="relative max-w-5xl max-h-[85vh] w-full h-full flex items-center justify-center" onClick={e => e.stopPropagation()}>
-            <Image
+            <SmoothImage
               src={lightbox}
               alt="Gallery photo"
               fill

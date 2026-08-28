@@ -5,7 +5,17 @@ import { C } from '@/lib/constants'
 
 type Link = { label: string; href: string }
 
-export function Footer({ navigation, socials }: { navigation: Link[]; socials: Link[] }) {
+export function Footer({
+  navigation,
+  contact,
+  socials,
+}: {
+  navigation?: Link[]
+  contact?: Link[]
+  socials?: Link[]
+}) {
+  const contactLinks = contact ?? navigation ?? []
+
   return (
     <footer id="footer" className="py-16 md:py-20" style={{ background: C.crimsonDeep }}>
       <Container>
@@ -33,7 +43,7 @@ export function Footer({ navigation, socials }: { navigation: Link[]; socials: L
             </p>
           </div>
 
-          {/* Contact Footer */}
+          {/* Footer Section */}
           <div className="flex flex-col sm:flex-row gap-12 md:gap-16">
             <div>
               <p
@@ -42,8 +52,8 @@ export function Footer({ navigation, socials }: { navigation: Link[]; socials: L
               >
                 Contact
               </p>
-              <nav className="flex flex-col gap-3" aria-label="Footer navigation">
-                {(navigation || []).map(l => (
+              <nav className="flex flex-col gap-3" aria-label="Footer contact">
+                {contactLinks.map(l => (
                   <a
                     key={l.label}
                     href={l.href}

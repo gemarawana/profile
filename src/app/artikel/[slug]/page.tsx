@@ -8,6 +8,7 @@ import { ScrollToTop } from '@/components/common/ScrollToTop'
 import { Container } from '@/components/ui/Container'
 import { C } from '@/lib/constants'
 import { getArticleBySlug, getArticles, getSiteSettings } from '@/lib/dal'
+import { ShareArticleModal } from '@/components/articles/ShareArticleModal'
 
 type LinkItem = { label: string; href: string }
 
@@ -129,7 +130,7 @@ export default async function ArticleDetailPage({ params }: Props) {
                 style={{ borderColor: C.border }}
               >
                 <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white text-sm"
+                  className="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white text-sm flex-shrink-0"
                   style={{ background: C.crimson }}
                 >
                   {article.author ? article.author.charAt(0).toUpperCase() : 'G'}
@@ -140,6 +141,7 @@ export default async function ArticleDetailPage({ params }: Props) {
                     {article.author || 'Tim Gemarawana'}
                   </div>
                 </div>
+                <ShareArticleModal title={article.title} slug={slug} />
               </div>
             </header>
 

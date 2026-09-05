@@ -12,7 +12,7 @@ function payloadFromForm(formData: FormData) {
     answer: String(formData.get('answer') || ''),
     category: String(formData.get('category') || 'General'),
     order_index: Number(formData.get('order_index') || 0),
-    is_published: formBool(formData, 'is_published', true),
+    is_published: formBool(formData, 'is_published', false),
   }
 }
 

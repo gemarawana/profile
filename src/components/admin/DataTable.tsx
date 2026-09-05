@@ -134,7 +134,7 @@ export function RowActions({
   deleteLabel = 'this item',
 }: {
   editHref: string
-  onDelete: () => Promise<{ error?: string } | void>
+  onDelete?: () => Promise<{ error?: string } | void>
   deleteLabel?: string
 }) {
   const [open, setOpen] = useState(false)
@@ -148,25 +148,29 @@ export function RowActions({
             <Pencil className="h-4 w-4" />
           </Button>
         </Link>
-        <Button type="button" size="sm" variant="ghost" aria-label="Delete" onClick={() => setOpen(true)}>
-          <Trash2 className="h-4 w-4 text-red-600" />
-        </Button>
+        {onDelete && (
+          <Button type="button" size="sm" variant="ghost" aria-label="Delete" onClick={() => setOpen(true)}>
+            <Trash2 className="h-4 w-4 text-red-600" />
+          </Button>
+        )}
       </div>
-      <ConfirmDialog
-        open={open}
-        title="Are you sure?"
-        message={`This will permanently delete ${deleteLabel}. This action cannot be undone.`}
-        loading={pending}
-        onCancel={() => setOpen(false)}
-        onConfirm={() =>
-          startTransition(async () => {
-            const res = await onDelete()
-            setOpen(false)
-            if (res && 'error' in res && res.error) toast(res.error, 'error')
-            else toast('Deleted successfully')
-          })
-        }
-      />
+      {onDelete && (
+        <ConfirmDialog
+          open={open}
+          title="Are you sure?"
+          message={`This will permanently delete ${deleteLabel}. This action cannot be undone.`}
+          loading={pending}
+          onCancel={() => setOpen(false)}
+          onConfirm={() =>
+            startTransition(async () => {
+              const res = await onDelete()
+              setOpen(false)
+              if (res && 'error' in res && res.error) toast(res.error, 'error')
+              else toast('Deleted successfully')
+            })
+          }
+        />
+      )}
     </>
   )
 }

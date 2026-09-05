@@ -12,7 +12,7 @@ function payloadFromForm(formData: FormData) {
     desc_text: String(formData.get('desc_text') || ''),
     icon_name: String(formData.get('icon_name') || ''),
     order_index: Number(formData.get('order_index') || 0),
-    is_published: formBool(formData, 'is_published', true),
+    is_published: formBool(formData, 'is_published', false),
   }
 }
 

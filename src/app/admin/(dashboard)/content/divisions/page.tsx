@@ -6,7 +6,7 @@ import { DataTablePagination } from '@/components/admin/DataTablePagination'
 import { OrderButtons } from '@/components/admin/OrderButtons'
 import { StatusBadge } from '@/components/admin/StatusBadge'
 import { Button } from '@/components/ui/button'
-import { deleteItem, reorderItem } from './actions'
+import { reorderItem } from './actions'
 
 export default async function Page({
   searchParams,
@@ -65,8 +65,6 @@ export default async function Page({
             <td className="px-4 py-3">
               <RowActions
                 editHref={`/admin/content/divisions/${row.id}`}
-                deleteLabel={String(row.name)}
-                onDelete={deleteItem.bind(null, row.id)}
               />
             </td>
           </tr>

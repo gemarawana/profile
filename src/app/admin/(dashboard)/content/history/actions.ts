@@ -11,7 +11,7 @@ function payloadFromForm(formData: FormData) {
     year: String(formData.get('year') || ''),
     event_description: String(formData.get('event_description') || ''),
     order_index: Number(formData.get('order_index') || 0),
-    is_published: formBool(formData, 'is_published', true),
+    is_published: formBool(formData, 'is_published', false),
   }
 }
 

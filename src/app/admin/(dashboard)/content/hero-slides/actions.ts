@@ -30,7 +30,7 @@ async function payloadFromForm(formData: FormData) {
     is_published: formBool(
       formData,
       'is_published',
-      true
+      false
     ),
   }
 }

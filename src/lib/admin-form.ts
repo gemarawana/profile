@@ -37,5 +37,15 @@ export function ok(): ActionResult {
 }
 
 export function fail(error: string, fieldErrors?: Record<string, string[]>): ActionResult {
-  return { success: false, error, fieldErrors }
+  let friendlyError = error
+  if (
+    error.includes('Cannot coerce the result') ||
+    error.includes('PGRST116') ||
+    error.includes('row-level security') ||
+    error.includes('permission denied') ||
+    error.includes('42501')
+  ) {
+    friendlyError = 'Anda tidak memiliki akses untuk mengubah data website'
+  }
+  return { success: false, error: friendlyError, fieldErrors }
 }

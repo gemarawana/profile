@@ -19,12 +19,14 @@ export default async function RecruitmentPage() {
     footerNavigation,
     footerSocials,
     ctaImage,
+    joinUrl,
   ] = await Promise.all([
     getFaqs(),
     getSiteSettings('nav_links'),
     getSiteSettings('contact'),
     getSiteSettings('footer_socials'),
     getSiteSettings('cta_image'),
+    getSiteSettings('join_url'),
   ])
 
   return (
@@ -32,11 +34,12 @@ export default async function RecruitmentPage() {
       className="font-sans"
       style={{ paddingTop: 'var(--navbar-h)' }}
     >
-      <Navbar links={navLinks as Link[]} />
+      <Navbar links={navLinks as Link[]} joinUrl={(joinUrl as string) || ''} />
 
       <main>
         <RecruitmentCTA
           backgroundImage={(ctaImage as string) || ''}
+          joinUrl={(joinUrl as string) || ''}
         />
 
         <FAQ faqs={faqs} />

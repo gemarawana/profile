@@ -36,18 +36,19 @@ export default async function Home() {
   const [
     heroSlides, whyCards, activities, journeySteps, galleryItems, memberStories,
     articles, impactStatistics, historyMilestones, organizationMembers, faqs,
-    navLinks, footerNavigation, footerSocials, introImage, ctaImage,
+    navLinks, footerNavigation, footerSocials, introImage, ctaImage, joinUrl,
   ] = await Promise.all([
     getHeroSlides(), getWhyCards(), getActivities(), getJourneySteps(), getGalleryItems(),
     getMemberStories(), getArticles(), getImpactStatistics(), getHistoryMilestones(),
     getOrganizationMembers(), getFaqs(), getSiteSettings('nav_links'),
     getSiteSettings('contact'), getSiteSettings('footer_socials'),
     getSiteSettings('intro_image'), getSiteSettings('cta_image'),
+    getSiteSettings('join_url'),
   ])
 
   return (
     <div className="font-sans">
-      <Navbar links={navLinks as Link[]} />
+      <Navbar links={navLinks as Link[]} joinUrl={(joinUrl as string) || ''} />
       <main>
         <Hero slides={heroSlides} />
         <Introduction imageUrl={(introImage as string) || ''} />
@@ -62,7 +63,10 @@ export default async function Home() {
         <GallerySection items={galleryItems} />
         <FAQ faqs={faqs} />
         <Partners />
-        <RecruitmentCTA backgroundImage={(ctaImage as string) || ''} />
+        <RecruitmentCTA
+          backgroundImage={(ctaImage as string) || ''}
+          joinUrl={(joinUrl as string) || ''}
+        />
       </main>
       <Footer navigation={footerNavigation as Link[]} socials={footerSocials as Link[]} />
       <ScrollToTop />

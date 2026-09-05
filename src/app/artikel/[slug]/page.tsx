@@ -44,12 +44,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function ArticleDetailPage({ params }: Props) {
   const { slug } = await params
-  const [article, allArticles, navLinks, footerNavigation, footerSocials] = await Promise.all([
+  const [article, allArticles, navLinks, footerNavigation, footerSocials, joinUrl] = await Promise.all([
     getArticleBySlug(slug),
     getArticles(),
     getSiteSettings('nav_links'),
     getSiteSettings('contact'),
     getSiteSettings('footer_socials'),
+    getSiteSettings('join_url'),
   ])
 
   if (!article) {
@@ -66,7 +67,7 @@ export default async function ArticleDetailPage({ params }: Props) {
 
   return (
     <div className="min-h-screen flex flex-col font-sans" style={{ background: C.warmWhite }}>
-      <Navbar links={navLinks as LinkItem[]} />
+      <Navbar links={navLinks as LinkItem[]} joinUrl={(joinUrl as string) || ''} />
 
       <main className="flex-1 pt-28 pb-20">
         <Container>

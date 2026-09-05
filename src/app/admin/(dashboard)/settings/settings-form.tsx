@@ -3,7 +3,7 @@
 import { useState, useTransition } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { Plus, Trash2, Link2, Globe, Mail, Save } from 'lucide-react'
+import { Plus, Trash2, Link2, Globe, Mail, Save, UserPlus } from 'lucide-react'
 import { ImageUploadField } from '@/components/admin/ImagePicker'
 import { Input, Label } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -190,7 +190,7 @@ export function SettingsForm({
       <div className="top-4 z-20 flex items-center justify-between gap-3 rounded-2xl border border-[#E8E5E0] bg-white/95 p-4 shadow-2xs backdrop-blur-md">
         <div>
           <span className="text-xs font-bold uppercase tracking-wider text-[#6B5A5A]">Pengaturan Website</span>
-          <p className="text-xs text-gray-500">Kelola informasi kontak, sosial media, dan media utama.</p>
+          <p className="text-xs text-gray-500">Kelola informasi kontak, sosial media, media utama, dan link pendaftaran.</p>
         </div>
 
         <div className="flex items-center gap-2">
@@ -212,7 +212,37 @@ export function SettingsForm({
         </p>
       )}
 
-      {/* Section 1: Contact Information */}
+      {/* Section 1: Join / Recruitment Redirect URL */}
+      <div className="rounded-2xl border border-[#E8E5E0] bg-white p-5 md:p-6 shadow-2xs space-y-4">
+        <div className="flex items-center gap-2.5 border-b border-[#E8E5E0] pb-3 mb-2">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#8B1A1A]/10 text-[#8B1A1A]">
+            <UserPlus className="h-5 w-5" />
+          </div>
+          <div>
+            <h3 className="font-bold text-sm text-[#1A0A0A] uppercase tracking-wider">Tautan Pendaftaran (Tombol Join)</h3>
+            <p className="text-xs text-[#6B5A5A]">Tautan redirect untuk tombol JOIN di Navbar dan JOIN GEMARAWANA di bagian CTA.</p>
+          </div>
+        </div>
+
+        <div className="space-y-2 pt-1">
+          <Label htmlFor="join_url" className="text-xs font-semibold text-[#3A2A2A]">
+            URL / Link Formulir Pendaftaran
+          </Label>
+          <Input
+            id="join_url"
+            name="join_url"
+            type="text"
+            defaultValue={initial.join_url}
+            placeholder="Contoh: https://forms.gle/xyz atau /recruitment"
+            className="text-xs font-mono"
+          />
+          <p className="text-[11px] text-[#6B5A5A]">
+            Jika diisi, pengunjung yang mengklik tombol JOIN akan otomatis diarahkan ke tautan ini. Kosongkan jika ingin tetap menampilkan modal info pendaftaran.
+          </p>
+        </div>
+      </div>
+
+      {/* Section 2: Contact Information */}
       <LinkRepeaterSection
         title="Informasi Kontak (Footer)"
         description="Daftar tautan kontak dan surel/telepon yang ditampilkan di footer publik."
@@ -225,7 +255,7 @@ export function SettingsForm({
         hrefPlaceholder="Contoh: mailto:gemarawana25@gmail.com"
       />
 
-      {/* Section 2: Social Media */}
+      {/* Section 3: Social Media */}
       <LinkRepeaterSection
         title="Media Sosial (Footer)"
         description="Tautan ke akun media sosial resmi Gemarawana."
@@ -238,7 +268,7 @@ export function SettingsForm({
         hrefPlaceholder="Contoh: https://instagram.com/gemarawana"
       />
 
-      {/* Section 3: Site Images */}
+      {/* Section 4: Site Images */}
       <div className="rounded-2xl border border-[#E8E5E0] bg-white p-5 md:p-6 shadow-2xs space-y-4">
         <div className="flex items-center gap-2.5 border-b border-[#E8E5E0] pb-3 mb-2">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#8B1A1A]/10 text-[#8B1A1A]">

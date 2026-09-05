@@ -12,7 +12,7 @@ function payloadFromForm(formData: FormData) {
     slug: String(formData.get('slug') || ''),
     description: emptyToNull(String(formData.get('description') || '')),
     order_index: Number(formData.get('order_index') || 0),
-    is_published: formBool(formData, 'is_published', true),
+    is_published: formBool(formData, 'is_published', false),
   }
 }
 
@@ -42,15 +42,9 @@ export async function updateItem(id: string, formData: FormData): Promise<Action
   }
 }
 
-export async function deleteItem(id: string): Promise<ActionResult> {
+export async function deleteItem(_id: string): Promise<ActionResult> {
   await requireAdmin()
-  try {
-    await adminDelete('organization_divisions', id)
-    revalidatePath('/admin/content/divisions')
-    return ok()
-  } catch (e) {
-    return fail(e instanceof Error ? e.message : 'Delete failed')
-  }
+  return fail('Divisi tidak dapat dihapus karena berkaitan dengan tabel lain (Anggota, Kegiatan, dan Artikel).')
 }
 
 export async function reorderItem(id: string, direction: 'up' | 'down'): Promise<ActionResult> {

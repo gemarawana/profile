@@ -134,6 +134,7 @@ export const siteSettingsSchema = z.object({
   footer_socials: z.array(navLinkSchema),
   intro_image: z.string().optional(),
   cta_image: z.string().optional(),
+  join_url: z.string().optional(),
 })
 
 export type ActionResult = {

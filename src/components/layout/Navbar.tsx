@@ -1,8 +1,11 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useModal } from '@/components/ui/ModalProvider'
 import { C } from '@/lib/constants'
+import { formatRedirectUrl } from '@/lib/utils'
 
 /*
  * Navbar height contract: --navbar-h = 80px (defined in globals.css)
@@ -18,18 +21,36 @@ import { C } from '@/lib/constants'
  *   - Glass background is an absolute shell expanding -mx-4 md:-mx-6 around Container content.
  *   - Navbar content is flush (0px inset) with Container content boundary.
  */
-interface NavbarProps { links: { label: string; href: string }[] }
+interface NavbarProps {
+  links: { label: string; href: string }[]
+  joinUrl?: string
+}
 
-export function Navbar({ links }: NavbarProps) {
+function getResolvedHref(href: string, pathname: string) {
+  if (!href || href === '#') return '/'
+  if (href.startsWith('#')) {
+    return pathname === '/' ? href : `/${href}`
+  }
+  return href
+}
+
+export function Navbar({ links, joinUrl }: NavbarProps) {
+  const pathname = usePathname()
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const { openModal } = useModal()
+
+  const { href: targetHref, isExternal } = formatRedirectUrl(joinUrl)
+  const hasJoinUrl = Boolean(targetHref)
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 40)
     window.addEventListener('scroll', handler, { passive: true })
     return () => window.removeEventListener('scroll', handler)
   }, [])
+
+  const defaultJoinHref = pathname === '/' ? '#join' : '/#join'
+  const resolvedJoinHref = hasJoinUrl ? getResolvedHref(targetHref, pathname) : defaultJoinHref
 
   return (
     <nav
@@ -50,7 +71,7 @@ export function Navbar({ links }: NavbarProps) {
         />
 
         <div className="relative z-10 h-full w-full px-4 sm:px-5 md:px-6 lg:px-8 flex items-center justify-between">
-          <a href="#" className="flex items-center gap-3 group" aria-label="Gemarawana home">
+          <Link href="/" className="flex items-center gap-3 group" aria-label="Gemarawana home">
             <img src="/gemarawana_color.png" alt="Gemarawana logo" className="w-10 h-10" />
             <div className="flex flex-col leading-[0.8]">
               <span
@@ -66,28 +87,53 @@ export function Navbar({ links }: NavbarProps) {
                 #TangguhSepertiSerigala
               </span>
             </div>
-          </a>
+          </Link>
 
           <div className="hidden md:flex items-center gap-8" role="menubar">
-            {(links || []).map(l => (
-              <a
-                key={l.label}
-                href={l.href}
-                role="menuitem"
-                className="text-sm font-semibold transition-colors duration-200 py-1"
-                style={{ color: C.textSub, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-                onMouseEnter={e => (e.currentTarget.style.color = C.crimson)}
-                onMouseLeave={e => (e.currentTarget.style.color = C.textSub)}
-              >
-                {l.label}
-              </a>
-            ))}
+            {(links || []).map(l => {
+              const resolvedHref = getResolvedHref(l.href, pathname)
+              const isExternalLink = resolvedHref.startsWith('http')
+
+              if (isExternalLink) {
+                return (
+                  <a
+                    key={l.label}
+                    href={resolvedHref}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    role="menuitem"
+                    className="text-sm font-semibold transition-colors duration-200 py-1"
+                    style={{ color: C.textSub, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                    onMouseEnter={e => (e.currentTarget.style.color = C.crimson)}
+                    onMouseLeave={e => (e.currentTarget.style.color = C.textSub)}
+                  >
+                    {l.label}
+                  </a>
+                )
+              }
+
+              return (
+                <Link
+                  key={l.label}
+                  href={resolvedHref}
+                  role="menuitem"
+                  className="text-sm font-semibold transition-colors duration-200 py-1"
+                  style={{ color: C.textSub, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = C.crimson)}
+                  onMouseLeave={e => (e.currentTarget.style.color = C.textSub)}
+                >
+                  {l.label}
+                </Link>
+              )
+            })}
           </div>
 
           <div className="flex items-center gap-3">
             <a
               id="nav-join-btn"
-              href="#join"
+              href={resolvedJoinHref}
+              target={isExternal ? '_blank' : undefined}
+              rel={isExternal ? 'noopener noreferrer' : undefined}
               className="hidden md:inline-flex items-center gap-2 px-6 py-2.5 btn-primer text-xs font-bold tracking-wider transition-all duration-200 hover:scale-105 active:scale-95"
               style={{
                 background: C.crimson,
@@ -104,8 +150,10 @@ export function Navbar({ links }: NavbarProps) {
                 e.currentTarget.style.boxShadow = '0 4px 16px rgba(139,26,26,0.28)'
               }}
               onClick={e => {
-                e.preventDefault()
-                openModal({ title: 'Join Gemarawana', message: 'Open recruitment and membership details will be available soon. Follow our socials for updates.' })
+                if (!hasJoinUrl) {
+                  e.preventDefault()
+                  openModal({ title: 'Join Gemarawana', message: 'Open recruitment and membership details will be available soon. Follow our socials for updates.' })
+                }
               }}
             >
               <>JOIN
@@ -116,7 +164,6 @@ export function Navbar({ links }: NavbarProps) {
               </>
             </a>
 
-            {/* PERUBAHAN DI SINI: Ukuran tombol & garis disesuaikan agar lebih proporsional di mobile */}
             <button
               id="mobile-menu-btn"
               className="md:hidden w-8 h-8 flex items-center justify-center rounded-lg transition-colors duration-200 relative"
@@ -126,13 +173,11 @@ export function Navbar({ links }: NavbarProps) {
               style={{ background: menuOpen ? C.crimsonAlpha : 'transparent' }}
             >
               {menuOpen ? (
-                /* Icon X yang posisinya di-center secara absolut agar pas di tengah */
                 <div className="relative w-3.5 h-3.5 flex items-center justify-center">
                   <span className="absolute block w-full h-[1.5px] rounded-full transition-all duration-300 rotate-45" style={{ background: C.text }} />
                   <span className="absolute block w-full h-[1.5px] rounded-full transition-all duration-300 -rotate-45" style={{ background: C.text }} />
                 </div>
               ) : (
-                /* Icon Hamburger biasa */
                 <div className="flex flex-col items-center justify-center gap-1">
                   <span className="block w-3.5 h-[1.5px] rounded-full" style={{ background: C.text }} />
                   <span className="block w-3.5 h-[1.5px] rounded-full" style={{ background: C.text }} />
@@ -157,27 +202,56 @@ export function Navbar({ links }: NavbarProps) {
         aria-hidden={!menuOpen}
       >
         <div className="p-5 flex flex-col gap-2">
-          {(links || []).map(l => (
-            <a
-              key={l.label}
-              href={l.href}
-              className="py-3 px-4 rounded-xl text-base font-semibold transition-colors duration-200"
-              style={{ color: C.text, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-              onMouseEnter={e => { e.currentTarget.style.background = C.crimsonAlpha; e.currentTarget.style.color = C.crimson }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = C.text }}
-              onClick={() => setMenuOpen(false)}
-            >
-              {l.label}
-            </a>
-          ))}
+          {(links || []).map(l => {
+            const resolvedHref = getResolvedHref(l.href, pathname)
+            const isExternalLink = resolvedHref.startsWith('http')
+
+            if (isExternalLink) {
+              return (
+                <a
+                  key={l.label}
+                  href={resolvedHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="py-3 px-4 rounded-xl text-base font-semibold transition-colors duration-200"
+                  style={{ color: C.text, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                  onMouseEnter={e => { e.currentTarget.style.background = C.crimsonAlpha; e.currentTarget.style.color = C.crimson }}
+                  onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = C.text }}
+                  onClick={() => setMenuOpen(false)}
+                >
+                  {l.label}
+                </a>
+              )
+            }
+
+            return (
+              <Link
+                key={l.label}
+                href={resolvedHref}
+                className="py-3 px-4 rounded-xl text-base font-semibold transition-colors duration-200"
+                style={{ color: C.text, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+                onMouseEnter={e => { e.currentTarget.style.background = C.crimsonAlpha; e.currentTarget.style.color = C.crimson }}
+                onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = C.text }}
+                onClick={() => setMenuOpen(false)}
+              >
+                {l.label}
+              </Link>
+            )
+          })}
           <a
-            href="#join"
+            href={resolvedJoinHref}
+            target={isExternal ? '_blank' : undefined}
+            rel={isExternal ? 'noopener noreferrer' : undefined}
             className="mt-2 flex items-center justify-center gap-2 px-6 py-3.5 btn-primer text-sm font-bold tracking-wider"
             style={{ background: C.crimson, color: '#fff', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
             onClick={e => {
-              e.preventDefault()
-              setMenuOpen(false)
-              openModal({ title: 'Join Gemarawana', message: 'Open recruitment and membership details will be available soon. Follow our socials for updates.' })
+              if (!hasJoinUrl) {
+                e.preventDefault()
+                setMenuOpen(false)
+                openModal({ title: 'Join Gemarawana', message: 'Open recruitment and membership details will be available soon. Follow our socials for updates.' })
+              } else {
+                setMenuOpen(false)
+              }
             }}
           >
             <>JOIN

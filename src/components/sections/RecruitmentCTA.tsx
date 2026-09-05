@@ -5,10 +5,20 @@ import { Container } from '@/components/ui/Container'
 import { C } from '@/lib/constants'
 import { useInView } from '@/hooks/useInView'
 import { useModal } from '@/components/ui/ModalProvider'
+import { formatRedirectUrl } from '@/lib/utils'
 
-export function RecruitmentCTA({ backgroundImage }: { backgroundImage: string }) {
+export function RecruitmentCTA({
+  backgroundImage,
+  joinUrl,
+}: {
+  backgroundImage: string
+  joinUrl?: string
+}) {
   const { ref, visible } = useInView(0.1)
   const { openModal } = useModal()
+  const { href: targetHref, isExternal } = formatRedirectUrl(joinUrl)
+  const hasJoinUrl = Boolean(targetHref)
+
   return (
     <section id="join" className="relative overflow-hidden flex items-center py-24 md:py-32" style={{ background: C.crimsonDeep, minHeight: '650px' }}>
       {/* Background */}
@@ -65,12 +75,16 @@ export function RecruitmentCTA({ backgroundImage }: { backgroundImage: string })
           <div className="flex flex-wrap gap-4 justify-center">
             <a
               id="cta-join-btn"
-              href="#"
+              href={hasJoinUrl ? targetHref : '#'}
+              target={isExternal ? '_blank' : undefined}
+              rel={isExternal ? 'noopener noreferrer' : undefined}
               className="inline-flex items-center gap-2 px-9 py-4 btn-primer text-base font-bold tracking-wide transition-all duration-200 hover:scale-105 active:scale-95"
               style={{ background: C.crimson, color: '#fff', fontFamily: 'Plus Jakarta Sans, sans-serif', boxShadow: '0 4px 32px rgba(139,26,26,0.5)' }}
               onClick={e => {
-                e.preventDefault()
-                openModal({ title: 'Join Gemarawana', message: 'Open recruitment and membership details will be available soon.' })
+                if (!hasJoinUrl) {
+                  e.preventDefault()
+                  openModal({ title: 'Join Gemarawana', message: 'Open recruitment and membership details will be available soon.' })
+                }
               }}
             >
               <span>JOIN GEMARAWANA</span>

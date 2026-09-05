@@ -37,7 +37,7 @@ async function payloadFromForm(formData: FormData) {
     is_active: formBool(
       formData,
       'is_active',
-      true
+      false
     ),
   }
 }

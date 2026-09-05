@@ -16,6 +16,7 @@ export type TypedSiteSettings = {
   footer_socials: NavLink[]
   intro_image: string
   cta_image: string
+  join_url: string
 }
 
 const DEFAULTS: TypedSiteSettings = {
@@ -24,6 +25,7 @@ const DEFAULTS: TypedSiteSettings = {
   footer_socials: [],
   intro_image: '',
   cta_image: '',
+  join_url: '',
 }
 
 function parseLinks(value: unknown): NavLink[] {
@@ -53,7 +55,7 @@ export async function getTypedSiteSettings(): Promise<TypedSiteSettings> {
       continue
     }
 
-    if (key === 'intro_image' || key === 'cta_image') {
+    if (key === 'intro_image' || key === 'cta_image' || key === 'join_url') {
       result[key] = typeof row.value === 'string'
         ? row.value
         : ''
@@ -73,7 +75,7 @@ export async function updateSiteSetting(
 
   let jsonValue: Json
 
-  if (key === 'intro_image' || key === 'cta_image') {
+  if (key === 'intro_image' || key === 'cta_image' || key === 'join_url') {
     if (typeof value !== 'string') {
       throw new Error(`${key} must be a string`)
     }
@@ -109,4 +111,4 @@ export async function updateAllSiteSettings(
   for (const key of SITE_SETTINGS_KEYS) {
     await updateSiteSetting(key, settings[key])
   }
-}
+}

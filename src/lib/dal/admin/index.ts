@@ -11,6 +11,28 @@ export function revalidatePublic() {
   }
 }
 
+function formatDalError(error: unknown): string {
+  if (!error) return 'Terjadi kesalahan sistem'
+  const msg = typeof error === 'object' && error !== null && 'message' in error
+    ? String((error as { message: unknown }).message)
+    : String(error)
+  const code = typeof error === 'object' && error !== null && 'code' in error
+    ? String((error as { code: unknown }).code)
+    : ''
+
+  if (
+    code === 'PGRST116' ||
+    code === '42501' ||
+    msg.includes('Cannot coerce the result') ||
+    msg.includes('row-level security') ||
+    msg.includes('permission denied')
+  ) {
+    return 'Anda tidak memiliki akses untuk mengubah data website'
+  }
+
+  return msg || 'Gagal memproses data'
+}
+
 export async function adminList<T extends TableName>(
   table: T,
   options?: {
@@ -49,7 +71,7 @@ export async function adminList<T extends TableName>(
     .range(from, to)
 
   const { data, error, count } = await query
-  if (error) throw new Error(error.message)
+  if (error) throw new Error(formatDalError(error))
 
   return {
     data: (data ?? []) as Database['public']['Tables'][T]['Row'][],
@@ -63,7 +85,7 @@ export async function adminList<T extends TableName>(
 export async function adminGetById<T extends TableName>(table: T, id: string) {
   const supabase = await createClient()
   const { data, error } = await supabase.from(table).select('*').eq('id', id).maybeSingle()
-  if (error) throw new Error(error.message)
+  if (error) throw new Error(formatDalError(error))
   return data as Database['public']['Tables'][T]['Row'] | null
 }
 
@@ -73,7 +95,7 @@ export async function adminCreate<T extends TableName>(
 ) {
   const supabase = await createClient()
   const { data, error } = await supabase.from(table).insert(payload as never).select('*').single()
-  if (error) throw new Error(error.message)
+  if (error) throw new Error(formatDalError(error))
   revalidatePublic()
   return data as Database['public']['Tables'][T]['Row']
 }
@@ -90,7 +112,7 @@ export async function adminUpdate<T extends TableName>(
     .eq('id', id)
     .select('*')
     .single()
-  if (error) throw new Error(error.message)
+  if (error) throw new Error(formatDalError(error))
   revalidatePublic()
   return data as Database['public']['Tables'][T]['Row']
 }
@@ -98,7 +120,7 @@ export async function adminUpdate<T extends TableName>(
 export async function adminDelete<T extends TableName>(table: T, id: string) {
   const supabase = await createClient()
   const { error } = await supabase.from(table).delete().eq('id', id)
-  if (error) throw new Error(error.message)
+  if (error) throw new Error(formatDalError(error))
   revalidatePublic()
 }
 
@@ -115,7 +137,7 @@ export async function adminReorder(
     .eq('id', id)
     .single()
 
-  if (curErr || !current) throw new Error(curErr?.message || 'Item not found')
+  if (curErr || !current) throw new Error(formatDalError(curErr || 'Item not found'))
 
   const currentOrder = (current as { order_index: number }).order_index
 
@@ -133,7 +155,7 @@ export async function adminReorder(
   }
 
   const { data: neighbors, error: nErr } = await neighborQuery
-  if (nErr) throw new Error(nErr.message)
+  if (nErr) throw new Error(formatDalError(nErr))
   const neighbor = neighbors?.[0] as { id: string; order_index: number } | undefined
   if (!neighbor) return
 
@@ -141,13 +163,13 @@ export async function adminReorder(
     .from(table)
     .update({ [orderColumn]: neighbor.order_index } as never)
     .eq('id', id)
-  if (e1) throw new Error(e1.message)
+  if (e1) throw new Error(formatDalError(e1))
 
   const { error: e2 } = await supabase
     .from(table)
     .update({ [orderColumn]: currentOrder } as never)
     .eq('id', neighbor.id)
-  if (e2) throw new Error(e2.message)
+  if (e2) throw new Error(formatDalError(e2))
 
   revalidatePublic()
 }
@@ -155,7 +177,7 @@ export async function adminReorder(
 export async function adminCount(table: TableName) {
   const supabase = await createClient()
   const { count, error } = await supabase.from(table).select('*', { count: 'exact', head: true })
-  if (error) throw new Error(error.message)
+  if (error) throw new Error(formatDalError(error))
   return count ?? 0
 }
 
@@ -165,6 +187,6 @@ export async function adminGetDivisionsOptions() {
     .from('organization_divisions')
     .select('id, name, slug')
     .order('order_index', { ascending: true })
-  if (error) throw new Error(error.message)
+  if (error) throw new Error(formatDalError(error))
   return data ?? []
 }

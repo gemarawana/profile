@@ -9,6 +9,8 @@ import {
   type ActionResult,
 } from '@/lib/validations/cms'
 
+import { formatRedirectUrl } from '@/lib/utils'
+
 function parseJsonArray(
   raw: string,
   field: string
@@ -40,6 +42,9 @@ export async function saveSettings(
   try {
     await requireAdmin()
 
+    const rawJoinUrl = String(formData.get('join_url') || '').trim()
+    const normalizedJoinUrl = formatRedirectUrl(rawJoinUrl).href
+
     const payload = {
       nav_links: parseJsonArray(
         String(
@@ -69,6 +74,8 @@ export async function saveSettings(
       cta_image: String(
         formData.get('cta_image') || ''
       ).trim(),
+
+      join_url: normalizedJoinUrl,
     }
 
     const parsed = parseForm(
@@ -89,6 +96,7 @@ export async function saveSettings(
       footer_socials: parsed.data.footer_socials,
       intro_image: parsed.data.intro_image ?? '',
       cta_image: parsed.data.cta_image ?? '',
+      join_url: parsed.data.join_url ?? '',
     })
     revalidatePath('/admin/settings')
 

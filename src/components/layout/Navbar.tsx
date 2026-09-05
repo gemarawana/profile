@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useModal } from '@/components/ui/ModalProvider'
 import { C } from '@/lib/constants'
+import { formatRedirectUrl } from '@/lib/utils'
 
 /*
  * Navbar height contract: --navbar-h = 80px (defined in globals.css)
@@ -18,12 +19,18 @@ import { C } from '@/lib/constants'
  *   - Glass background is an absolute shell expanding -mx-4 md:-mx-6 around Container content.
  *   - Navbar content is flush (0px inset) with Container content boundary.
  */
-interface NavbarProps { links: { label: string; href: string }[] }
+interface NavbarProps {
+  links: { label: string; href: string }[]
+  joinUrl?: string
+}
 
-export function Navbar({ links }: NavbarProps) {
+export function Navbar({ links, joinUrl }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const { openModal } = useModal()
+
+  const { href: targetHref, isExternal } = formatRedirectUrl(joinUrl)
+  const hasJoinUrl = Boolean(targetHref)
 
   useEffect(() => {
     const handler = () => setScrolled(window.scrollY > 40)
@@ -82,12 +89,12 @@ export function Navbar({ links }: NavbarProps) {
                 {l.label}
               </a>
             ))}
-          </div>
-
-          <div className="flex items-center gap-3">
+          </div>          <div className="flex items-center gap-3">
             <a
               id="nav-join-btn"
-              href="#join"
+              href={hasJoinUrl ? targetHref : '#join'}
+              target={isExternal ? '_blank' : undefined}
+              rel={isExternal ? 'noopener noreferrer' : undefined}
               className="hidden md:inline-flex items-center gap-2 px-6 py-2.5 btn-primer text-xs font-bold tracking-wider transition-all duration-200 hover:scale-105 active:scale-95"
               style={{
                 background: C.crimson,
@@ -104,8 +111,10 @@ export function Navbar({ links }: NavbarProps) {
                 e.currentTarget.style.boxShadow = '0 4px 16px rgba(139,26,26,0.28)'
               }}
               onClick={e => {
-                e.preventDefault()
-                openModal({ title: 'Join Gemarawana', message: 'Open recruitment and membership details will be available soon. Follow our socials for updates.' })
+                if (!hasJoinUrl) {
+                  e.preventDefault()
+                  openModal({ title: 'Join Gemarawana', message: 'Open recruitment and membership details will be available soon. Follow our socials for updates.' })
+                }
               }}
             >
               <>JOIN
@@ -171,13 +180,19 @@ export function Navbar({ links }: NavbarProps) {
             </a>
           ))}
           <a
-            href="#join"
+            href={hasJoinUrl ? targetHref : '#join'}
+            target={isExternal ? '_blank' : undefined}
+            rel={isExternal ? 'noopener noreferrer' : undefined}
             className="mt-2 flex items-center justify-center gap-2 px-6 py-3.5 btn-primer text-sm font-bold tracking-wider"
             style={{ background: C.crimson, color: '#fff', fontFamily: 'Plus Jakarta Sans, sans-serif' }}
             onClick={e => {
-              e.preventDefault()
-              setMenuOpen(false)
-              openModal({ title: 'Join Gemarawana', message: 'Open recruitment and membership details will be available soon. Follow our socials for updates.' })
+              if (!hasJoinUrl) {
+                e.preventDefault()
+                setMenuOpen(false)
+                openModal({ title: 'Join Gemarawana', message: 'Open recruitment and membership details will be available soon. Follow our socials for updates.' })
+              } else {
+                setMenuOpen(false)
+              }
             }}
           >
             <>JOIN

@@ -7,12 +7,13 @@ import { getActivities, getArticles, getSiteSettings } from '@/lib/dal'
 type Link = { label: string; href: string }
 
 export default async function ActivitiesPage() {
-  const [activities, articles, navLinks, footerNavigation, footerSocials] = await Promise.all([
+  const [activities, articles, navLinks, footerNavigation, footerSocials, joinUrl] = await Promise.all([
     getActivities(), getArticles(), getSiteSettings('nav_links'), getSiteSettings('contact'), getSiteSettings('footer_socials'),
+    getSiteSettings('join_url'),
   ])
   return (
     <div className="font-sans" style={{ paddingTop: 'var(--navbar-h)' }}>
-      <Navbar links={navLinks as Link[]} />
+      <Navbar links={navLinks as Link[]} joinUrl={(joinUrl as string) || ''} />
       <main>
         <WhatWeDo activities={activities} />
         <Article articles={articles} />

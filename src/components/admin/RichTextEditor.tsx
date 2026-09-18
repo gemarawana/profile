@@ -5,12 +5,13 @@ import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
 import TextAlign from '@tiptap/extension-text-align'
 import Link from '@tiptap/extension-link'
+import ImageExtension from '@tiptap/extension-image'
 import { TextStyle } from '@tiptap/extension-text-style'
 import { Color } from '@tiptap/extension-color'
 import Highlight from '@tiptap/extension-highlight'
 import Superscript from '@tiptap/extension-superscript'
 import Subscript from '@tiptap/extension-subscript'
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback, useEffect, useRef } from 'react'
 import {
   Bold,
   Italic,
@@ -35,7 +36,15 @@ import {
   Undo,
   Redo,
   Minus,
+  Image as ImageIcon,
+  ImagePlus,
+  Loader2,
 } from 'lucide-react'
+import { createClient } from '@/lib/supabase/client'
+import { toast } from '@/components/ui/toast'
+
+const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5 MB
+const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp']
 
 interface RichTextEditorProps {
   name: string
@@ -50,6 +59,11 @@ export function RichTextEditor({
   onChange,
 }: RichTextEditorProps) {
   const [content, setContent] = useState(defaultValue ?? '')
+  const [uploadingImage, setUploadingImage] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  // Ref to hold the upload function so editorProps event handlers can access current state/editor
+  const uploadHandlerRef = useRef<(file: File) => Promise<void>>(async () => {})
 
   const editor = useEditor({
     immediatelyRender: false,
@@ -69,6 +83,13 @@ export function RichTextEditor({
           class: 'text-[#8B1A1A] underline font-semibold hover:text-[#6B1414]',
         },
       }),
+      ImageExtension.configure({
+        inline: false,
+        allowBase64: false,
+        HTMLAttributes: {
+          class: 'rounded-xl max-w-full h-auto my-6 mx-auto shadow-sm block',
+        },
+      }),
       TextStyle,
       Color,
       Highlight.configure({
@@ -82,6 +103,33 @@ export function RichTextEditor({
       attributes: {
         class:
           'prose prose-stone max-w-none min-h-[500px] p-6 focus:outline-none leading-relaxed text-[#1A0A0A]',
+      },
+      handleDrop: (view, event, _slice, moved) => {
+        if (!moved && event.dataTransfer?.files?.length) {
+          const file = event.dataTransfer.files[0]
+          if (file && file.type.startsWith('image/')) {
+            event.preventDefault()
+            uploadHandlerRef.current(file)
+            return true
+          }
+        }
+        return false
+      },
+      handlePaste: (view, event) => {
+        const items = event.clipboardData?.items
+        if (items) {
+          for (let i = 0; i < items.length; i++) {
+            if (items[i].type.startsWith('image/')) {
+              const file = items[i].getAsFile()
+              if (file) {
+                event.preventDefault()
+                uploadHandlerRef.current(file)
+                return true
+              }
+            }
+          }
+        }
+        return false
       },
     },
     onUpdate: ({ editor }) => {
@@ -99,6 +147,82 @@ export function RichTextEditor({
       }
     }
   }, [defaultValue, editor])
+
+  const handleUploadAndInsert = useCallback(
+    async (file: File) => {
+      if (!ALLOWED_TYPES.includes(file.type)) {
+        toast('Format gambar harus JPG, PNG, atau WebP.', 'error')
+        return
+      }
+
+      if (file.size > MAX_FILE_SIZE) {
+        toast('Ukuran gambar maksimal 5 MB.', 'error')
+        return
+      }
+
+      setUploadingImage(true)
+      try {
+        const supabase = createClient()
+        const extension = file.name.split('.').pop()?.toLowerCase() || 'jpg'
+        const filePath = `article-content/${crypto.randomUUID()}.${extension}`
+
+        const { error: uploadError } = await supabase.storage
+          .from('Image')
+          .upload(filePath, file, {
+            cacheControl: '3600',
+            upsert: false,
+          })
+
+        if (uploadError) {
+          throw new Error(uploadError.message)
+        }
+
+        const {
+          data: { publicUrl },
+        } = supabase.storage.from('Image').getPublicUrl(filePath)
+
+        if (editor) {
+          const cleanName = file.name.replace(/\.[^/.]+$/, '')
+          editor
+            .chain()
+            .focus()
+            .setImage({ src: publicUrl, alt: cleanName })
+            .run()
+          toast('Gambar berhasil disisipkan', 'success')
+        }
+      } catch (err) {
+        console.error('Editor image upload error:', err)
+        toast(
+          err instanceof Error ? err.message : 'Gagal mengunggah gambar.',
+          'error'
+        )
+      } finally {
+        setUploadingImage(false)
+        if (fileInputRef.current) {
+          fileInputRef.current.value = ''
+        }
+      }
+    },
+    [editor]
+  )
+
+  useEffect(() => {
+    uploadHandlerRef.current = handleUploadAndInsert
+  }, [handleUploadAndInsert])
+
+  const handleInsertImageUrl = useCallback(() => {
+    if (!editor) return
+    const url = window.prompt('Masukkan URL gambar (https://...):')
+    if (!url) return
+
+    try {
+      new URL(url)
+      editor.chain().focus().setImage({ src: url }).run()
+      toast('Gambar URL disisipkan', 'success')
+    } catch {
+      toast('URL gambar tidak valid', 'error')
+    }
+  }, [editor])
 
   const setLink = useCallback(() => {
     if (!editor) return
@@ -156,6 +280,20 @@ export function RichTextEditor({
     <div className="flex flex-col rounded-2xl border border-[#E8E5E0] bg-white overflow-hidden shadow-sm">
       {/* Hidden input for standard Next.js form submission */}
       <input type="hidden" name={name} value={content} />
+
+      {/* Hidden file input for image uploads */}
+      <input
+        type="file"
+        ref={fileInputRef}
+        accept="image/jpeg,image/png,image/webp"
+        className="hidden"
+        onChange={e => {
+          const file = e.target.files?.[0]
+          if (file) {
+            handleUploadAndInsert(file)
+          }
+        }}
+      />
 
       {/* Sticky Toolbar */}
       <div className="sticky top-0 z-20 flex flex-wrap items-center gap-1 border-b border-[#E8E5E0] bg-white/95 px-3 py-2 backdrop-blur-sm">
@@ -277,7 +415,7 @@ export function RichTextEditor({
         <ToolbarButton
           onClick={() => editor.chain().focus().setTextAlign('right').run()}
           isActive={editor.isActive({ textAlign: 'right' })}
-          title="Rata Kantor/Kanan"
+          title="Rata Kanan"
         >
           <AlignRight className="h-4 w-4" />
         </ToolbarButton>
@@ -329,6 +467,28 @@ export function RichTextEditor({
 
         <Divider />
 
+        {/* Media / Images */}
+        <ToolbarButton
+          onClick={() => fileInputRef.current?.click()}
+          disabled={uploadingImage}
+          title="Unggah Gambar dari Perangkat (JPG, PNG, WebP)"
+        >
+          {uploadingImage ? (
+            <Loader2 className="h-4 w-4 animate-spin text-[#8B1A1A]" />
+          ) : (
+            <ImagePlus className="h-4 w-4" />
+          )}
+        </ToolbarButton>
+        <ToolbarButton
+          onClick={handleInsertImageUrl}
+          disabled={uploadingImage}
+          title="Sisipkan Gambar dari URL Web"
+        >
+          <ImageIcon className="h-4 w-4" />
+        </ToolbarButton>
+
+        <Divider />
+
         {/* Links */}
         <ToolbarButton
           onClick={setLink}
@@ -352,10 +512,18 @@ export function RichTextEditor({
         <EditorContent editor={editor} />
       </div>
 
-      {/* Footer Word Count / Help */}
+      {/* Footer Word Count / Help & Status */}
       <div className="border-t border-[#E8E5E0] bg-[#FAF9F7] px-4 py-2 text-xs text-gray-500 flex items-center justify-between">
-        <span>Rich Text Editor (Tiptap)</span>
-        <span>Gunakan toolbar di atas untuk format teks</span>
+        <div className="flex items-center gap-2">
+          <span>Rich Text Editor (Tiptap)</span>
+          {uploadingImage && (
+            <span className="inline-flex items-center gap-1.5 font-semibold text-[#8B1A1A]">
+              <Loader2 className="h-3 w-3 animate-spin" />
+              Mengunggah gambar...
+            </span>
+          )}
+        </div>
+        <span>Bisa drag & drop atau paste gambar langsung ke canvas</span>
       </div>
     </div>
   )

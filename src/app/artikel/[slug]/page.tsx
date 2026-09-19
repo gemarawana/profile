@@ -180,7 +180,7 @@ export default async function ArticleDetailPage({ params }: Props) {
               {article.content ? (
                 hasHtml ? (
                   <div
-                    className="space-y-4"
+                    className="article-content space-y-4"
                     dangerouslySetInnerHTML={{ __html: article.content }}
                   />
                 ) : (

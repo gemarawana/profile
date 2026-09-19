@@ -174,4 +174,33 @@ input[type="reset"],
   border: none;
   border-top: 2px solid #E8E5E0;
   margin: 1.5rem 0;
-}
+}
+
+/* Tiptap Image Node Styles */
+.tiptap img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  margin: 1.5rem auto;
+  display: block;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, outline 0.2s ease;
+}
+
+.tiptap img.ProseMirror-selectednode {
+  outline: 3px solid #8B1A1A;
+  outline-offset: 3px;
+  border-radius: 0.75rem;
+}
+
+/* Frontend Article Content Image Styles */
+.article-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  margin: 2rem auto;
+  display: block;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+

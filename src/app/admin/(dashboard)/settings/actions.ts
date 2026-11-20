@@ -112,6 +112,13 @@ export async function saveSettings(
         ),
         'theme_color'
       ),
+
+      section_contents: parseJsonObject(
+        String(
+          formData.get('section_contents') || '{}'
+        ),
+        'section_contents'
+      ),
     }
 
     const parsed = parseForm(
@@ -134,6 +141,7 @@ export async function saveSettings(
       cta_image: parsed.data.cta_image ?? '',
       join_url: parsed.data.join_url ?? '',
       theme_color: parsed.data.theme_color,
+      section_contents: parsed.data.section_contents,
     })
     revalidatePath('/admin/settings')
     revalidatePath('/', 'layout')

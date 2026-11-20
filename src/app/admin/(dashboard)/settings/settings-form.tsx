@@ -10,8 +10,10 @@ import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/toast'
 import type { TypedSiteSettings, NavLink } from '@/lib/site-settings'
 import { DEFAULT_THEME_COLOR, type ThemeColorConfig } from '@/lib/theme'
+import { cloneDefaultSectionContents, type SectionContentsConfig } from '@/lib/section-contents'
 import type { ActionResult } from '@/lib/validations/cms'
 import { ThemeColorPicker } from './theme-color-picker'
+import { SectionContentsEditor } from './section-contents-editor'
 
 function LinkRepeaterSection({
   title,
@@ -158,6 +160,9 @@ export function SettingsForm({
   const [themeColor, setThemeColor] = useState<ThemeColorConfig>(
     initial.theme_color ?? DEFAULT_THEME_COLOR
   )
+  const [sectionContents, setSectionContents] = useState<SectionContentsConfig>(
+    initial.section_contents ?? cloneDefaultSectionContents()
+  )
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -195,7 +200,7 @@ export function SettingsForm({
       <div className="top-4 z-20 flex items-center justify-between gap-3 rounded-2xl border border-[#E8E5E0] bg-white/95 p-4 shadow-2xs backdrop-blur-md">
         <div>
           <span className="text-xs font-bold uppercase tracking-wider text-[#6B5A5A]">Pengaturan Website</span>
-          <p className="text-xs text-gray-500">Kelola informasi kontak, sosial media, media utama, dan link pendaftaran.</p>
+          <p className="text-xs text-gray-500">Kelola warna tema, konten teks section, informasi kontak, sosial media, media utama, dan link pendaftaran.</p>
         </div>
 
         <div className="flex items-center gap-2">
@@ -218,6 +223,8 @@ export function SettingsForm({
       )}
 
       <ThemeColorPicker value={themeColor} onChange={setThemeColor} />
+
+      <SectionContentsEditor value={sectionContents} onChange={setSectionContents} />
 
       {/* Section 1: Join / Recruitment Redirect URL */}
       <div className="rounded-2xl border border-[#E8E5E0] bg-white p-5 md:p-6 shadow-2xs space-y-4">

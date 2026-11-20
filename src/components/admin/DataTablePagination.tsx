@@ -91,7 +91,7 @@ export function DataTablePagination({
           <select
             value={itemsPerPage}
             onChange={handlePageSizeChange}
-            className="h-8 rounded-lg border border-[#E8E5E0] bg-white px-2.5 py-1 text-xs font-semibold text-[#1A0A0A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B1A1A]/30 cursor-pointer shadow-2xs hover:bg-[#FAF9F7]"
+            className="h-8 rounded-lg border border-[#E8E5E0] bg-white px-2.5 py-1 text-xs font-semibold text-[#1A0A0A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-crimson/30 cursor-pointer shadow-2xs hover:bg-[#FAF9F7]"
           >
             {pageSizeOptions.map(opt => (
               <option key={opt} value={opt}>
@@ -145,7 +145,7 @@ export function DataTablePagination({
                 aria-current={isActive ? 'page' : undefined}
                 className={`flex h-8 min-w-[32px] items-center justify-center rounded-lg px-2 text-xs font-bold transition-colors ${
                   isActive
-                    ? 'bg-[#8B1A1A] text-white shadow-2xs'
+                    ? 'bg-crimson text-white shadow-2xs'
                     : 'border border-[#E8E5E0] bg-white text-[#1A0A0A] hover:bg-[#FAF9F7]'
                 }`}
               >

@@ -119,11 +119,11 @@ export function ArticleForm({
                 onChange={e => setSlug(e.target.value)}
                 required
                 placeholder="ekspedisi-atap-jawa-barat"
-                className="flex h-10 w-full rounded-lg border border-[#E8E5E0] bg-white px-3 py-2 text-sm text-[#1A0A0A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B1A1A]/30"
+                className="flex h-10 w-full rounded-lg border border-[#E8E5E0] bg-white px-3 py-2 text-sm text-[#1A0A0A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-crimson/30"
               />
               <button
                 type="button"
-                className="mt-1.5 text-xs font-bold text-[#8B1A1A] hover:underline inline-flex items-center gap-1"
+                className="mt-1.5 text-xs font-bold text-crimson hover:underline inline-flex items-center gap-1"
                 onClick={() => {
                   const titleInput = document.querySelector<HTMLInputElement>('input[name="title"]')
                   if (titleInput?.value) setSlug(slugify(titleInput.value))

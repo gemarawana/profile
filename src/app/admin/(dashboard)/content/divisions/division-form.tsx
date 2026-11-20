@@ -34,7 +34,7 @@ export function DivisionForm({
         {!initial && (
           <button
             type="button"
-            className="mt-1 text-xs text-[#8B1A1A]"
+            className="mt-1 text-xs text-crimson"
             onClick={() => {
               const nameInput = document.querySelector<HTMLInputElement>('input[name="name"]')
               if (nameInput?.value) setSlug(slugify(nameInput.value))

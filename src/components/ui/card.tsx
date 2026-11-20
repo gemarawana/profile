@@ -32,7 +32,7 @@ export function Badge({
     <span
       className={cn(
         'inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold',
-        variant === 'default' && 'bg-[#8B1A1A]/10 text-[#8B1A1A]',
+        variant === 'default' && 'bg-crimson/10 text-crimson',
         variant === 'success' && 'bg-emerald-50 text-emerald-700',
         variant === 'warning' && 'bg-amber-50 text-amber-700',
         variant === 'muted' && 'bg-[#F4F3F0] text-[#6B5A5A]',

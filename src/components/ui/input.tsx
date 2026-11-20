@@ -7,7 +7,7 @@ export const Input = React.forwardRef<HTMLInputElement, React.InputHTMLAttribute
       ref={ref}
       type={type}
       className={cn(
-        'flex h-10 w-full rounded-lg border border-[#E8E5E0] bg-white px-3 py-2 text-sm text-[#1A0A0A] placeholder:text-[#6B5A5A]/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B1A1A]/30 disabled:cursor-not-allowed disabled:opacity-50',
+        'flex h-10 w-full rounded-lg border border-[#E8E5E0] bg-white px-3 py-2 text-sm text-[#1A0A0A] placeholder:text-[#6B5A5A]/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-crimson/30 disabled:cursor-not-allowed disabled:opacity-50',
         className
       )}
       {...props}
@@ -21,7 +21,7 @@ export const Textarea = React.forwardRef<HTMLTextAreaElement, React.TextareaHTML
     <textarea
       ref={ref}
       className={cn(
-        'flex min-h-[100px] w-full rounded-lg border border-[#E8E5E0] bg-white px-3 py-2 text-sm text-[#1A0A0A] placeholder:text-[#6B5A5A]/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B1A1A]/30 disabled:cursor-not-allowed disabled:opacity-50',
+        'flex min-h-[100px] w-full rounded-lg border border-[#E8E5E0] bg-white px-3 py-2 text-sm text-[#1A0A0A] placeholder:text-[#6B5A5A]/70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-crimson/30 disabled:cursor-not-allowed disabled:opacity-50',
         className
       )}
       {...props}
@@ -35,7 +35,7 @@ export const Select = React.forwardRef<HTMLSelectElement, React.SelectHTMLAttrib
     <select
       ref={ref}
       className={cn(
-        'flex h-10 w-full rounded-lg border border-[#E8E5E0] bg-white px-3 py-2 text-sm text-[#1A0A0A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#8B1A1A]/30 disabled:cursor-not-allowed disabled:opacity-50',
+        'flex h-10 w-full rounded-lg border border-[#E8E5E0] bg-white px-3 py-2 text-sm text-[#1A0A0A] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-crimson/30 disabled:cursor-not-allowed disabled:opacity-50',
         className
       )}
       {...props}

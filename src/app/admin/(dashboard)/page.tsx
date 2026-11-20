@@ -37,7 +37,7 @@ export default async function AdminDashboardPage() {
             <Card className="transition-shadow hover:shadow-md">
               <CardContent className="p-5">
                 <p className="text-xs font-bold uppercase tracking-wide text-[#6B5A5A]">{card.label}</p>
-                <p className="mt-2 font-display text-3xl font-black text-[#8B1A1A]">{counts[i]}</p>
+                <p className="mt-2 font-display text-3xl font-black text-crimson">{counts[i]}</p>
               </CardContent>
             </Card>
           </Link>
@@ -55,7 +55,7 @@ export default async function AdminDashboardPage() {
             <ul className="divide-y divide-[#E8E5E0]">
               {recentArticles.map(a => (
                 <li key={a.id} className="flex items-center justify-between gap-3 py-3 text-sm">
-                  <Link href={`/admin/content/articles/${a.id}`} className="font-medium text-[#1A0A0A] hover:text-[#8B1A1A]">
+                  <Link href={`/admin/content/articles/${a.id}`} className="font-medium text-[#1A0A0A] hover:text-crimson">
                     {a.title}
                   </Link>
                   <span className="shrink-0 text-xs text-[#6B5A5A]">

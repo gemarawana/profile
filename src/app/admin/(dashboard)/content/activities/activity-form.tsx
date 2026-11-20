@@ -42,7 +42,7 @@ export function ActivityForm({
         {!initial && (
           <button
             type="button"
-            className="mt-1 text-xs text-[#8B1A1A]"
+            className="mt-1 text-xs text-crimson"
             onClick={() => {
               const titleInput = document.querySelector<HTMLInputElement>('input[name="title"]')
               if (titleInput?.value) setSlug(slugify(titleInput.value))

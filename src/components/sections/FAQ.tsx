@@ -4,17 +4,36 @@ import { useState } from 'react'
 import { Section } from '@/components/ui/Section'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { C } from '@/lib/constants'
+import { DEFAULT_SECTION_CONTENTS, type StandardSectionContent } from '@/lib/section-contents'
 import type { FAQItem } from '@/types'
 
-export function FAQ({ faqs }: { faqs: FAQItem[] }) {
+export function FAQ({
+  faqs,
+  content,
+}: {
+  faqs: FAQItem[]
+  content?: StandardSectionContent
+}) {
+  const copy = content ?? DEFAULT_SECTION_CONTENTS.faq
   const [open, setOpen] = useState<number | null>(null)
 
   return (
     <Section id="faq" style={{ background: C.white }}>
       <div className="max-w-4xl mx-auto">
         <SectionHeading
-          eyebrow="FAQ"
-          title={<>CURIOUS?<br />WE&apos;VE GOT<br />ANSWERS.</>}
+          eyebrow={copy.badge || undefined}
+          title={
+            <>
+              {copy.title}
+              {copy.title_highlight && (
+                <>
+                  <br />
+                  {copy.title_highlight}
+                </>
+              )}
+            </>
+          }
+          description={copy.description || undefined}
         />
 
         <div className="flex flex-col" role="list">

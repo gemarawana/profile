@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Section } from '@/components/ui/Section'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { C } from '@/lib/constants'
+import { DEFAULT_SECTION_CONTENTS, type StandardSectionContent } from '@/lib/section-contents'
 import type { Story } from '@/types'
 
 const AUTOPLAY_INTERVAL = 3000
@@ -125,7 +126,14 @@ function Track({
   )
 }
 
-export function MemberStories({ stories }: { stories: Story[] }) {
+export function MemberStories({
+  stories,
+  content,
+}: {
+  stories: Story[]
+  content?: StandardSectionContent
+}) {
+  const copy = content ?? DEFAULT_SECTION_CONTENTS.stories
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
   const [visibleCount, setVisibleCount] = useState(3)
@@ -294,16 +302,19 @@ export function MemberStories({ stories }: { stories: Story[] }) {
   return (
     <Section id="cerita" style={{ background: C.white }}>
       <SectionHeading
-        eyebrow="People"
+        eyebrow={copy.badge || undefined}
         title={
           <>
-            THE PEOPLE
-            <br />
-            BEHIND THE
-            <br />
-            JOURNEY.
+            {copy.title}
+            {copy.title_highlight && (
+              <>
+                <br />
+                {copy.title_highlight}
+              </>
+            )}
           </>
         }
+        description={copy.description || undefined}
       />
 
       {/* Carousel */}

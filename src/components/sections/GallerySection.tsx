@@ -5,11 +5,19 @@ import { SmoothImage } from '@/components/ui/SmoothImage'
 import { Section } from '@/components/ui/Section'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { C } from '@/lib/constants'
+import { DEFAULT_SECTION_CONTENTS, type ButtonSectionContent } from '@/lib/section-contents'
 import type { GalleryItem } from '@/types'
 
 const ITEMS_PER_PAGE = 12
 
-export function GallerySection({ items }: { items: GalleryItem[] }) {
+export function GallerySection({
+  items,
+  content,
+}: {
+  items: GalleryItem[]
+  content?: ButtonSectionContent
+}) {
+  const copy = content ?? DEFAULT_SECTION_CONTENTS.gallery
   const [lightbox, setLightbox] = useState<string | null>(null)
   const [visibleCount, setVisibleCount] = useState(ITEMS_PER_PAGE)
   const visibleItems = items.slice(0, visibleCount)
@@ -22,9 +30,19 @@ export function GallerySection({ items }: { items: GalleryItem[] }) {
   return (
     <Section id="galeri" style={{ background: C.warmWhite }}>
       <SectionHeading
-        eyebrow="Gallery"
-        title={<>LIFE AT<br />GEMARAWANA</>}
-        description="Not every great memory happens at the summit."
+        eyebrow={copy.badge || undefined}
+        title={
+          <>
+            {copy.title}
+            {copy.title_highlight && (
+              <>
+                <br />
+                {copy.title_highlight}
+              </>
+            )}
+          </>
+        }
+        description={copy.description || undefined}
         align="center"
       />
 
@@ -63,7 +81,7 @@ export function GallerySection({ items }: { items: GalleryItem[] }) {
             onClick={handleLoadMore}
             className="w-full rounded-full border-[1.5px] border-crimson bg-transparent px-7 py-2 text-lg font-bold text-crimson transition-all duration-300 hover:-translate-y-0.5 hover:bg-crimson hover:text-white"
           >
-            See More
+            {copy.button_text || DEFAULT_SECTION_CONTENTS.gallery.button_text}
           </button>
         </div>
       )}

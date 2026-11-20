@@ -3,12 +3,34 @@
 import { Section } from '@/components/ui/Section'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { C } from '@/lib/constants'
+import { DEFAULT_SECTION_CONTENTS, type StandardSectionContent } from '@/lib/section-contents'
 import type { HistoryItem } from '@/types'
 
-export function OurStory({ milestones }: { milestones: HistoryItem[] }) {
+export function OurStory({
+  milestones,
+  content,
+}: {
+  milestones: HistoryItem[]
+  content?: StandardSectionContent
+}) {
+  const copy = content ?? DEFAULT_SECTION_CONTENTS.our_story
   return (
     <Section id="story" size="lg" style={{ background: C.white }}>
-      <SectionHeading eyebrow="History" title="OUR STORY" />
+      <SectionHeading
+        eyebrow={copy.badge || undefined}
+        title={
+          <>
+            {copy.title}
+            {copy.title_highlight && (
+              <>
+                <br />
+                {copy.title_highlight}
+              </>
+            )}
+          </>
+        }
+        description={copy.description || undefined}
+      />
 
       <div className="relative pt-4">
         {/* Center line */}

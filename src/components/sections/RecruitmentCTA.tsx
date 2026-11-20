@@ -3,6 +3,7 @@
 import { SmoothImage } from '@/components/ui/SmoothImage'
 import { Container } from '@/components/ui/Container'
 import { C } from '@/lib/constants'
+import { DEFAULT_SECTION_CONTENTS, type CtaSectionContent } from '@/lib/section-contents'
 import { useInView } from '@/hooks/useInView'
 import { useModal } from '@/components/ui/ModalProvider'
 import { formatRedirectUrl } from '@/lib/utils'
@@ -10,10 +11,13 @@ import { formatRedirectUrl } from '@/lib/utils'
 export function RecruitmentCTA({
   backgroundImage,
   joinUrl,
+  content,
 }: {
   backgroundImage: string
   joinUrl?: string
+  content?: CtaSectionContent
 }) {
+  const copy = content ?? DEFAULT_SECTION_CONTENTS.cta
   const { ref, visible } = useInView(0.1)
   const { openModal } = useModal()
   const { href: targetHref, isExternal } = formatRedirectUrl(joinUrl)
@@ -59,19 +63,30 @@ export function RecruitmentCTA({
           className="max-w-4xl mx-auto transition-all duration-1000"
           style={{ opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(40px)' }}
         >
-          <p className="text-xs font-bold tracking-widest uppercase mb-6" style={{ color: C.primaryBright, fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
-            Join Us
-          </p>
+          {copy.badge && (
+            <p className="text-xs font-bold tracking-widest uppercase mb-6" style={{ color: C.primaryBright, fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
+              {copy.badge}
+            </p>
+          )}
           <h2
             className="font-display font-black leading-none mb-8 text-white"
             style={{ fontSize: 'clamp(2.75rem, 8vw, 6.5rem)', letterSpacing: '-0.02em' }}
           >
-            YOUR NEXT<br />ADVENTURE<br />
-            <span style={{ color: C.primaryBright, textShadow: '0 0 80px rgba(var(--theme-primary-rgb, 139, 29, 29), 0.6)' }}>STARTS HERE.</span>
+            {copy.title}
+            {copy.title_highlight && (
+              <>
+                <br />
+                <span style={{ color: C.primaryBright, textShadow: '0 0 80px rgba(var(--theme-primary-rgb, 139, 29, 29), 0.6)' }}>
+                  {copy.title_highlight}
+                </span>
+              </>
+            )}
           </h2>
-          <p className="text-lg md:text-xl mb-12 max-w-xl mx-auto leading-relaxed" style={{ color: C.onDarkDim }}>
-            No need to wait to be ready. Start your journey with Gemarawana.
-          </p>
+          {copy.description && (
+            <p className="text-lg md:text-xl mb-12 max-w-xl mx-auto leading-relaxed" style={{ color: C.onDarkDim }}>
+              {copy.description}
+            </p>
+          )}
           <div className="flex flex-wrap gap-4 justify-center">
             <a
               id="cta-join-btn"
@@ -87,7 +102,7 @@ export function RecruitmentCTA({
                 }
               }}
             >
-              <span>JOIN GEMARAWANA</span>
+              <span>{copy.button_text || DEFAULT_SECTION_CONTENTS.cta.button_text}</span>
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" className="inline-block" style={{ marginLeft: 6 }} aria-hidden>
                 <path d="M5 12h14" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
                 <path d="M13 6l6 6-6 6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
@@ -102,7 +117,7 @@ export function RecruitmentCTA({
                 openModal({ title: 'Ask Us Anything', message: 'Send us your questions — this contact form will be available soon.' })
               }}
             >
-              ASK US ANYTHING
+              {copy.secondary_button_text || DEFAULT_SECTION_CONTENTS.cta.secondary_button_text}
             </a>
           </div>
         </div>

@@ -5,9 +5,11 @@ import { useModal } from '@/components/ui/ModalProvider'
 import { SmoothImage } from '@/components/ui/SmoothImage'
 import { Container } from '@/components/ui/Container'
 import { C } from '@/lib/constants'
+import { DEFAULT_SECTION_CONTENTS, type HeroSectionContent } from '@/lib/section-contents'
 import type { HeroSlide } from '@/types'
 
-export function Hero({ slides }: { slides: HeroSlide[] }) {
+export function Hero({ slides, content }: { slides: HeroSlide[]; content?: HeroSectionContent }) {
+  const copy = content ?? DEFAULT_SECTION_CONTENTS.hero
   const [slide, setSlide] = useState(0)
   const { openModal } = useModal()
 
@@ -80,17 +82,26 @@ export function Hero({ slides }: { slides: HeroSlide[] }) {
             letterSpacing: '-0.02em',
           }}
         >
-          GEMA<br />
-          <span style={{ color: C.primaryBright, textShadow: '0 0 60px rgba(var(--theme-primary-rgb, 139, 29, 29), 0.7)' }}>RAWANA.</span>
+          {copy.title}
+          {copy.title_highlight && (
+            <>
+              <br />
+              <span style={{ color: C.primaryBright, textShadow: '0 0 60px rgba(var(--theme-primary-rgb, 139, 29, 29), 0.7)' }}>
+                {copy.title_highlight}
+              </span>
+            </>
+          )}
         </h1>
 
         {/* Bottom row */}
         <div className="flex flex-col md:flex-row md:items-end gap-8 md:gap-16 justify-between">
           {/* Left: description + CTAs */}
           <div className="max-w-2xl">
-            <p className="text-base md:text-lg leading-relaxed mb-8" style={{ color: 'rgba(250,245,245,0.75)' }}>
-              Bangun Jiwa yang Berani, Setia pada Kawan, Tangguh Seperti Serigala.
-            </p>
+            {copy.description && (
+              <p className="text-base md:text-lg leading-relaxed mb-8" style={{ color: 'rgba(250,245,245,0.75)' }}>
+                {copy.description}
+              </p>
+            )}
             {/* <div className="flex gap-4">
               <a
                 id="hero-join-btn"

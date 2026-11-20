@@ -3,6 +3,7 @@
 import { Section } from '@/components/ui/Section'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { C } from '@/lib/constants'
+import { DEFAULT_SECTION_CONTENTS, type StandardSectionContent } from '@/lib/section-contents'
 import { useInView } from '@/hooks/useInView'
 import { useModal } from '@/components/ui/ModalProvider'
 import type { WhyCard as WhyCardType } from '@/types'
@@ -59,13 +60,30 @@ function WhyCard({ card, delay }: { card: WhyCardType; delay: number }) {
   )
 }
 
-export function WhyGemarawana({ cards }: { cards: WhyCardType[] }) {
+export function WhyGemarawana({
+  cards,
+  content,
+}: {
+  cards: WhyCardType[]
+  content?: StandardSectionContent
+}) {
+  const copy = content ?? DEFAULT_SECTION_CONTENTS.about
   return (
     <Section id="why" style={{ background: C.lightGray }}>
       <SectionHeading
-        eyebrow="The Difference"
-        title={<>WHY<br />GEMARAWANA?</>}
-        description="Because the best lessons aren't always learned inside a classroom."
+        eyebrow={copy.badge || undefined}
+        title={
+          <>
+            {copy.title}
+            {copy.title_highlight && (
+              <>
+                <br />
+                {copy.title_highlight}
+              </>
+            )}
+          </>
+        }
+        description={copy.description || undefined}
         align="between"
       />
 

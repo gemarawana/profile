@@ -3,6 +3,7 @@
 import { Section } from '@/components/ui/Section'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { C } from '@/lib/constants'
+import { DEFAULT_SECTION_CONTENTS, type StandardSectionContent } from '@/lib/section-contents'
 import { useInView } from '@/hooks/useInView'
 import { useCounter } from '@/hooks/useCounter'
 import type { ImpactStatistic } from '@/types'
@@ -28,14 +29,33 @@ function ImpactStat({ value, label, suffix = '+' }: { value: number; label: stri
   )
 }
 
-export function Impact({ statistics }: { statistics: ImpactStatistic[] }) {
+export function Impact({
+  statistics,
+  content,
+}: {
+  statistics: ImpactStatistic[]
+  content?: StandardSectionContent
+}) {
+  const copy = content ?? DEFAULT_SECTION_CONTENTS.impact
   return (
     <Section id="impact" size="sm" style={{ background: C.darkBg }}>
       <SectionHeading
         className="max-w-5xl mx-auto"
-        title={<>BEYOND THE JOURNEY.<br /><span style={{ color: C.primaryBright }}>INTO THE IMPACT.</span></>}
-        description="Explore the wild. Protect the earth. Empower humanity."
+        eyebrow={copy.badge || undefined}
+        title={
+          <>
+            {copy.title}
+            {copy.title_highlight && (
+              <>
+                <br />
+                <span style={{ color: C.primaryBright }}>{copy.title_highlight}</span>
+              </>
+            )}
+          </>
+        }
+        description={copy.description || undefined}
         align="center"
+        eyebrowColor={C.primaryBright}
         titleColor={C.onDark}
         descColor={C.onDarkDim}
       />

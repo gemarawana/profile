@@ -6,7 +6,7 @@ import { ScrollToTop } from '@/components/common/ScrollToTop'
 import { Container } from '@/components/ui/Container'
 import { ArticleArchiveList } from '@/components/articles/ArticleArchiveList'
 import { C } from '@/lib/constants'
-import { getArticles, getSiteSettings } from '@/lib/dal'
+import { getArticles, getSectionContents, getSiteSettings } from '@/lib/dal'
 
 type LinkItem = { label: string; href: string }
 
@@ -20,12 +20,13 @@ export const metadata: Metadata = {
 }
 
 export default async function ArticlesArchivePage() {
-  const [articles, navLinks, footerNavigation, footerSocials, joinUrl] = await Promise.all([
+  const [articles, navLinks, footerNavigation, footerSocials, joinUrl, sectionContents] = await Promise.all([
     getArticles(),
     getSiteSettings('nav_links'),
     getSiteSettings('contact'),
     getSiteSettings('footer_socials'),
     getSiteSettings('join_url'),
+    getSectionContents(),
   ])
 
   return (
@@ -59,12 +60,14 @@ export default async function ArticlesArchivePage() {
 
           {/* Page Header */}
           <div className="max-w-3xl mb-12">
-            <div
-              className="inline-block px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider mb-3"
-              style={{ background: C.crimsonAlpha, color: C.crimson, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
-            >
-              Journalism & Events
-            </div>
+            {sectionContents.articles.badge && (
+              <div
+                className="inline-block px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider mb-3"
+                style={{ background: C.crimsonAlpha, color: C.crimson, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+              >
+                {sectionContents.articles.badge}
+              </div>
+            )}
             <h1
               className="font-display font-black text-3xl sm:text-4xl md:text-5xl leading-tight mb-4"
               style={{ color: C.text }}

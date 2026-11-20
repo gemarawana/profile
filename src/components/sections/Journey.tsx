@@ -5,9 +5,17 @@ import { SmoothImage } from '@/components/ui/SmoothImage'
 import { Section } from '@/components/ui/Section'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { C } from '@/lib/constants'
+import { DEFAULT_SECTION_CONTENTS, type StandardSectionContent } from '@/lib/section-contents'
 import type { JourneyStep } from '@/types'
 
-export function Journey({ steps }: { steps: JourneyStep[] }) {
+export function Journey({
+  steps,
+  content,
+}: {
+  steps: JourneyStep[]
+  content?: StandardSectionContent
+}) {
+  const copy = content ?? DEFAULT_SECTION_CONTENTS.journey
   const [active, setActive] = useState(0)
   const activeStep = steps[active]
 
@@ -16,9 +24,19 @@ export function Journey({ steps }: { steps: JourneyStep[] }) {
   return (
     <Section id="journey" size="lg" style={{ background: C.darkBg }}>
       <SectionHeading
-        eyebrow="The Path"
-        title={<>YOUR JOURNEY<br />STARTS HERE.</>}
-        description="Every journey begins step by step."
+        eyebrow={copy.badge || undefined}
+        title={
+          <>
+            {copy.title}
+            {copy.title_highlight && (
+              <>
+                <br />
+                {copy.title_highlight}
+              </>
+            )}
+          </>
+        }
+        description={copy.description || undefined}
         eyebrowColor={C.primaryBright}
         titleColor={C.onDark}
         descColor={C.onDarkDim}

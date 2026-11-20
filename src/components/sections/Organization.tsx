@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Section } from '@/components/ui/Section'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { C } from '@/lib/constants'
+import { DEFAULT_SECTION_CONTENTS, type StandardSectionContent } from '@/lib/section-contents'
 import type { Leader } from '@/types'
 
 const AUTOPLAY_INTERVAL = 3000
@@ -114,7 +115,14 @@ function Track({
   )
 }
 
-export function Organization({ members }: { members: Leader[] }) {
+export function Organization({
+  members,
+  content,
+}: {
+  members: Leader[]
+  content?: StandardSectionContent
+}) {
+  const copy = content ?? DEFAULT_SECTION_CONTENTS.organization
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
   const [visibleCount, setVisibleCount] = useState(4)
@@ -269,7 +277,21 @@ export function Organization({ members }: { members: Leader[] }) {
 
   return (
     <Section id="organisation" style={{ background: C.warmWhite }}>
-      <SectionHeading eyebrow="Leadership" title="MEET THE PEOPLE BEHIND GEMARAWANA" />
+      <SectionHeading
+        eyebrow={copy.badge || undefined}
+        title={
+          <>
+            {copy.title}
+            {copy.title_highlight && (
+              <>
+                <br />
+                {copy.title_highlight}
+              </>
+            )}
+          </>
+        }
+        description={copy.description || undefined}
+      />
 
       <div
         className="relative"

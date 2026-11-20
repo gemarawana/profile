@@ -4,6 +4,7 @@ import { SmoothImage } from '@/components/ui/SmoothImage'
 import { Section } from '@/components/ui/Section'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { C } from '@/lib/constants'
+import { DEFAULT_SECTION_CONTENTS, type StandardSectionContent } from '@/lib/section-contents'
 import type { Activity } from '@/types'
 import { useModal } from '@/components/ui/ModalProvider'
 
@@ -56,13 +57,30 @@ function ActivityCard({ act, className, style }: { act: Activity; className?: st
   )
 }
 
-export function WhatWeDo({ activities }: { activities: Activity[] }) {
+export function WhatWeDo({
+  activities,
+  content,
+}: {
+  activities: Activity[]
+  content?: StandardSectionContent
+}) {
+  const copy = content ?? DEFAULT_SECTION_CONTENTS.activities
   return (
     <Section id="kegiatan" style={{ background: C.white }}>
       <SectionHeading
-        eyebrow="Activities"
-        title={<>WHAT<br />WE DO</>}
-        description="From learning the basics to standing on the summit."
+        eyebrow={copy.badge || undefined}
+        title={
+          <>
+            {copy.title}
+            {copy.title_highlight && (
+              <>
+                <br />
+                {copy.title_highlight}
+              </>
+            )}
+          </>
+        }
+        description={copy.description || undefined}
         align="between"
       />
 

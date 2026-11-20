@@ -11,16 +11,19 @@ import {
 
 import { formatRedirectUrl } from '@/lib/utils'
 
-function parseJsonArray(
+function parseJsonValue(
   raw: string,
-  field: string
+  field: string,
+  fallback: string,
+  isValid: (value: unknown) => boolean,
+  expectedType: string
 ) {
   try {
-    const value = JSON.parse(raw || '[]')
+    const value: unknown = JSON.parse(raw || fallback)
 
-    if (!Array.isArray(value)) {
+    if (!isValid(value)) {
       throw new Error(
-        `${field} must be a JSON array`
+        `${field} must be a JSON ${expectedType}`
       )
     }
 
@@ -34,6 +37,32 @@ function parseJsonArray(
 
     throw e
   }
+}
+
+function parseJsonArray(
+  raw: string,
+  field: string
+) {
+  return parseJsonValue(
+    raw,
+    field,
+    '[]',
+    Array.isArray,
+    'array'
+  )
+}
+
+function parseJsonObject(
+  raw: string,
+  field: string
+) {
+  return parseJsonValue(
+    raw,
+    field,
+    '{}',
+    value => Boolean(value && typeof value === 'object' && !Array.isArray(value)),
+    'object'
+  )
 }
 
 export async function saveSettings(
@@ -76,6 +105,13 @@ export async function saveSettings(
       ).trim(),
 
       join_url: normalizedJoinUrl,
+
+      theme_color: parseJsonObject(
+        String(
+          formData.get('theme_color') || '{}'
+        ),
+        'theme_color'
+      ),
     }
 
     const parsed = parseForm(
@@ -97,8 +133,10 @@ export async function saveSettings(
       intro_image: parsed.data.intro_image ?? '',
       cta_image: parsed.data.cta_image ?? '',
       join_url: parsed.data.join_url ?? '',
+      theme_color: parsed.data.theme_color,
     })
     revalidatePath('/admin/settings')
+    revalidatePath('/', 'layout')
 
     return ok()
   } catch (e) {

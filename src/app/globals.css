@@ -1,12 +1,24 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
 
-@theme {
+:root {
+  --navbar-h: 80px;
+  --theme-primary: #8B1D1D;
+  --theme-primary-hover: #6E1515;
+  --theme-primary-light: #FDF2F2;
+  --theme-primary-rgb: 139, 29, 29;
+}
+
+@theme inline {
   --font-display: 'Plus Jakarta Sans', sans-serif;
   --font-body: 'Inter', sans-serif;
 
-  --color-crimson: #8B1A1A;
-  --color-crimson-dark: #6B1414;
+  /* Dynamic Accent Tokens */
+  --color-crimson: var(--theme-primary);
+  --color-crimson-dark: var(--theme-primary-hover);
+  --color-crimson-light: var(--theme-primary-light);
+
+  /* Preserved Static Neutral & Dark Surface Backgrounds */
   --color-crimson-deep: #140606;
   --color-crimson-card: #2A0C0C;
   --color-crimson-mid: #3D1212;
@@ -30,10 +42,6 @@
   --space-10: 72px;
   --space-11: 96px;
   --space-12: 120px;
-}
-
-:root {
-  --navbar-h: 80px;
 }
 
 *,
@@ -76,7 +84,7 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #8B1A1A;
+  background: var(--theme-primary);
   border-radius: 3px;
 }
 
@@ -115,7 +123,7 @@ img {
 
 /* Custom selection */
 ::selection {
-  background: rgba(139, 26, 26, 0.2);
+  background: rgba(var(--theme-primary-rgb), 0.2);
   color: #140606;
 }
 
@@ -126,7 +134,7 @@ img {
 
 .btn-primer:focus {
   outline: none;
-  box-shadow: 0 0 0 4px rgba(139, 26, 26, 0.12);
+  box-shadow: 0 0 0 4px rgba(var(--theme-primary-rgb), 0.12);
 }
 
 /* Enforce 12px radius for interactive controls across the site */
@@ -156,7 +164,7 @@ input[type="reset"],
 }
 
 .tiptap blockquote {
-  border-left: 3px solid #8B1A1A;
+  border-left: 3px solid var(--theme-primary);
   padding-left: 1rem;
   font-style: italic;
   color: #6B5A5A;
@@ -189,7 +197,7 @@ input[type="reset"],
 }
 
 .tiptap img.ProseMirror-selectednode {
-  outline: 3px solid #8B1A1A;
+  outline: 3px solid var(--theme-primary);
   outline-offset: 3px;
   border-radius: 0.75rem;
 }

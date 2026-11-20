@@ -1,6 +1,7 @@
 export const C = {
-  crimson:      '#8B1A1A',
-  crimsonDark:  '#6B1414',
+  crimson:      'var(--theme-primary, #8B1D1D)',
+  crimsonDark:  'var(--theme-primary-hover, #6E1515)',
+  crimsonLight: 'var(--theme-primary-light, #FDF2F2)',
   crimsonDeep:  '#140606',
   crimsonCard:  '#2A0C0C',
   crimsonMid:   '#3D1212',
@@ -14,5 +15,5 @@ export const C = {
   onDark:       '#FAF5F5',
   onDarkDim:    'rgba(250,245,245,0.65)',
   onDarkFaint:  'rgba(250,245,245,0.25)',
-  crimsonAlpha: 'rgba(139,26,26,0.08)',
+  crimsonAlpha: 'rgba(var(--theme-primary-rgb, 139, 29, 29), 0.08)',
 } as const

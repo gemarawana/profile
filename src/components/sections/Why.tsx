@@ -60,7 +60,7 @@ function WhyCard({ card, delay }: { card: WhyCardType; delay: number }) {
   )
 }
 
-export function WhyGemarawana({
+export function Why({
   cards,
   content,
 }: {

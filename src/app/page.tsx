@@ -1,7 +1,7 @@
 import { Navbar } from '@/components/layout/Navbar'
 import { Hero } from '@/components/sections/Hero'
 import { Introduction } from '@/components/sections/Introduction'
-import { WhyGemarawana } from '@/components/sections/WhyGemarawana'
+import { Why } from '@/components/sections/Why'
 import { WhatWeDo } from '@/components/sections/WhatWeDo'
 import { Journey } from '@/components/sections/Journey'
 import { GallerySection } from '@/components/sections/GallerySection'
@@ -54,7 +54,7 @@ export default async function Home() {
       <main>
         <Hero slides={heroSlides} content={sectionContents.hero} />
         <Introduction imageUrl={(introImage as string) || ''} content={sectionContents.introduction} />
-        <WhyGemarawana cards={whyCards} content={sectionContents.about} />
+        <Why cards={whyCards} content={sectionContents.about} />
         <OurStory milestones={historyMilestones} content={sectionContents.our_story} />
         <Organization members={organizationMembers} content={sectionContents.organization} />
         <WhatWeDo activities={activities} content={sectionContents.activities} />

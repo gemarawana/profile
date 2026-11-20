@@ -20,7 +20,7 @@ export function RecruitmentCTA({
   const hasJoinUrl = Boolean(targetHref)
 
   return (
-    <section id="join" className="relative overflow-hidden flex items-center py-24 md:py-32" style={{ background: C.crimsonDeep, minHeight: '650px' }}>
+    <section id="join" className="relative overflow-hidden flex items-center py-24 md:py-32" style={{ background: C.darkBg, minHeight: '650px' }}>
       {/* Background */}
       <div className="absolute inset-0">
         {backgroundImage && (
@@ -35,7 +35,7 @@ export function RecruitmentCTA({
         )}
         <div
           className="absolute inset-0 z-10"
-          style={{ background: 'linear-gradient(135deg, rgba(20,6,6,0.95) 0%, rgba(42,12,12,0.72) 100%)' }}
+          style={{ background: 'linear-gradient(135deg, rgba(var(--color-dark-bg-rgb, 22, 11, 11), 0.95) 0%, rgba(var(--color-dark-surface-rgb, 37, 19, 19), 0.72) 100%)' }}
         />
       </div>
 
@@ -59,7 +59,7 @@ export function RecruitmentCTA({
           className="max-w-4xl mx-auto transition-all duration-1000"
           style={{ opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(40px)' }}
         >
-          <p className="text-xs font-bold tracking-widest uppercase mb-6" style={{ color: C.crimson, fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
+          <p className="text-xs font-bold tracking-widest uppercase mb-6" style={{ color: C.primaryBright, fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
             Join Us
           </p>
           <h2
@@ -67,7 +67,7 @@ export function RecruitmentCTA({
             style={{ fontSize: 'clamp(2.75rem, 8vw, 6.5rem)', letterSpacing: '-0.02em' }}
           >
             YOUR NEXT<br />ADVENTURE<br />
-            <span style={{ color: C.crimson, textShadow: '0 0 80px rgba(var(--theme-primary-rgb, 139, 29, 29), 0.6)' }}>STARTS HERE.</span>
+            <span style={{ color: C.primaryBright, textShadow: '0 0 80px rgba(var(--theme-primary-rgb, 139, 29, 29), 0.6)' }}>STARTS HERE.</span>
           </h2>
           <p className="text-lg md:text-xl mb-12 max-w-xl mx-auto leading-relaxed" style={{ color: C.onDarkDim }}>
             No need to wait to be ready. Start your journey with Gemarawana.

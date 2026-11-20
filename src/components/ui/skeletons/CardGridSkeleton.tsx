@@ -61,8 +61,8 @@ export function CardGridSkeleton({
                 key={i}
                 className="rounded-2xl overflow-hidden border flex flex-col"
                 style={{
-                  background: isDark ? C.crimsonCard : C.white,
-                  borderColor: isDark ? 'rgba(255,255,255,0.08)' : C.border,
+                  background: isDark ? C.darkSurface : C.white,
+                  borderColor: isDark ? C.darkBorder : C.border,
                 }}
               >
                 <div className="relative w-full aspect-[4/5] bg-gray-100">
@@ -94,8 +94,8 @@ export function CardGridSkeleton({
               key={i}
               className="rounded-2xl p-7 flex flex-col justify-between"
               style={{
-                background: isDark ? C.crimsonCard : C.white,
-                border: `1px solid ${isDark ? 'rgba(255,255,255,0.08)' : C.border}`,
+                background: isDark ? C.darkSurface : C.white,
+                border: `1px solid ${isDark ? C.darkBorder : C.border}`,
               }}
             >
               <div>

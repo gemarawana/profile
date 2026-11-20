@@ -72,7 +72,7 @@ export function GallerySection({ items }: { items: GalleryItem[] }) {
       {lightbox && (
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center p-6 md:p-12"
-          style={{ background: 'rgba(20,6,6,0.95)', backdropFilter: 'blur(10px)' }}
+          style={{ background: 'rgba(var(--color-dark-bg-rgb, 22, 11, 11), 0.95)', backdropFilter: 'blur(10px)' }}
           onClick={() => setLightbox(null)}
           role="dialog"
           aria-modal="true"

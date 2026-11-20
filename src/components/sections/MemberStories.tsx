@@ -98,7 +98,7 @@ function Track({
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 draggable={false}
               />
-              <div className="absolute inset-0 z-10" style={{ background: 'linear-gradient(to top, rgba(20,6,6,0.35), transparent)' }} />
+              <div className="absolute inset-0 z-10" style={{ background: 'linear-gradient(to top, rgba(var(--color-dark-bg-rgb, 22, 11, 11), 0.35), transparent)' }} />
             </div>
 
             <div className="flex flex-1 flex-col bg-white p-7">

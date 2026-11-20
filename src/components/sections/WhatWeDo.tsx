@@ -37,7 +37,7 @@ function ActivityCard({ act, className, style }: { act: Activity; className?: st
       />
       <div
         className="absolute inset-0 flex flex-col justify-end p-7 z-10"
-        style={{ background: 'linear-gradient(to top, rgba(20,6,6,0.92), rgba(20,6,6,0.1) 60%, transparent)' }}
+        style={{ background: 'linear-gradient(to top, rgba(var(--color-dark-bg-rgb, 22, 11, 11), 0.92), rgba(var(--color-dark-bg-rgb, 22, 11, 11), 0.1) 60%, transparent)' }}
       >
         <h3 className="font-display font-black text-lg md:text-xl text-white mb-1.5">{act.title}</h3>
         <p className="text-xs text-white/70 mb-3" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>{act.sub}</p>

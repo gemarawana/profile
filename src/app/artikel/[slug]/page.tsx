@@ -238,7 +238,7 @@ export default async function ArticleDetailPage({ params }: Props) {
                         <div className="absolute top-3 left-3 z-10">
                           <span
                             className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-white"
-                            style={{ background: 'rgba(20,6,6,0.85)', backdropFilter: 'blur(4px)' }}
+                            style={{ background: 'rgba(var(--color-dark-bg-rgb, 22, 11, 11), 0.85)', backdropFilter: 'blur(4px)' }}
                           >
                             {item.category}
                           </span>

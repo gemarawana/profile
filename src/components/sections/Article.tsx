@@ -172,7 +172,7 @@ export function Article({ articles = [] }: { articles: NewsArticle[] }) {
                       <span
                         className="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider text-white shadow-sm inline-block"
                         style={{
-                          background: 'rgba(20,6,6,0.85)',
+                          background: 'rgba(var(--color-dark-bg-rgb, 22, 11, 11), 0.85)',
                           backdropFilter: 'blur(4px)',
                           fontFamily: 'Plus Jakarta Sans, sans-serif',
                         }}

@@ -14,7 +14,7 @@ function ImpactStat({ value, label, suffix = '+' }: { value: number; label: stri
     <div ref={ref} className="flex flex-col items-center text-center py-8 md:py-10 px-4">
       <span
         className="font-display font-black leading-none"
-        style={{ fontSize: 'clamp(3rem, 7vw, 5.5rem)', color: C.crimson }}
+        style={{ fontSize: 'clamp(3rem, 7vw, 5.5rem)', color: C.primaryBright }}
       >
         {count}{suffix}
       </span>
@@ -30,10 +30,10 @@ function ImpactStat({ value, label, suffix = '+' }: { value: number; label: stri
 
 export function Impact({ statistics }: { statistics: ImpactStatistic[] }) {
   return (
-    <Section id="impact" size="sm" style={{ background: C.crimsonDeep }}>
+    <Section id="impact" size="sm" style={{ background: C.darkBg }}>
       <SectionHeading
         className="max-w-5xl mx-auto"
-        title={<>BEYOND THE JOURNEY.<br /><span style={{ color: C.crimson }}>INTO THE IMPACT.</span></>}
+        title={<>BEYOND THE JOURNEY.<br /><span style={{ color: C.primaryBright }}>INTO THE IMPACT.</span></>}
         description="Explore the wild. Protect the earth. Empower humanity."
         align="center"
         titleColor={C.onDark}
@@ -43,7 +43,8 @@ export function Impact({ statistics }: { statistics: ImpactStatistic[] }) {
       <div
         className="grid grid-cols-2 md:grid-cols-4"
         style={{
-          border: '1px solid rgba(250,245,245,0.08)',
+          background: C.darkSurface,
+          border: `1px solid ${C.darkBorder}`,
           borderRadius: '24px',
           overflow: 'hidden',
         }}
@@ -52,7 +53,7 @@ export function Impact({ statistics }: { statistics: ImpactStatistic[] }) {
           <div
             key={i}
             className="border-r border-b md:border-b-0 last:border-r-0"
-            style={{ borderColor: 'rgba(250,245,245,0.08)' }}
+            style={{ borderColor: C.darkBorder }}
           >
             <ImpactStat value={s.value} label={s.label} suffix={s.suffix} />
           </div>

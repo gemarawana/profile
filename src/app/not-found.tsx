@@ -2,8 +2,8 @@ import Link from 'next/link'
 
 export default function NotFound() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-[#140606] text-white px-6 text-center">
-      <h1 className="font-display text-6xl font-black text-crimson mb-4">404</h1>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-dark-bg text-white px-6 text-center">
+      <h1 className="font-display text-6xl font-black text-primary-bright mb-4">404</h1>
       <h2 className="text-2xl font-bold mb-4">Halaman Tidak Ditemukan</h2>
       <p className="text-[#FAF5F5]/65 max-w-md mb-8">
         Maaf, halaman yang Anda cari tidak ditemukan atau telah dipindahkan.

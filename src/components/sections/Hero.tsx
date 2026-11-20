@@ -22,7 +22,7 @@ export function Hero({ slides }: { slides: HeroSlide[] }) {
       style={{
         /* 100svh accounts for mobile browser chrome (address bar, toolbar) */
         minHeight: '100svh',
-        background: C.crimsonDeep,
+        background: C.darkBg,
         /* Pad top by exact navbar height so content never hides underneath */
         paddingTop: 'var(--navbar-h)',
       }}
@@ -49,8 +49,8 @@ export function Hero({ slides }: { slides: HeroSlide[] }) {
       ))}
 
       {/* Overlays */}
-      <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to bottom, rgba(20,6,6,0.5) 0%, transparent 35%, rgba(20,6,6,0.92) 100%)' }} />
-      <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to right, rgba(20,6,6,0.55) 0%, transparent 65%)' }} />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to bottom, rgba(var(--color-dark-bg-rgb, 22, 11, 11), 0.5) 0%, transparent 35%, rgba(var(--color-dark-bg-rgb, 22, 11, 11), 0.92) 100%)' }} />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to right, rgba(var(--color-dark-bg-rgb, 22, 11, 11), 0.55) 0%, transparent 65%)' }} />
       <div className="absolute inset-0 pointer-events-none" style={{ background: 'rgba(var(--theme-primary-rgb, 139, 29, 29), 0.08)' }} />
 
       <Container className="relative z-10">
@@ -81,7 +81,7 @@ export function Hero({ slides }: { slides: HeroSlide[] }) {
           }}
         >
           GEMA<br />
-          <span style={{ color: C.crimson, textShadow: '0 0 60px rgba(var(--theme-primary-rgb, 139, 29, 29), 0.7)' }}>RAWANA.</span>
+          <span style={{ color: C.primaryBright, textShadow: '0 0 60px rgba(var(--theme-primary-rgb, 139, 29, 29), 0.7)' }}>RAWANA.</span>
         </h1>
 
         {/* Bottom row */}

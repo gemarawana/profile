@@ -14,12 +14,12 @@ export function Journey({ steps }: { steps: JourneyStep[] }) {
   if (!activeStep) return null
 
   return (
-    <Section id="journey" size="lg" style={{ background: C.crimsonDeep }}>
+    <Section id="journey" size="lg" style={{ background: C.darkBg }}>
       <SectionHeading
         eyebrow="The Path"
         title={<>YOUR JOURNEY<br />STARTS HERE.</>}
         description="Every journey begins step by step."
-        eyebrowColor={C.crimson}
+        eyebrowColor={C.primaryBright}
         titleColor={C.onDark}
         descColor={C.onDarkDim}
       />
@@ -34,11 +34,11 @@ export function Journey({ steps }: { steps: JourneyStep[] }) {
               aria-selected={i === active}
               onClick={() => setActive(i)}
               className="flex items-start gap-5 py-6 border-b text-left transition-all duration-300 group"
-              style={{ borderColor: 'rgba(250,245,245,0.08)' }}
+              style={{ borderColor: C.darkBorder }}
             >
               <span
                 className="font-display font-black text-sm tabular-nums mt-0.5 min-w-[2rem] transition-colors duration-300"
-                style={{ color: i === active ? C.crimson : 'rgba(250,245,245,0.2)' }}
+                style={{ color: i === active ? C.primaryBright : 'rgba(250,245,245,0.2)' }}
               >
                 {j.num}
               </span>
@@ -61,7 +61,7 @@ export function Journey({ steps }: { steps: JourneyStep[] }) {
               <span
                 className="mt-1 transition-all duration-300 flex-shrink-0"
                 style={{
-                  color: i === active ? C.crimson : 'rgba(250,245,245,0.12)',
+                  color: i === active ? C.primaryBright : 'rgba(250,245,245,0.12)',
                   transform: i === active ? 'translateX(4px)' : 'none',
                 }}
               >
@@ -75,7 +75,7 @@ export function Journey({ steps }: { steps: JourneyStep[] }) {
         <div className="relative hidden lg:block" style={{ position: 'sticky', top: 'calc(var(--navbar-h) + 1.5rem)', alignSelf: 'start' }}>
           <div
             className="rounded-3xl overflow-hidden relative"
-            style={{ background: C.crimsonCard, aspectRatio: '1/1' }}
+            style={{ background: C.darkSurface, aspectRatio: '1/1' }}
             role="tabpanel"
             aria-label={`Journey step: ${activeStep.title}`}
           >
@@ -89,7 +89,7 @@ export function Journey({ steps }: { steps: JourneyStep[] }) {
             />
             <div
               className="absolute bottom-0 left-0 right-0 p-8 z-10"
-              style={{ background: 'linear-gradient(to top, rgba(20,6,6,0.95), transparent)' }}
+              style={{ background: 'linear-gradient(to top, rgba(var(--color-dark-bg-rgb, 22, 11, 11), 0.95), transparent)' }}
             >
               <span
                 className="font-display font-black block leading-none mb-2"

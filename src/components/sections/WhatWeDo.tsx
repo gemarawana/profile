@@ -4,6 +4,7 @@ import { SmoothImage } from '@/components/ui/SmoothImage'
 import { Section } from '@/components/ui/Section'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { C } from '@/lib/constants'
+import { DEFAULT_SECTION_CONTENTS, type StandardSectionContent } from '@/lib/section-contents'
 import type { Activity } from '@/types'
 import { useModal } from '@/components/ui/ModalProvider'
 
@@ -37,7 +38,7 @@ function ActivityCard({ act, className, style }: { act: Activity; className?: st
       />
       <div
         className="absolute inset-0 flex flex-col justify-end p-7 z-10"
-        style={{ background: 'linear-gradient(to top, rgba(20,6,6,0.92), rgba(20,6,6,0.1) 60%, transparent)' }}
+        style={{ background: 'linear-gradient(to top, rgba(var(--color-dark-bg-rgb, 22, 11, 11), 0.92), rgba(var(--color-dark-bg-rgb, 22, 11, 11), 0.1) 60%, transparent)' }}
       >
         <h3 className="font-display font-black text-lg md:text-xl text-white mb-1.5">{act.title}</h3>
         <p className="text-xs text-white/70 mb-3" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>{act.sub}</p>
@@ -56,13 +57,30 @@ function ActivityCard({ act, className, style }: { act: Activity; className?: st
   )
 }
 
-export function WhatWeDo({ activities }: { activities: Activity[] }) {
+export function WhatWeDo({
+  activities,
+  content,
+}: {
+  activities: Activity[]
+  content?: StandardSectionContent
+}) {
+  const copy = content ?? DEFAULT_SECTION_CONTENTS.activities
   return (
     <Section id="kegiatan" style={{ background: C.white }}>
       <SectionHeading
-        eyebrow="Activities"
-        title={<>WHAT<br />WE DO</>}
-        description="From learning the basics to standing on the summit."
+        eyebrow={copy.badge || undefined}
+        title={
+          <>
+            {copy.title}
+            {copy.title_highlight && (
+              <>
+                <br />
+                {copy.title_highlight}
+              </>
+            )}
+          </>
+        }
+        description={copy.description || undefined}
         align="between"
       />
 

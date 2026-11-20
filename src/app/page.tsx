@@ -1,7 +1,7 @@
 import { Navbar } from '@/components/layout/Navbar'
 import { Hero } from '@/components/sections/Hero'
 import { Introduction } from '@/components/sections/Introduction'
-import { WhyGemarawana } from '@/components/sections/WhyGemarawana'
+import { Why } from '@/components/sections/Why'
 import { WhatWeDo } from '@/components/sections/WhatWeDo'
 import { Journey } from '@/components/sections/Journey'
 import { GallerySection } from '@/components/sections/GallerySection'
@@ -26,6 +26,7 @@ import {
   getJourneySteps,
   getMemberStories,
   getOrganizationMembers,
+  getSectionContents,
   getSiteSettings,
   getWhyCards,
 } from '@/lib/dal'
@@ -37,35 +38,37 @@ export default async function Home() {
     heroSlides, whyCards, activities, journeySteps, galleryItems, memberStories,
     articles, impactStatistics, historyMilestones, organizationMembers, faqs,
     navLinks, footerNavigation, footerSocials, introImage, ctaImage, joinUrl,
+    sectionContents,
   ] = await Promise.all([
     getHeroSlides(), getWhyCards(), getActivities(), getJourneySteps(), getGalleryItems(),
     getMemberStories(), getArticles(), getImpactStatistics(), getHistoryMilestones(),
     getOrganizationMembers(), getFaqs(), getSiteSettings('nav_links'),
     getSiteSettings('contact'), getSiteSettings('footer_socials'),
     getSiteSettings('intro_image'), getSiteSettings('cta_image'),
-    getSiteSettings('join_url'),
+    getSiteSettings('join_url'), getSectionContents(),
   ])
 
   return (
     <div className="font-sans">
       <Navbar links={navLinks as Link[]} joinUrl={(joinUrl as string) || ''} />
       <main>
-        <Hero slides={heroSlides} />
-        <Introduction imageUrl={(introImage as string) || ''} />
-        <WhyGemarawana cards={whyCards} />
-        <OurStory milestones={historyMilestones} />
-        <Organization members={organizationMembers} />
-        <WhatWeDo activities={activities} />
-        <Journey steps={journeySteps} />
-        <Article articles={articles} />
-        <MemberStories stories={memberStories} />
-        <Impact statistics={impactStatistics} />
-        <GallerySection items={galleryItems} />
-        <FAQ faqs={faqs} />
+        <Hero slides={heroSlides} content={sectionContents.hero} />
+        <Introduction imageUrl={(introImage as string) || ''} content={sectionContents.introduction} />
+        <Why cards={whyCards} content={sectionContents.about} />
+        <OurStory milestones={historyMilestones} content={sectionContents.our_story} />
+        <Organization members={organizationMembers} content={sectionContents.organization} />
+        <WhatWeDo activities={activities} content={sectionContents.activities} />
+        <Journey steps={journeySteps} content={sectionContents.journey} />
+        <Article articles={articles} content={sectionContents.articles} />
+        <MemberStories stories={memberStories} content={sectionContents.stories} />
+        <Impact statistics={impactStatistics} content={sectionContents.impact} />
+        <GallerySection items={galleryItems} content={sectionContents.gallery} />
+        <FAQ faqs={faqs} content={sectionContents.faq} />
         <Partners />
         <RecruitmentCTA
           backgroundImage={(ctaImage as string) || ''}
           joinUrl={(joinUrl as string) || ''}
+          content={sectionContents.cta}
         />
       </main>
       <Footer navigation={footerNavigation as Link[]} socials={footerSocials as Link[]} />

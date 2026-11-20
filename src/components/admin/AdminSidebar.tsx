@@ -31,7 +31,7 @@ export function AdminSidebar({ email }: { email: string }) {
           <Link
             href="/admin"
             onClick={() => setOpen(false)}
-            className="flex items-center gap-2 font-display text-sm font-black tracking-wider text-[#8B1A1A]"
+            className="flex items-center gap-2 font-display text-sm font-black tracking-wider text-crimson"
           >
             <LayoutDashboard className="h-4 w-4" />
             GEMARAWANA CMS
@@ -61,7 +61,7 @@ export function AdminSidebar({ email }: { email: string }) {
                 onClick={() => setOpen(false)}
                 className={cn(
                   'mb-1 block rounded-lg px-3 py-2 text-sm font-semibold transition-colors',
-                  active ? 'bg-[#8B1A1A]/10 text-[#8B1A1A]' : 'text-[#3A2A2A] hover:bg-[#F4F3F0]'
+                  active ? 'bg-crimson/10 text-crimson' : 'text-[#3A2A2A] hover:bg-[#F4F3F0]'
                 )}
               >
                 {section.title}
@@ -83,7 +83,7 @@ export function AdminSidebar({ email }: { email: string }) {
                     onClick={() => setOpen(false)}
                     className={cn(
                       'mb-0.5 block rounded-lg px-3 py-2 text-sm transition-colors',
-                      active ? 'bg-[#8B1A1A]/10 font-semibold text-[#8B1A1A]' : 'text-[#3A2A2A] hover:bg-[#F4F3F0]'
+                      active ? 'bg-crimson/10 font-semibold text-crimson' : 'text-[#3A2A2A] hover:bg-[#F4F3F0]'
                     )}
                   >
                     {item.title}
@@ -128,7 +128,7 @@ export function AdminSidebar({ email }: { email: string }) {
           </Button>
           <Link
             href="/admin"
-            className="flex items-center gap-2 font-display text-sm font-black tracking-wider text-[#8B1A1A]"
+            className="flex items-center gap-2 font-display text-sm font-black tracking-wider text-crimson"
           >
             <LayoutDashboard className="h-4 w-4" />
             <span>GEMARAWANA</span>

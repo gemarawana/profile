@@ -8,7 +8,7 @@ export function HeroSkeleton() {
       className="relative w-full overflow-hidden flex flex-col justify-end pb-16 md:pb-24"
       style={{
         minHeight: '100svh',
-        background: C.crimsonDeep,
+        background: C.darkBg,
         paddingTop: 'var(--navbar-h)',
       }}
       aria-label="Hero loading skeleton"

@@ -3,6 +3,7 @@
 import { Section } from '@/components/ui/Section'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { C } from '@/lib/constants'
+import { DEFAULT_SECTION_CONTENTS, type StandardSectionContent } from '@/lib/section-contents'
 import { useInView } from '@/hooks/useInView'
 import { useCounter } from '@/hooks/useCounter'
 import type { ImpactStatistic } from '@/types'
@@ -14,7 +15,7 @@ function ImpactStat({ value, label, suffix = '+' }: { value: number; label: stri
     <div ref={ref} className="flex flex-col items-center text-center py-8 md:py-10 px-4">
       <span
         className="font-display font-black leading-none"
-        style={{ fontSize: 'clamp(3rem, 7vw, 5.5rem)', color: C.crimson }}
+        style={{ fontSize: 'clamp(3rem, 7vw, 5.5rem)', color: C.primaryBright }}
       >
         {count}{suffix}
       </span>
@@ -28,14 +29,33 @@ function ImpactStat({ value, label, suffix = '+' }: { value: number; label: stri
   )
 }
 
-export function Impact({ statistics }: { statistics: ImpactStatistic[] }) {
+export function Impact({
+  statistics,
+  content,
+}: {
+  statistics: ImpactStatistic[]
+  content?: StandardSectionContent
+}) {
+  const copy = content ?? DEFAULT_SECTION_CONTENTS.impact
   return (
-    <Section id="impact" size="sm" style={{ background: C.crimsonDeep }}>
+    <Section id="impact" size="sm" style={{ background: C.darkBg }}>
       <SectionHeading
         className="max-w-5xl mx-auto"
-        title={<>BEYOND THE JOURNEY.<br /><span style={{ color: C.crimson }}>INTO THE IMPACT.</span></>}
-        description="Explore the wild. Protect the earth. Empower humanity."
+        eyebrow={copy.badge || undefined}
+        title={
+          <>
+            {copy.title}
+            {copy.title_highlight && (
+              <>
+                <br />
+                <span style={{ color: C.primaryBright }}>{copy.title_highlight}</span>
+              </>
+            )}
+          </>
+        }
+        description={copy.description || undefined}
         align="center"
+        eyebrowColor={C.primaryBright}
         titleColor={C.onDark}
         descColor={C.onDarkDim}
       />
@@ -43,7 +63,8 @@ export function Impact({ statistics }: { statistics: ImpactStatistic[] }) {
       <div
         className="grid grid-cols-2 md:grid-cols-4"
         style={{
-          border: '1px solid rgba(250,245,245,0.08)',
+          background: C.darkSurface,
+          border: `1px solid ${C.darkBorder}`,
           borderRadius: '24px',
           overflow: 'hidden',
         }}
@@ -52,7 +73,7 @@ export function Impact({ statistics }: { statistics: ImpactStatistic[] }) {
           <div
             key={i}
             className="border-r border-b md:border-b-0 last:border-r-0"
-            style={{ borderColor: 'rgba(250,245,245,0.08)' }}
+            style={{ borderColor: C.darkBorder }}
           >
             <ImpactStat value={s.value} label={s.label} suffix={s.suffix} />
           </div>

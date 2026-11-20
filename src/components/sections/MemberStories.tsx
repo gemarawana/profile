@@ -5,6 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Section } from '@/components/ui/Section'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { C } from '@/lib/constants'
+import { DEFAULT_SECTION_CONTENTS, type StandardSectionContent } from '@/lib/section-contents'
 import type { Story } from '@/types'
 
 const AUTOPLAY_INTERVAL = 3000
@@ -98,7 +99,7 @@ function Track({
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 draggable={false}
               />
-              <div className="absolute inset-0 z-10" style={{ background: 'linear-gradient(to top, rgba(20,6,6,0.35), transparent)' }} />
+              <div className="absolute inset-0 z-10" style={{ background: 'linear-gradient(to top, rgba(var(--color-dark-bg-rgb, 22, 11, 11), 0.35), transparent)' }} />
             </div>
 
             <div className="flex flex-1 flex-col bg-white p-7">
@@ -125,7 +126,14 @@ function Track({
   )
 }
 
-export function MemberStories({ stories }: { stories: Story[] }) {
+export function MemberStories({
+  stories,
+  content,
+}: {
+  stories: Story[]
+  content?: StandardSectionContent
+}) {
+  const copy = content ?? DEFAULT_SECTION_CONTENTS.stories
   const [currentIndex, setCurrentIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
   const [visibleCount, setVisibleCount] = useState(3)
@@ -294,16 +302,19 @@ export function MemberStories({ stories }: { stories: Story[] }) {
   return (
     <Section id="cerita" style={{ background: C.white }}>
       <SectionHeading
-        eyebrow="People"
+        eyebrow={copy.badge || undefined}
         title={
           <>
-            THE PEOPLE
-            <br />
-            BEHIND THE
-            <br />
-            JOURNEY.
+            {copy.title}
+            {copy.title_highlight && (
+              <>
+                <br />
+                {copy.title_highlight}
+              </>
+            )}
           </>
         }
+        description={copy.description || undefined}
       />
 
       {/* Carousel */}
@@ -319,11 +330,7 @@ export function MemberStories({ stories }: { stories: Story[] }) {
             onClick={previous}
             aria-label="Previous story"
             disabled={isTransitioning}
-            className="absolute -left-4 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border bg-white transition-all duration-300 hover:-translate-x-1 hover:bg-[#8B1A1A] hover:text-white disabled:cursor-not-allowed disabled:opacity-50 lg:-left-6 shadow-md"
-            style={{
-              borderColor: C.crimson,
-              color: C.crimson,
-            }}
+            className="absolute -left-4 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-crimson bg-white text-crimson transition-all duration-300 hover:-translate-x-1 hover:bg-crimson hover:text-white disabled:cursor-not-allowed disabled:opacity-50 lg:-left-6 shadow-md"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -351,11 +358,7 @@ export function MemberStories({ stories }: { stories: Story[] }) {
             type="button"
             onClick={next}
             aria-label="Next story"
-            className="absolute -right-4 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border bg-white transition-all duration-300 hover:translate-x-1 hover:bg-[#8B1A1A] hover:text-white lg:-right-6 shadow-md"
-            style={{
-              borderColor: C.crimson,
-              color: C.crimson,
-            }}
+            className="absolute -right-4 top-1/2 z-20 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-crimson bg-white text-crimson transition-all duration-300 hover:translate-x-1 hover:bg-crimson hover:text-white lg:-right-6 shadow-md"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -387,8 +390,9 @@ export function MemberStories({ stories }: { stories: Story[] }) {
               {index === currentIndex && !isPaused && (
                 <span
                   key={`progress-${currentIndex}`}
-                  className="absolute inset-y-0 left-0 rounded-full bg-[#C94A4A]"
+                  className="absolute inset-y-0 left-0 rounded-full"
                   style={{
+                    background: 'color-mix(in srgb, var(--theme-primary, #8B1D1D) 75%, white)',
                     animation: `storyProgress ${AUTOPLAY_INTERVAL}ms linear forwards`,
                   }}
                 />

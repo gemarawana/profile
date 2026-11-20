@@ -6,6 +6,7 @@ import type { Database } from '@/types/database.types'
 type TableName = keyof Database['public']['Tables']
 
 export function revalidatePublic() {
+  revalidatePath('/', 'layout')
   for (const path of PUBLIC_REVALIDATE_PATHS) {
     revalidatePath(path)
   }

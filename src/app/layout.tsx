@@ -1,7 +1,10 @@
 import type { Metadata } from 'next'
+import type { CSSProperties } from 'react'
 import { Plus_Jakarta_Sans, Inter } from 'next/font/google'
 import './globals.css'
 import ModalProvider from '@/components/ui/ModalProvider'
+import { getThemeColor } from '@/lib/dal'
+import { getThemeCssVariables } from '@/lib/theme'
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
@@ -23,13 +26,20 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  const themeColor = await getThemeColor()
+  const themeStyle = getThemeCssVariables(themeColor) as CSSProperties
+
   return (
-    <html lang="id" className={`${plusJakartaSans.variable} ${inter.variable}`}>
+    <html
+      lang="id"
+      className={`${plusJakartaSans.variable} ${inter.variable}`}
+      style={themeStyle}
+    >
       <body suppressHydrationWarning>
         <ModalProvider>
           {children}

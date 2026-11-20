@@ -31,7 +31,7 @@ export default function RootLoading() {
         count={4}
         columns={4}
         variant="portrait"
-        background={C.crimsonDeep}
+        background={C.darkBg}
         isDark={true}
         headerAlign="between"
       />

@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { BENTO_SPAN_OPTIONS, GALLERY_GRID_PRESETS, WHY_CARD_ICONS } from '@/lib/constants/cms'
+import { HEX_COLOR_REGEX } from '@/lib/theme'
 
 const whyIconValues = WHY_CARD_ICONS.map(i => i.value) as [string, ...string[]]
 const bentoValues = BENTO_SPAN_OPTIONS.map(i => i.value) as [string, ...string[]]
@@ -128,6 +129,59 @@ export const navLinkSchema = z.object({
   href: z.string().min(1),
 })
 
+const hexColorField = (label: string, example: string) =>
+  z
+    .string()
+    .trim()
+    .regex(HEX_COLOR_REGEX, `Format warna ${label} harus hex 6 digit (contoh: ${example})`)
+    .transform(v => v.toUpperCase())
+
+export const themeColorSchema = z.object({
+  primary: hexColorField('Primary', '#8B1D1D'),
+  primary_hover: hexColorField('Primary Hover', '#6E1515'),
+  primary_light: hexColorField('Primary Light', '#FDF2F2'),
+  preset_name: z.string().trim().min(1, 'Nama preset wajib diisi').max(100),
+})
+
+const requiredSectionTitle = z.string().trim().min(1, 'Judul section tidak boleh kosong').max(200)
+const optionalSectionText = z.string().max(1000).default('')
+
+const standardSectionSchema = z.object({
+  badge: z.string().max(120).default(''),
+  title: requiredSectionTitle,
+  title_highlight: z.string().max(200).default(''),
+  description: optionalSectionText,
+})
+
+export const sectionContentsSchema = z.object({
+  hero: z.object({
+    title: requiredSectionTitle,
+    title_highlight: z.string().max(200).default(''),
+    description: optionalSectionText,
+  }),
+  introduction: standardSectionSchema.extend({
+    secondary_description: optionalSectionText,
+  }),
+  about: standardSectionSchema,
+  our_story: standardSectionSchema,
+  organization: standardSectionSchema,
+  activities: standardSectionSchema,
+  journey: standardSectionSchema,
+  articles: standardSectionSchema.extend({
+    button_text: z.string().max(100).default(''),
+  }),
+  stories: standardSectionSchema,
+  impact: standardSectionSchema,
+  gallery: standardSectionSchema.extend({
+    button_text: z.string().max(100).default(''),
+  }),
+  faq: standardSectionSchema,
+  cta: standardSectionSchema.extend({
+    button_text: z.string().max(100).default(''),
+    secondary_button_text: z.string().max(100).default(''),
+  }),
+})
+
 export const siteSettingsSchema = z.object({
   nav_links: z.array(navLinkSchema),
   contact: z.array(navLinkSchema),
@@ -135,6 +189,8 @@ export const siteSettingsSchema = z.object({
   intro_image: z.string().optional(),
   cta_image: z.string().optional(),
   join_url: z.string().optional(),
+  theme_color: themeColorSchema,
+  section_contents: sectionContentsSchema,
 })
 
 export type ActionResult = {

@@ -226,7 +226,7 @@ export function CheckboxField({
         name={name}
         value="true"
         defaultChecked={defaultChecked}
-        className="h-4 w-4 rounded border-[#E8E5E0] text-[#8B1A1A] focus:ring-[#8B1A1A]"
+        className="h-4 w-4 rounded border-[#E8E5E0] text-crimson accent-crimson focus:ring-crimson"
       />
       {label}
     </label>

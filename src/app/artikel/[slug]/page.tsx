@@ -75,7 +75,7 @@ export default async function ArticleDetailPage({ params }: Props) {
           <div className="mb-8">
             <Link
               href="/#berita"
-              className="inline-flex items-center gap-2 text-sm font-bold text-[#8B1A1A] hover:text-[#6B1414] transition-colors py-2 px-4 rounded-full bg-[#8B1A1A]/5 hover:bg-[#8B1A1A]/10"
+              className="inline-flex items-center gap-2 text-sm font-bold text-crimson hover:text-crimson-dark transition-colors py-2 px-4 rounded-full bg-crimson/5 hover:bg-crimson/10"
             >
               <svg
                 width="16"
@@ -201,7 +201,7 @@ export default async function ArticleDetailPage({ params }: Props) {
             <div className="mt-12 pt-8 border-t flex flex-wrap items-center justify-between gap-4" style={{ borderColor: C.border }}>
               <Link
                 href="/#berita"
-                className="inline-flex items-center gap-2 text-sm font-bold text-[#8B1A1A] hover:underline"
+                className="inline-flex items-center gap-2 text-sm font-bold text-crimson hover:underline"
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M19 12H5" />
@@ -238,7 +238,7 @@ export default async function ArticleDetailPage({ params }: Props) {
                         <div className="absolute top-3 left-3 z-10">
                           <span
                             className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-white"
-                            style={{ background: 'rgba(20,6,6,0.85)', backdropFilter: 'blur(4px)' }}
+                            style={{ background: 'rgba(var(--color-dark-bg-rgb, 22, 11, 11), 0.85)', backdropFilter: 'blur(4px)' }}
                           >
                             {item.category}
                           </span>
@@ -249,7 +249,7 @@ export default async function ArticleDetailPage({ params }: Props) {
                         <div className="text-[11px] font-bold text-gray-500 mb-2">
                           {formatDate(item.date)}
                         </div>
-                        <h3 className="font-display font-bold text-base mb-2 line-clamp-2 group-hover:text-[#8B1A1A] transition-colors">
+                        <h3 className="font-display font-bold text-base mb-2 line-clamp-2 group-hover:text-crimson transition-colors">
                           {item.title}
                         </h3>
                         <p className="text-xs text-gray-600 line-clamp-2">
@@ -258,7 +258,7 @@ export default async function ArticleDetailPage({ params }: Props) {
                       </div>
                     </div>
 
-                    <div className="p-5 pt-0 text-xs font-bold text-[#8B1A1A] flex items-center justify-between">
+                    <div className="p-5 pt-0 text-xs font-bold text-crimson flex items-center justify-between">
                       <span className="text-[11px] text-gray-500 font-normal">{item.author}</span>
                       <span>Baca →</span>
                     </div>

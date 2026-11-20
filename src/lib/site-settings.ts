@@ -3,8 +3,14 @@ import type { Database } from '@/types/database.types'
 import type { SiteSettingsKey } from '@/lib/constants/cms'
 import { SITE_SETTINGS_KEYS } from '@/lib/constants/cms'
 import { z } from 'zod'
-import { navLinkSchema } from '@/lib/validations/cms'
+import { navLinkSchema, sectionContentsSchema, themeColorSchema } from '@/lib/validations/cms'
 import { revalidatePublic } from '@/lib/dal/admin'
+import { DEFAULT_THEME_COLOR, normalizeThemeColor, type ThemeColorConfig } from '@/lib/theme'
+import {
+  cloneDefaultSectionContents,
+  normalizeSectionContents,
+  type SectionContentsConfig,
+} from '@/lib/section-contents'
 
 export type NavLink = z.infer<typeof navLinkSchema>
 
@@ -17,6 +23,8 @@ export type TypedSiteSettings = {
   intro_image: string
   cta_image: string
   join_url: string
+  theme_color: ThemeColorConfig
+  section_contents: SectionContentsConfig
 }
 
 const DEFAULTS: TypedSiteSettings = {
@@ -26,6 +34,8 @@ const DEFAULTS: TypedSiteSettings = {
   intro_image: '',
   cta_image: '',
   join_url: '',
+  theme_color: { ...DEFAULT_THEME_COLOR },
+  section_contents: cloneDefaultSectionContents(),
 }
 
 function parseLinks(value: unknown): NavLink[] {
@@ -46,7 +56,11 @@ export async function getTypedSiteSettings(): Promise<TypedSiteSettings> {
     throw new Error(error.message)
   }
 
-  const result: TypedSiteSettings = { ...DEFAULTS }
+  const result: TypedSiteSettings = {
+    ...DEFAULTS,
+    theme_color: { ...DEFAULT_THEME_COLOR },
+    section_contents: cloneDefaultSectionContents(),
+  }
 
   for (const row of data ?? []) {
     const key = row.key as SiteSettingsKey
@@ -59,6 +73,10 @@ export async function getTypedSiteSettings(): Promise<TypedSiteSettings> {
       result[key] = typeof row.value === 'string'
         ? row.value
         : ''
+    } else if (key === 'theme_color') {
+      result.theme_color = normalizeThemeColor(row.value)
+    } else if (key === 'section_contents') {
+      result.section_contents = normalizeSectionContents(row.value)
     } else {
       result[key] = parseLinks(row.value)
     }
@@ -81,6 +99,10 @@ export async function updateSiteSetting(
     }
 
     jsonValue = value
+  } else if (key === 'theme_color') {
+    jsonValue = themeColorSchema.parse(value) as Json
+  } else if (key === 'section_contents') {
+    jsonValue = sectionContentsSchema.parse(value) as Json
   } else {
     jsonValue = z.array(navLinkSchema).parse(value)
   }
@@ -111,4 +133,4 @@ export async function updateAllSiteSettings(
   for (const key of SITE_SETTINGS_KEYS) {
     await updateSiteSetting(key, settings[key])
   }
-}
+}

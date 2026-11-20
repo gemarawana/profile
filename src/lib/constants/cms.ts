@@ -37,7 +37,16 @@ export const GALLERY_GRID_PRESETS = [
 
 export type GalleryGridClass = (typeof GALLERY_GRID_PRESETS)[number]['value']
 
-export const SITE_SETTINGS_KEYS = ['nav_links', 'contact', 'footer_socials', 'intro_image', 'cta_image', 'join_url'] as const
+export const SITE_SETTINGS_KEYS = [
+  'nav_links',
+  'contact',
+  'footer_socials',
+  'intro_image',
+  'cta_image',
+  'join_url',
+  'theme_color',
+  'section_contents',
+] as const
 export type SiteSettingsKey = (typeof SITE_SETTINGS_KEYS)[number]
 
 export const ADMIN_NAV = [
@@ -69,4 +78,12 @@ export const ADMIN_NAV = [
   },
 ] as const
 
-export const PUBLIC_REVALIDATE_PATHS = ['/', '/about', '/activities', '/gallery', '/stories', '/recruitment'] as const
+export const PUBLIC_REVALIDATE_PATHS = [
+  '/',
+  '/about',
+  '/activities',
+  '/artikel',
+  '/gallery',
+  '/stories',
+  '/recruitment',
+] as const

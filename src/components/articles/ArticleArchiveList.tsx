@@ -83,7 +83,7 @@ export function ArticleArchiveList({ articles }: { articles: NewsArticle[] }) {
               placeholder="Cari judul, kata kunci, atau penulis..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-full border text-sm transition-all focus:outline-none focus:ring-2 focus:ring-[#8B1A1A]/20 focus:border-[#8B1A1A]"
+              className="w-full pl-10 pr-4 py-2.5 rounded-full border text-sm transition-all focus:outline-none focus:ring-2 focus:ring-crimson/20 focus:border-crimson"
               style={{ borderColor: C.border }}
             />
             <svg
@@ -110,7 +110,7 @@ export function ArticleArchiveList({ articles }: { articles: NewsArticle[] }) {
             <select
               value={itemsPerPage}
               onChange={(e) => setItemsPerPage(Number(e.target.value))}
-              className="rounded-lg border px-3 py-1.5 bg-white text-xs font-bold text-[#1A0A0A] focus:outline-none focus:border-[#8B1A1A] cursor-pointer"
+              className="rounded-lg border px-3 py-1.5 bg-white text-xs font-bold text-[#1A0A0A] focus:outline-none focus:border-crimson cursor-pointer"
               style={{ borderColor: C.border }}
             >
               <option value={10}>10 / halaman</option>
@@ -183,7 +183,7 @@ export function ArticleArchiveList({ articles }: { articles: NewsArticle[] }) {
         {selectedCategory !== 'all' && (
           <button
             onClick={() => setSelectedCategory('all')}
-            className="text-[#8B1A1A] hover:underline font-bold"
+            className="text-crimson hover:underline font-bold"
           >
             Reset Kategori
           </button>
@@ -213,7 +213,7 @@ export function ArticleArchiveList({ articles }: { articles: NewsArticle[] }) {
                     <span
                       className="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider text-white shadow-sm inline-block"
                       style={{
-                        background: 'rgba(20,6,6,0.85)',
+                        background: 'rgba(var(--color-dark-bg-rgb, 22, 11, 11), 0.85)',
                         backdropFilter: 'blur(4px)',
                         fontFamily: 'Plus Jakarta Sans, sans-serif',
                       }}
@@ -237,8 +237,7 @@ export function ArticleArchiveList({ articles }: { articles: NewsArticle[] }) {
                     )}
                   </div>
                   <h4
-                    className="font-display font-black text-lg mb-2.5 line-clamp-2 group-hover:text-[#8B1A1A] transition-colors"
-                    style={{ color: C.text }}
+                    className="font-display font-black text-lg mb-2.5 line-clamp-2 text-text-main group-hover:text-crimson transition-colors"
                   >
                     {art.title}
                   </h4>
@@ -289,7 +288,7 @@ export function ArticleArchiveList({ articles }: { articles: NewsArticle[] }) {
         </div>
       ) : (
         <div className="rounded-3xl border border-dashed p-16 text-center bg-white" style={{ borderColor: C.border }}>
-          <div className="w-16 h-16 rounded-full bg-[#8B1A1A]/10 text-[#8B1A1A] flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 rounded-full bg-crimson/10 text-crimson flex items-center justify-center mx-auto mb-4">
             <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
             </svg>

@@ -4,6 +4,7 @@ import { Navbar } from '@/components/layout/Navbar'
 import { Footer } from '@/components/layout/Footer'
 import {
   getFaqs,
+  getSectionContents,
   getSiteSettings,
 } from '@/lib/dal'
 
@@ -20,6 +21,7 @@ export default async function RecruitmentPage() {
     footerSocials,
     ctaImage,
     joinUrl,
+    sectionContents,
   ] = await Promise.all([
     getFaqs(),
     getSiteSettings('nav_links'),
@@ -27,6 +29,7 @@ export default async function RecruitmentPage() {
     getSiteSettings('footer_socials'),
     getSiteSettings('cta_image'),
     getSiteSettings('join_url'),
+    getSectionContents(),
   ])
 
   return (
@@ -40,9 +43,10 @@ export default async function RecruitmentPage() {
         <RecruitmentCTA
           backgroundImage={(ctaImage as string) || ''}
           joinUrl={(joinUrl as string) || ''}
+          content={sectionContents.cta}
         />
 
-        <FAQ faqs={faqs} />
+        <FAQ faqs={faqs} content={sectionContents.faq} />
       </main>
 
       <Footer

@@ -9,7 +9,11 @@ import { Input, Label } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { toast } from '@/components/ui/toast'
 import type { TypedSiteSettings, NavLink } from '@/lib/site-settings'
+import { DEFAULT_THEME_COLOR, type ThemeColorConfig } from '@/lib/theme'
+import { cloneDefaultSectionContents, type SectionContentsConfig } from '@/lib/section-contents'
 import type { ActionResult } from '@/lib/validations/cms'
+import { ThemeColorPicker } from './theme-color-picker'
+import { SectionContentsEditor } from './section-contents-editor'
 
 function LinkRepeaterSection({
   title,
@@ -53,13 +57,13 @@ function LinkRepeaterSection({
 
       <div className="flex items-start justify-between border-b border-[#E8E5E0] pb-3 mb-2">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#8B1A1A]/10 text-[#8B1A1A]">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-crimson/10 text-crimson">
             <SectionIcon className="h-5 w-5" />
           </div>
           <div>
             <div className="flex items-center gap-2">
               <h3 className="font-bold text-sm text-[#1A0A0A] uppercase tracking-wider">{title}</h3>
-              <span className="inline-flex items-center rounded-full bg-[#FAF9F7] px-2.5 py-0.5 text-xs font-bold text-[#8B1A1A] border border-[#E8E5E0]">
+              <span className="inline-flex items-center rounded-full bg-[#FAF9F7] px-2.5 py-0.5 text-xs font-bold text-crimson border border-[#E8E5E0]">
                 {items.length} item
               </span>
             </div>
@@ -78,7 +82,7 @@ function LinkRepeaterSection({
           {items.map((item, index) => (
             <div
               key={index}
-              className="group flex flex-col sm:flex-row items-stretch sm:items-center gap-3 rounded-xl border border-[#E8E5E0] bg-[#FAF9F7]/60 p-3 transition-colors hover:bg-white hover:border-[#8B1A1A]/30"
+              className="group flex flex-col sm:flex-row items-stretch sm:items-center gap-3 rounded-xl border border-[#E8E5E0] bg-[#FAF9F7]/60 p-3 transition-colors hover:bg-white hover:border-crimson/30"
             >
               <div className="flex items-center gap-2">
                 <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-[#E8E5E0] text-[11px] font-bold text-[#6B5A5A]">
@@ -131,7 +135,7 @@ function LinkRepeaterSection({
           variant="outline"
           size="sm"
           onClick={handleAdd}
-          className="w-full sm:w-auto border-dashed border-[#8B1A1A]/40 text-[#8B1A1A] hover:bg-[#8B1A1A]/5 hover:border-[#8B1A1A]"
+          className="w-full sm:w-auto border-dashed border-crimson/40 text-crimson hover:bg-crimson/5 hover:border-crimson"
         >
           <Plus className="h-4 w-4 mr-1.5" />
           {addButtonLabel}
@@ -153,6 +157,12 @@ export function SettingsForm({
   const [error, setError] = useState<string | undefined>()
   const [contacts, setContacts] = useState<NavLink[]>(initial.contact || [])
   const [socials, setSocials] = useState<NavLink[]>(initial.footer_socials || [])
+  const [themeColor, setThemeColor] = useState<ThemeColorConfig>(
+    initial.theme_color ?? DEFAULT_THEME_COLOR
+  )
+  const [sectionContents, setSectionContents] = useState<SectionContentsConfig>(
+    initial.section_contents ?? cloneDefaultSectionContents()
+  )
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -190,7 +200,7 @@ export function SettingsForm({
       <div className="top-4 z-20 flex items-center justify-between gap-3 rounded-2xl border border-[#E8E5E0] bg-white/95 p-4 shadow-2xs backdrop-blur-md">
         <div>
           <span className="text-xs font-bold uppercase tracking-wider text-[#6B5A5A]">Pengaturan Website</span>
-          <p className="text-xs text-gray-500">Kelola informasi kontak, sosial media, media utama, dan link pendaftaran.</p>
+          <p className="text-xs text-gray-500">Kelola warna tema, konten teks section, informasi kontak, sosial media, media utama, dan link pendaftaran.</p>
         </div>
 
         <div className="flex items-center gap-2">
@@ -212,10 +222,14 @@ export function SettingsForm({
         </p>
       )}
 
+      <ThemeColorPicker value={themeColor} onChange={setThemeColor} />
+
+      <SectionContentsEditor value={sectionContents} onChange={setSectionContents} />
+
       {/* Section 1: Join / Recruitment Redirect URL */}
       <div className="rounded-2xl border border-[#E8E5E0] bg-white p-5 md:p-6 shadow-2xs space-y-4">
         <div className="flex items-center gap-2.5 border-b border-[#E8E5E0] pb-3 mb-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#8B1A1A]/10 text-[#8B1A1A]">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-crimson/10 text-crimson">
             <UserPlus className="h-5 w-5" />
           </div>
           <div>
@@ -271,7 +285,7 @@ export function SettingsForm({
       {/* Section 4: Site Images */}
       <div className="rounded-2xl border border-[#E8E5E0] bg-white p-5 md:p-6 shadow-2xs space-y-4">
         <div className="flex items-center gap-2.5 border-b border-[#E8E5E0] pb-3 mb-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#8B1A1A]/10 text-[#8B1A1A]">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-crimson/10 text-crimson">
             <Link2 className="h-5 w-5" />
           </div>
           <div>

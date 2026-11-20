@@ -64,7 +64,7 @@ export function Navbar({ links, joinUrl }: NavbarProps) {
           style={{
             background: scrolled ? 'rgba(255,255,255,0.97)' : 'rgba(255,255,255,0.88)',
             backdropFilter: 'blur(20px)',
-            boxShadow: scrolled ? '0 4px 32px rgba(139,26,26,0.10)' : '0 2px 16px rgba(0,0,0,0.06)',
+            boxShadow: scrolled ? '0 4px 32px rgba(var(--theme-primary-rgb, 139, 29, 29), 0.10)' : '0 2px 16px rgba(0,0,0,0.06)',
             borderBottom: `1px solid ${scrolled ? C.border : 'rgba(255,255,255,0.5)'}`,
             borderRadius: 0,
           }}
@@ -139,15 +139,15 @@ export function Navbar({ links, joinUrl }: NavbarProps) {
                 background: C.crimson,
                 color: '#fff',
                 fontFamily: 'Plus Jakarta Sans, sans-serif',
-                boxShadow: '0 4px 16px rgba(139,26,26,0.28)',
+                boxShadow: '0 4px 16px rgba(var(--theme-primary-rgb, 139, 29, 29), 0.28)',
               }}
               onMouseEnter={e => {
                 e.currentTarget.style.background = C.crimsonDark
-                e.currentTarget.style.boxShadow = '0 6px 20px rgba(139,26,26,0.4)'
+                e.currentTarget.style.boxShadow = '0 6px 20px rgba(var(--theme-primary-rgb, 139, 29, 29), 0.4)'
               }}
               onMouseLeave={e => {
                 e.currentTarget.style.background = C.crimson
-                e.currentTarget.style.boxShadow = '0 4px 16px rgba(139,26,26,0.28)'
+                e.currentTarget.style.boxShadow = '0 4px 16px rgba(var(--theme-primary-rgb, 139, 29, 29), 0.28)'
               }}
               onClick={e => {
                 if (!hasJoinUrl) {

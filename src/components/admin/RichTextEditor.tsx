@@ -80,7 +80,7 @@ export function RichTextEditor({
       Link.configure({
         openOnClick: false,
         HTMLAttributes: {
-          class: 'text-[#8B1A1A] underline font-semibold hover:text-[#6B1414]',
+          class: 'text-crimson underline font-semibold hover:text-crimson-dark',
         },
       }),
       ImageExtension.configure({
@@ -266,7 +266,7 @@ export function RichTextEditor({
       title={title}
       className={`flex h-8 w-8 items-center justify-center rounded-md text-sm transition-colors ${
         isActive
-          ? 'bg-[#8B1A1A] text-white'
+          ? 'bg-crimson text-white'
           : 'text-gray-700 hover:bg-gray-100 hover:text-gray-900 active:bg-gray-200'
       } disabled:opacity-30 disabled:pointer-events-none`}
     >
@@ -474,7 +474,7 @@ export function RichTextEditor({
           title="Unggah Gambar dari Perangkat (JPG, PNG, WebP)"
         >
           {uploadingImage ? (
-            <Loader2 className="h-4 w-4 animate-spin text-[#8B1A1A]" />
+            <Loader2 className="h-4 w-4 animate-spin text-crimson" />
           ) : (
             <ImagePlus className="h-4 w-4" />
           )}
@@ -517,7 +517,7 @@ export function RichTextEditor({
         <div className="flex items-center gap-2">
           <span>Rich Text Editor (Tiptap)</span>
           {uploadingImage && (
-            <span className="inline-flex items-center gap-1.5 font-semibold text-[#8B1A1A]">
+            <span className="inline-flex items-center gap-1.5 font-semibold text-crimson">
               <Loader2 className="h-3 w-3 animate-spin" />
               Mengunggah gambar...
             </span>

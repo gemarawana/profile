@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Section } from '@/components/ui/Section'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { C } from '@/lib/constants'
+import { DEFAULT_SECTION_CONTENTS, type ButtonSectionContent } from '@/lib/section-contents'
 import type { NewsArticle } from '@/types'
 
 function formatDate(dateStr: string) {
@@ -13,15 +14,33 @@ function formatDate(dateStr: string) {
   return dateStr.slice(0, 10)
 }
 
-export function Article({ articles = [] }: { articles: NewsArticle[] }) {
+export function Article({
+  articles = [],
+  content,
+}: {
+  articles: NewsArticle[]
+  content?: ButtonSectionContent
+}) {
+  const copy = content ?? DEFAULT_SECTION_CONTENTS.articles
+  const headingTitle = (
+    <>
+      {copy.title}
+      {copy.title_highlight && (
+        <>
+          <br />
+          {copy.title_highlight}
+        </>
+      )}
+    </>
+  )
 
   if (!articles || articles.length === 0) {
     return (
       <Section id="berita" style={{ background: C.lightGray }}>
         <SectionHeading
-          eyebrow="Journalism & Events"
-          title={<>LATEST DISPATCHES<br />&amp; REPORTS</>}
-          description="Expedition reports, activity updates, and news coverage from all Gemarawana divisions."
+          eyebrow={copy.badge || undefined}
+          title={headingTitle}
+          description={copy.description || undefined}
           align="center"
         />
         <div className="rounded-3xl border border-dashed p-12 text-center" style={{ borderColor: C.border, background: C.white }}>
@@ -46,9 +65,9 @@ export function Article({ articles = [] }: { articles: NewsArticle[] }) {
   return (
     <Section id="berita" style={{ background: C.lightGray }}>
       <SectionHeading
-        eyebrow="Journalism & Events"
-        title={<>LATEST DISPATCHES<br />&amp; REPORTS</>}
-        description="Expedition reports, activity updates, and news coverage from all Gemarawana divisions."
+        eyebrow={copy.badge || undefined}
+        title={headingTitle}
+        description={copy.description || undefined}
         align="center"
       />
 
@@ -94,8 +113,7 @@ export function Article({ articles = [] }: { articles: NewsArticle[] }) {
                   )}
                 </div>
                 <h3
-                  className="font-display font-black text-xl lg:text-2xl mb-4 leading-snug group-hover:text-[#8B1A1A] transition-colors"
-                  style={{ color: C.text }}
+                  className="font-display font-black text-xl lg:text-2xl mb-4 leading-snug text-text-main group-hover:text-crimson transition-colors"
                 >
                   {featured.title}
                 </h3>
@@ -173,7 +191,7 @@ export function Article({ articles = [] }: { articles: NewsArticle[] }) {
                       <span
                         className="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider text-white shadow-sm inline-block"
                         style={{
-                          background: 'rgba(20,6,6,0.85)',
+                          background: 'rgba(var(--color-dark-bg-rgb, 22, 11, 11), 0.85)',
                           backdropFilter: 'blur(4px)',
                           fontFamily: 'Plus Jakarta Sans, sans-serif',
                         }}
@@ -197,8 +215,7 @@ export function Article({ articles = [] }: { articles: NewsArticle[] }) {
                       )}
                     </div>
                     <h4
-                      className="font-display font-black text-lg mb-2.5 line-clamp-2 group-hover:text-[#8B1A1A] transition-colors"
-                      style={{ color: C.text }}
+                      className="font-display font-black text-lg mb-2.5 line-clamp-2 text-text-main group-hover:text-crimson transition-colors"
                     >
                       {art.title}
                     </h4>
@@ -253,9 +270,9 @@ export function Article({ articles = [] }: { articles: NewsArticle[] }) {
           <div className="mt-6 w-full">
             <Link
               href="/artikel"
-              className="block w-full rounded-full border-[1.5px] border-[#8B1A1A] bg-transparent px-7 py-3 text-center text-base font-bold text-[#8B1A1A] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#8B1A1A] hover:text-white cursor-pointer no-underline"
+              className="block w-full rounded-full border-[1.5px] border-crimson bg-transparent px-7 py-3 text-center text-base font-bold text-crimson transition-all duration-300 hover:-translate-y-0.5 hover:bg-crimson hover:text-white cursor-pointer no-underline"
             >
-              Lihat Berita Lainnya
+              {copy.button_text || DEFAULT_SECTION_CONTENTS.articles.button_text}
             </Link>
           </div>
         )}

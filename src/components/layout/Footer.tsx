@@ -28,12 +28,12 @@ export function Footer({
   const contactLinks = contact ?? navigation ?? []
 
   return (
-    <footer id="footer" className="py-16 md:py-20" style={{ background: C.crimsonDeep }}>
+    <footer id="footer" className="py-16 md:py-20" style={{ background: C.darkBg }}>
       <Container>
         {/* Top */}
         <div
           className="flex flex-col md:flex-row md:justify-between gap-12 mb-14 pb-14 border-b"
-          style={{ borderColor: 'rgba(255,255,255,0.12)' }}
+          style={{ borderColor: C.darkBorder }}
         >
           {/* Brand */}
           <div className="max-w-xs">

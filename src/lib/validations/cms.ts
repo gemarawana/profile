@@ -129,22 +129,17 @@ export const navLinkSchema = z.object({
   href: z.string().min(1),
 })
 
+const hexColorField = (label: string, example: string) =>
+  z
+    .string()
+    .trim()
+    .regex(HEX_COLOR_REGEX, `Format warna ${label} harus hex 6 digit (contoh: ${example})`)
+    .transform(v => v.toUpperCase())
+
 export const themeColorSchema = z.object({
-  primary: z
-    .string()
-    .trim()
-    .regex(HEX_COLOR_REGEX, 'Format warna Primary harus hex 6 digit (contoh: #8B1D1D)')
-    .transform(v => v.toUpperCase()),
-  primary_hover: z
-    .string()
-    .trim()
-    .regex(HEX_COLOR_REGEX, 'Format warna Primary Hover harus hex 6 digit (contoh: #6E1515)')
-    .transform(v => v.toUpperCase()),
-  primary_light: z
-    .string()
-    .trim()
-    .regex(HEX_COLOR_REGEX, 'Format warna Primary Light harus hex 6 digit (contoh: #FDF2F2)')
-    .transform(v => v.toUpperCase()),
+  primary: hexColorField('Primary', '#8B1D1D'),
+  primary_hover: hexColorField('Primary Hover', '#6E1515'),
+  primary_light: hexColorField('Primary Light', '#FDF2F2'),
   preset_name: z.string().trim().min(1, 'Nama preset wajib diisi').max(100),
 })
 

@@ -38,7 +38,9 @@ describe('theme utilities', () => {
 
   it('normalizes partial or invalid theme objects to safe defaults', () => {
     assert.deepEqual(normalizeThemeColor(null), DEFAULT_THEME_COLOR)
+    assert.deepEqual(normalizeThemeColor([]), DEFAULT_THEME_COLOR)
     assert.deepEqual(normalizeThemeColor('not-an-object'), DEFAULT_THEME_COLOR)
+    assert.equal(normalizeThemeColor({ preset_name: '   ' }).preset_name, DEFAULT_THEME_COLOR.preset_name)
     assert.deepEqual(
       normalizeThemeColor({
         primary: '#1565c0',

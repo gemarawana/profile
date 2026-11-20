@@ -15,15 +15,16 @@ interface ColorInputRowProps {
   label: string
   hint: string
   value: string
+  fallbackValue: string
   onChange: (nextHex: string) => void
 }
 
 /**
  * Paired native color picker and 6-digit hex text input for a single theme token.
  */
-function ColorInputRow({ id, label, hint, value, onChange }: ColorInputRowProps) {
+function ColorInputRow({ id, label, hint, value, fallbackValue, onChange }: ColorInputRowProps) {
   // Native <input type="color"> requires a valid 6-digit hex value at all times while typing.
-  const safePickerValue = isValidHexColor(value) ? value : DEFAULT_THEME_COLOR.primary
+  const safePickerValue = isValidHexColor(value) ? value : fallbackValue
 
   return (
     <div className="rounded-xl border border-[#E8E5E0] bg-[#FAF9F7]/70 p-3.5 space-y-2">
@@ -47,9 +48,8 @@ function ColorInputRow({ id, label, hint, value, onChange }: ColorInputRowProps)
           type="text"
           value={value}
           onChange={e => {
-            const raw = e.target.value.trim()
-            const formatted = raw.startsWith('#') ? raw : `#${raw}`
-            onChange(formatted.slice(0, 7).toUpperCase())
+            const cleaned = e.target.value.trim().replace(/[^0-9A-Fa-f]/g, '').slice(0, 6).toUpperCase()
+            onChange(cleaned ? `#${cleaned}` : '')
           }}
           placeholder="#8B1D1D"
           maxLength={7}
@@ -58,6 +58,17 @@ function ColorInputRow({ id, label, hint, value, onChange }: ColorInputRowProps)
         />
       </div>
     </div>
+  )
+}
+
+function matchesPreset(
+  theme: Pick<ThemeColorConfig, 'primary' | 'primary_hover' | 'primary_light'>,
+  preset: ThemeColorConfig
+) {
+  return (
+    theme.primary.toUpperCase() === preset.primary.toUpperCase() &&
+    theme.primary_hover.toUpperCase() === preset.primary_hover.toUpperCase() &&
+    theme.primary_light.toUpperCase() === preset.primary_light.toUpperCase()
   )
 }
 
@@ -76,10 +87,11 @@ export function ThemeColorPicker({
   }
 
   function handleCustomFieldChange(field: 'primary' | 'primary_hover' | 'primary_light', hex: string) {
+    const next = { ...value, [field]: hex }
+    const matchedPreset = THEME_PRESETS.find(preset => matchesPreset(next, preset))
     onChange({
-      ...value,
-      [field]: hex,
-      preset_name: 'Custom',
+      ...next,
+      preset_name: matchedPreset ? matchedPreset.preset_name : 'Custom',
     })
   }
 
@@ -136,10 +148,7 @@ export function ThemeColorPicker({
         <Label className="mb-0">Preset Warna Rekomendasi</Label>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
           {THEME_PRESETS.map(preset => {
-            const isSelected =
-              value.primary.toUpperCase() === preset.primary.toUpperCase() &&
-              value.primary_hover.toUpperCase() === preset.primary_hover.toUpperCase() &&
-              value.primary_light.toUpperCase() === preset.primary_light.toUpperCase()
+            const isSelected = matchesPreset(value, preset)
 
             return (
               <button
@@ -196,6 +205,7 @@ export function ThemeColorPicker({
             label="Primary"
             hint="Warna aksen utama (judul aksen, tombol, ikon, border aktif)"
             value={value.primary}
+            fallbackValue={DEFAULT_THEME_COLOR.primary}
             onChange={hex => handleCustomFieldChange('primary', hex)}
           />
           <ColorInputRow
@@ -203,6 +213,7 @@ export function ThemeColorPicker({
             label="Primary Hover"
             hint="Warna tombol & tautan aksen saat diarahkan kursor"
             value={value.primary_hover}
+            fallbackValue={DEFAULT_THEME_COLOR.primary_hover}
             onChange={hex => handleCustomFieldChange('primary_hover', hex)}
           />
           <ColorInputRow
@@ -210,6 +221,7 @@ export function ThemeColorPicker({
             label="Primary Light"
             hint="Warna tint lembut untuk badge & sorotan permukaan"
             value={value.primary_light}
+            fallbackValue={DEFAULT_THEME_COLOR.primary_light}
             onChange={hex => handleCustomFieldChange('primary_light', hex)}
           />
         </div>

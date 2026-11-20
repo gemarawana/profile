@@ -7,12 +7,12 @@
   --theme-primary-hover: #6E1515;
   --theme-primary-light: #FDF2F2;
   --theme-primary-rgb: 139, 29, 29;
-  --color-dark-bg: #160B0B;
-  --color-dark-bg-rgb: 22, 11, 11;
-  --color-dark-surface: #251313;
-  --color-dark-surface-rgb: 37, 19, 19;
+  --color-dark-bg: #180A0A;
+  --color-dark-bg-rgb: 24, 10, 10;
+  --color-dark-surface: #261313;
+  --color-dark-surface-rgb: 38, 19, 19;
   --color-dark-border: rgba(255, 255, 255, 0.08);
-  --color-primary-bright: #DC4C4C;
+  --color-primary-bright: #DC5656;
 }
 
 @theme inline {
@@ -134,7 +134,7 @@ img {
 /* Custom selection */
 ::selection {
   background: rgba(var(--theme-primary-rgb), 0.2);
-  color: #1A0A0A;
+  color: inherit;
 }
 
 /* Primary button specification: apply to .btn-primer */

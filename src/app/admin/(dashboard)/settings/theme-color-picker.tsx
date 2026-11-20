@@ -128,7 +128,7 @@ export function ThemeColorPicker({
               </span>
             </div>
             <p className="text-xs text-[#6B5A5A]">
-              Ubah warna aksen di seluruh website &amp; CMS tanpa mengubah warna background halaman maupun section.
+              Ubah warna aksen &amp; nuansa section gelap secara harmonis, sambil menjaga background section terang tetap netral.
             </p>
           </div>
         </div>

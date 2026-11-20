@@ -1,5 +1,6 @@
 import { z } from 'zod'
 import { BENTO_SPAN_OPTIONS, GALLERY_GRID_PRESETS, WHY_CARD_ICONS } from '@/lib/constants/cms'
+import { HEX_COLOR_REGEX } from '@/lib/theme'
 
 const whyIconValues = WHY_CARD_ICONS.map(i => i.value) as [string, ...string[]]
 const bentoValues = BENTO_SPAN_OPTIONS.map(i => i.value) as [string, ...string[]]
@@ -128,6 +129,25 @@ export const navLinkSchema = z.object({
   href: z.string().min(1),
 })
 
+export const themeColorSchema = z.object({
+  primary: z
+    .string()
+    .trim()
+    .regex(HEX_COLOR_REGEX, 'Format warna Primary harus hex 6 digit (contoh: #8B1D1D)')
+    .transform(v => v.toUpperCase()),
+  primary_hover: z
+    .string()
+    .trim()
+    .regex(HEX_COLOR_REGEX, 'Format warna Primary Hover harus hex 6 digit (contoh: #6E1515)')
+    .transform(v => v.toUpperCase()),
+  primary_light: z
+    .string()
+    .trim()
+    .regex(HEX_COLOR_REGEX, 'Format warna Primary Light harus hex 6 digit (contoh: #FDF2F2)')
+    .transform(v => v.toUpperCase()),
+  preset_name: z.string().trim().min(1, 'Nama preset wajib diisi').max(100),
+})
+
 export const siteSettingsSchema = z.object({
   nav_links: z.array(navLinkSchema),
   contact: z.array(navLinkSchema),
@@ -135,6 +155,7 @@ export const siteSettingsSchema = z.object({
   intro_image: z.string().optional(),
   cta_image: z.string().optional(),
   join_url: z.string().optional(),
+  theme_color: themeColorSchema,
 })
 
 export type ActionResult = {

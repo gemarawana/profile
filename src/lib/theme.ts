@@ -124,16 +124,16 @@ function rgbToHsl(r: number, g: number, b: number): { h: number; s: number; l: n
 }
 
 function hslToHex(h: number, s: number, l: number): string {
+  const hNorm = ((h % 360) + 360) % 360
   const sn = Math.max(0, Math.min(100, s)) / 100
   const ln = Math.max(0, Math.min(100, l)) / 100
   const c = (1 - Math.abs(2 * ln - 1)) * sn
-  const x = c * (1 - Math.abs(((h / 60) % 2) - 1))
+  const x = c * (1 - Math.abs(((hNorm / 60) % 2) - 1))
   const m = ln - c / 2
   let r = 0
   let g = 0
   let b = 0
 
-  const hNorm = ((h % 360) + 360) % 360
   if (hNorm < 60) [r, g, b] = [c, x, 0]
   else if (hNorm < 120) [r, g, b] = [x, c, 0]
   else if (hNorm < 180) [r, g, b] = [0, c, x]
@@ -177,16 +177,21 @@ export function deriveDarkThemeTokens(primaryHex: string): DarkThemeTokens {
   const darkSurface = hslToHex(h, darkSurfaceS, 11.2)
 
   let primaryBright = safePrimary
-  if (getContrastRatio(primaryBright, darkBg) < 4.5) {
+  if (getContrastRatio(primaryBright, darkBg) < 4.5 || getContrastRatio(primaryBright, darkSurface) < 4.5) {
     let candidateL = Math.max(l, 42)
     const candidateS = s < 10 ? s : Math.min(82, Math.max(s, 58))
-    while (candidateL <= 88) {
+    let matched = false
+    while (candidateL <= 92) {
       const candidate = hslToHex(h, candidateS, candidateL)
-      if (getContrastRatio(candidate, darkBg) >= 4.5) {
+      if (getContrastRatio(candidate, darkBg) >= 4.5 && getContrastRatio(candidate, darkSurface) >= 4.5) {
         primaryBright = candidate
+        matched = true
         break
       }
       candidateL += 2
+    }
+    if (!matched) {
+      primaryBright = '#FFFFFF'
     }
   }
 

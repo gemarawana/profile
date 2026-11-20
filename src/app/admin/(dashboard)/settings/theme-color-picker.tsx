@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import {
   DEFAULT_THEME_COLOR,
   THEME_PRESETS,
+  deriveDarkThemeTokens,
   isValidHexColor,
   type ThemeColorConfig,
 } from '@/lib/theme'
@@ -106,6 +107,7 @@ export function ThemeColorPicker({
   const previewLight = isValidHexColor(value.primary_light)
     ? value.primary_light
     : DEFAULT_THEME_COLOR.primary_light
+  const darkPreview = deriveDarkThemeTokens(previewPrimary)
 
   return (
     <div className="rounded-2xl border border-[#E8E5E0] bg-white p-5 md:p-6 shadow-2xs space-y-5">
@@ -229,7 +231,7 @@ export function ThemeColorPicker({
 
       {/* Live Preview */}
       <div className="space-y-2">
-        <Label className="mb-0">Pratinjau Langsung (Background Tetap Netral &amp; Gelap)</Label>
+        <Label className="mb-0">Pratinjau Langsung (Background Terang Netral &amp; Dark Section Harmonis)</Label>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
           {/* Light Section Preview */}
           <div className="rounded-xl border border-[#E8E5E0] bg-white p-4 space-y-3">
@@ -264,22 +266,44 @@ export function ThemeColorPicker({
           </div>
 
           {/* Dark Hero/Section Preview */}
-          <div className="rounded-xl bg-[#140606] p-4 space-y-3 text-white">
+          <div
+            className="rounded-xl p-4 space-y-3 text-white"
+            style={{ backgroundColor: darkPreview.darkBg }}
+          >
             <span
               className="block text-[10px] font-bold uppercase tracking-widest"
-              style={{ color: previewPrimary }}
+              style={{ color: darkPreview.primaryBright }}
             >
-              Section Gelap Tetap Dipertahankan
+              Section Gelap Harmonis
             </span>
             <p className="font-display text-lg font-black leading-tight">
-              GEMA <span style={{ color: previewPrimary }}>RAWANA.</span>
+              GEMA <span style={{ color: darkPreview.primaryBright }}>RAWANA.</span>
             </p>
-            <span
-              className="inline-flex items-center rounded-lg px-4 py-1.5 text-xs font-bold text-white"
-              style={{ backgroundColor: previewPrimary }}
-            >
-              JOIN →
-            </span>
+            <div className="flex items-center justify-between gap-3">
+              <span
+                className="inline-flex items-center rounded-lg px-4 py-1.5 text-xs font-bold text-white"
+                style={{ backgroundColor: previewPrimary }}
+              >
+                JOIN →
+              </span>
+              <div
+                className="rounded-lg border px-3 py-1.5 text-right"
+                style={{
+                  backgroundColor: darkPreview.darkSurface,
+                  borderColor: darkPreview.darkBorder,
+                }}
+              >
+                <span
+                  className="block font-display text-sm font-black leading-none"
+                  style={{ color: darkPreview.primaryBright }}
+                >
+                  84+
+                </span>
+                <span className="mt-0.5 block text-[10px] font-medium text-white/70">
+                  Ekspedisi
+                </span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -92,12 +92,15 @@ describe('theme utilities', () => {
     assert.equal(maroon.darkBorder, 'rgba(255, 255, 255, 0.08)')
   })
 
-  it('ensures primaryBright achieves >= 4.5:1 WCAG contrast on darkBg', () => {
-    for (const hex of ['#8B1D1D', '#1B4332', '#1B5E20', '#1E3A8A', '#0F766E', '#4338CA', '#B45309']) {
+  it('ensures primaryBright achieves >= 4.5:1 WCAG contrast on darkBg and darkSurface', () => {
+    for (const hex of ['#8B1D1D', '#1B4332', '#1B5E20', '#1E3A8A', '#0F766E', '#4338CA', '#B45309', '#000000', '#6B7280']) {
       const tokens = deriveDarkThemeTokens(hex)
-      const ratio = getContrastRatio(tokens.primaryBright, tokens.darkBg)
-      assert.ok(ratio >= 4.5, `Expected contrast >= 4.5 for ${hex}, got ${ratio.toFixed(2)}`)
+      const bgRatio = getContrastRatio(tokens.primaryBright, tokens.darkBg)
+      const surfaceRatio = getContrastRatio(tokens.primaryBright, tokens.darkSurface)
+      assert.ok(bgRatio >= 4.5, `Expected darkBg contrast >= 4.5 for ${hex}, got ${bgRatio.toFixed(2)}`)
+      assert.ok(surfaceRatio >= 4.5, `Expected darkSurface contrast >= 4.5 for ${hex}, got ${surfaceRatio.toFixed(2)}`)
     }
+    assert.deepEqual(deriveDarkThemeTokens('invalid'), deriveDarkThemeTokens(DEFAULT_THEME_COLOR.primary))
   })
 
   it('includes dark_bg, dark_surface, dark_border, and primary_bright in getThemeCssVariables', () => {

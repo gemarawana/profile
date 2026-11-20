@@ -3,6 +3,8 @@ import assert from 'node:assert/strict'
 import {
   DEFAULT_THEME_COLOR,
   THEME_PRESETS,
+  deriveDarkThemeTokens,
+  getContrastRatio,
   getThemeCssVariables,
   hexToRgbTuple,
   isValidHexColor,
@@ -65,11 +67,52 @@ describe('theme utilities', () => {
       preset_name: 'Forest Green',
     })
 
-    assert.deepEqual(vars, {
-      '--theme-primary': '#1B5E20',
-      '--theme-primary-hover': '#144618',
-      '--theme-primary-light': '#F1F8F2',
-      '--theme-primary-rgb': '27, 94, 32',
+    assert.equal(vars['--theme-primary'], '#1B5E20')
+    assert.equal(vars['--theme-primary-hover'], '#144618')
+    assert.equal(vars['--theme-primary-light'], '#F1F8F2')
+    assert.equal(vars['--theme-primary-rgb'], '27, 94, 32')
+  })
+
+  it('derives harmonious dark_bg and dark_surface shades across hues', () => {
+    const maroon = deriveDarkThemeTokens('#8B1D1D')
+    const forest = deriveDarkThemeTokens('#1B4332')
+    const navy = deriveDarkThemeTokens('#1E3A8A')
+    const terracotta = deriveDarkThemeTokens('#9A3412')
+    const teal = deriveDarkThemeTokens('#115E59')
+
+    assert.match(maroon.darkBg, /^#[0-9A-F]{6}$/)
+    assert.notEqual(forest.darkBg, maroon.darkBg)
+    assert.notEqual(navy.darkBg, maroon.darkBg)
+    assert.notEqual(terracotta.darkBg, navy.darkBg)
+    assert.notEqual(teal.darkBg, maroon.darkBg)
+
+    // dark_surface must be slightly lighter than dark_bg
+    assert.ok(getContrastRatio('#FFFFFF', maroon.darkBg) > getContrastRatio('#FFFFFF', maroon.darkSurface))
+    assert.ok(getContrastRatio('#FFFFFF', forest.darkBg) > getContrastRatio('#FFFFFF', forest.darkSurface))
+    assert.equal(maroon.darkBorder, 'rgba(255, 255, 255, 0.08)')
+  })
+
+  it('ensures primaryBright achieves >= 4.5:1 WCAG contrast on darkBg', () => {
+    for (const hex of ['#8B1D1D', '#1B4332', '#1B5E20', '#1E3A8A', '#0F766E', '#4338CA', '#B45309']) {
+      const tokens = deriveDarkThemeTokens(hex)
+      const ratio = getContrastRatio(tokens.primaryBright, tokens.darkBg)
+      assert.ok(ratio >= 4.5, `Expected contrast >= 4.5 for ${hex}, got ${ratio.toFixed(2)}`)
+    }
+  })
+
+  it('includes dark_bg, dark_surface, dark_border, and primary_bright in getThemeCssVariables', () => {
+    const vars = getThemeCssVariables({
+      primary: '#1B4332',
+      primary_hover: '#143326',
+      primary_light: '#ECFDF5',
+      preset_name: 'Forest Green',
     })
+
+    assert.ok(vars['--color-dark-bg']?.startsWith('#'))
+    assert.ok(vars['--color-dark-bg-rgb']?.includes(','))
+    assert.ok(vars['--color-dark-surface']?.startsWith('#'))
+    assert.ok(vars['--color-dark-surface-rgb']?.includes(','))
+    assert.equal(vars['--color-dark-border'], 'rgba(255, 255, 255, 0.08)')
+    assert.ok(vars['--color-primary-bright']?.startsWith('#'))
   })
 })

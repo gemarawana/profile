@@ -7,6 +7,12 @@
   --theme-primary-hover: #6E1515;
   --theme-primary-light: #FDF2F2;
   --theme-primary-rgb: 139, 29, 29;
+  --color-dark-bg: #160B0B;
+  --color-dark-bg-rgb: 22, 11, 11;
+  --color-dark-surface: #251313;
+  --color-dark-surface-rgb: 37, 19, 19;
+  --color-dark-border: rgba(255, 255, 255, 0.08);
+  --color-primary-bright: #DC4C4C;
 }
 
 @theme inline {
@@ -17,11 +23,15 @@
   --color-crimson: var(--theme-primary);
   --color-crimson-dark: var(--theme-primary-hover);
   --color-crimson-light: var(--theme-primary-light);
+  --color-primary-bright: var(--color-primary-bright);
 
-  /* Preserved Static Neutral & Dark Surface Backgrounds */
-  --color-crimson-deep: #140606;
-  --color-crimson-card: #2A0C0C;
-  --color-crimson-mid: #3D1212;
+  /* Dynamic Dark Surface & Preserved Neutral Backgrounds */
+  --color-dark-bg: var(--color-dark-bg);
+  --color-dark-surface: var(--color-dark-surface);
+  --color-dark-border: var(--color-dark-border);
+  --color-crimson-deep: var(--color-dark-bg);
+  --color-crimson-card: var(--color-dark-surface);
+  --color-crimson-mid: var(--color-dark-surface);
   --color-warm-white: #FAF9F7;
   --color-light-gray: #F4F3F0;
   --color-border-color: #E8E5E0;
@@ -124,7 +134,7 @@ img {
 /* Custom selection */
 ::selection {
   background: rgba(var(--theme-primary-rgb), 0.2);
-  color: #140606;
+  color: #1A0A0A;
 }
 
 /* Primary button specification: apply to .btn-primer */

@@ -1,5 +1,6 @@
 import { createClient as createSupabaseClient } from '@supabase/supabase-js'
 import * as mappers from '@/lib/mappers'
+import { DEFAULT_THEME_COLOR, normalizeThemeColor, type ThemeColorConfig } from '@/lib/theme'
 
 async function createClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -308,4 +309,14 @@ export async function getSiteSettings(key: string): Promise<unknown> {
   }
 
   return data?.value ?? null
+}
+
+export async function getThemeColor(): Promise<ThemeColorConfig> {
+  try {
+    const raw = await getSiteSettings('theme_color')
+    return normalizeThemeColor(raw)
+  } catch (error) {
+    console.warn('Falling back to DEFAULT_THEME_COLOR:', error)
+    return { ...DEFAULT_THEME_COLOR }
+  }
 }

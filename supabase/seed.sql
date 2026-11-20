@@ -25,7 +25,8 @@ ON CONFLICT (asset_key) DO UPDATE SET image_url = EXCLUDED.image_url, alt_text =
 INSERT INTO public.site_settings (key, value) VALUES
 ('nav_links', '[{"label": "Tentang", "href": "#tentang"}, {"label": "Kegiatan", "href": "#kegiatan"}, {"label": "Eksplorasi", "href": "#berita"}, {"label": "Cerita", "href": "#cerita"}, {"label": "Galeri", "href": "#galeri"}]'::jsonb),
 ('contact', '[{"label": "Tentang", "href": "#tentang"}, {"label": "Kegiatan", "href": "#kegiatan"}, {"label": "Cerita", "href": "#cerita"}, {"label": "Galeri", "href": "#galeri"}, {"label": "FAQ", "href": "#faq"}, {"label": "Join Us", "href": "#join"}]'::jsonb),
-('footer_socials', '[{"label": "Instagram", "href": "#"}, {"label": "TikTok", "href": "#"}, {"label": "YouTube", "href": "#"}, {"label": "WhatsApp", "href": "#"}]'::jsonb)
+('footer_socials', '[{"label": "Instagram", "href": "#"}, {"label": "TikTok", "href": "#"}, {"label": "YouTube", "href": "#"}, {"label": "WhatsApp", "href": "#"}]'::jsonb),
+('theme_color', '{"primary": "#8B1D1D", "primary_hover": "#6E1515", "primary_light": "#FDF2F2", "preset_name": "Maroon Default"}'::jsonb)
 ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value;
 
 -- 2. hero_slides

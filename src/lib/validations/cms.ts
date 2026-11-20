@@ -143,6 +143,45 @@ export const themeColorSchema = z.object({
   preset_name: z.string().trim().min(1, 'Nama preset wajib diisi').max(100),
 })
 
+const requiredSectionTitle = z.string().trim().min(1, 'Judul section tidak boleh kosong').max(200)
+const optionalSectionText = z.string().max(1000).default('')
+
+const standardSectionSchema = z.object({
+  badge: z.string().max(120).default(''),
+  title: requiredSectionTitle,
+  title_highlight: z.string().max(200).default(''),
+  description: optionalSectionText,
+})
+
+export const sectionContentsSchema = z.object({
+  hero: z.object({
+    title: requiredSectionTitle,
+    title_highlight: z.string().max(200).default(''),
+    description: optionalSectionText,
+  }),
+  introduction: standardSectionSchema.extend({
+    secondary_description: optionalSectionText,
+  }),
+  about: standardSectionSchema,
+  our_story: standardSectionSchema,
+  organization: standardSectionSchema,
+  activities: standardSectionSchema,
+  journey: standardSectionSchema,
+  articles: standardSectionSchema.extend({
+    button_text: z.string().max(100).default(''),
+  }),
+  stories: standardSectionSchema,
+  impact: standardSectionSchema,
+  gallery: standardSectionSchema.extend({
+    button_text: z.string().max(100).default(''),
+  }),
+  faq: standardSectionSchema,
+  cta: standardSectionSchema.extend({
+    button_text: z.string().max(100).default(''),
+    secondary_button_text: z.string().max(100).default(''),
+  }),
+})
+
 export const siteSettingsSchema = z.object({
   nav_links: z.array(navLinkSchema),
   contact: z.array(navLinkSchema),
@@ -151,6 +190,7 @@ export const siteSettingsSchema = z.object({
   cta_image: z.string().optional(),
   join_url: z.string().optional(),
   theme_color: themeColorSchema,
+  section_contents: sectionContentsSchema,
 })
 
 export type ActionResult = {

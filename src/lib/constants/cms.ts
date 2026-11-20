@@ -45,6 +45,7 @@ export const SITE_SETTINGS_KEYS = [
   'cta_image',
   'join_url',
   'theme_color',
+  'section_contents',
 ] as const
 export type SiteSettingsKey = (typeof SITE_SETTINGS_KEYS)[number]
 

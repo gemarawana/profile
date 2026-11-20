@@ -1,6 +1,11 @@
 import { createClient as createSupabaseClient } from '@supabase/supabase-js'
 import * as mappers from '@/lib/mappers'
 import { DEFAULT_THEME_COLOR, normalizeThemeColor, type ThemeColorConfig } from '@/lib/theme'
+import {
+  cloneDefaultSectionContents,
+  normalizeSectionContents,
+  type SectionContentsConfig,
+} from '@/lib/section-contents'
 
 async function createClient() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -318,5 +323,15 @@ export async function getThemeColor(): Promise<ThemeColorConfig> {
   } catch (error) {
     console.warn('Falling back to DEFAULT_THEME_COLOR:', error)
     return { ...DEFAULT_THEME_COLOR }
+  }
+}
+
+export async function getSectionContents(): Promise<SectionContentsConfig> {
+  try {
+    const raw = await getSiteSettings('section_contents')
+    return normalizeSectionContents(raw)
+  } catch (error) {
+    console.warn('Falling back to DEFAULT_SECTION_CONTENTS:', error)
+    return cloneDefaultSectionContents()
   }
 }

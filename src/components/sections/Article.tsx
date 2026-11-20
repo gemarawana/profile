@@ -94,8 +94,7 @@ export function Article({ articles = [] }: { articles: NewsArticle[] }) {
                   )}
                 </div>
                 <h3
-                  className="font-display font-black text-xl lg:text-2xl mb-4 leading-snug group-hover:text-[#8B1A1A] transition-colors"
-                  style={{ color: C.text }}
+                  className="font-display font-black text-xl lg:text-2xl mb-4 leading-snug text-text-main group-hover:text-crimson transition-colors"
                 >
                   {featured.title}
                 </h3>
@@ -197,8 +196,7 @@ export function Article({ articles = [] }: { articles: NewsArticle[] }) {
                       )}
                     </div>
                     <h4
-                      className="font-display font-black text-lg mb-2.5 line-clamp-2 group-hover:text-[#8B1A1A] transition-colors"
-                      style={{ color: C.text }}
+                      className="font-display font-black text-lg mb-2.5 line-clamp-2 text-text-main group-hover:text-crimson transition-colors"
                     >
                       {art.title}
                     </h4>
@@ -253,7 +251,7 @@ export function Article({ articles = [] }: { articles: NewsArticle[] }) {
           <div className="mt-6 w-full">
             <Link
               href="/artikel"
-              className="block w-full rounded-full border-[1.5px] border-[#8B1A1A] bg-transparent px-7 py-3 text-center text-base font-bold text-[#8B1A1A] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#8B1A1A] hover:text-white cursor-pointer no-underline"
+              className="block w-full rounded-full border-[1.5px] border-crimson bg-transparent px-7 py-3 text-center text-base font-bold text-crimson transition-all duration-300 hover:-translate-y-0.5 hover:bg-crimson hover:text-white cursor-pointer no-underline"
             >
               Lihat Berita Lainnya
             </Link>

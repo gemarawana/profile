@@ -19,7 +19,7 @@ export function ScrollToTop() {
       style={{
         background: C.crimson,
         color: '#fff',
-        boxShadow: '0 4px 24px rgba(139,26,26,0.45)',
+        boxShadow: '0 4px 24px rgba(var(--theme-primary-rgb, 139, 29, 29), 0.45)',
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0) scale(1)' : 'translateY(16px) scale(0.8)',
         pointerEvents: visible ? 'auto' : 'none',

@@ -75,7 +75,7 @@ export function Introduction({ imageUrl }: { imageUrl: string }) {
           {/* Floating card — sits inside the pb-10 padding space below image */}
           <div
             className="absolute -bottom-6 left-0 sm:left-2 md:-left-4 rounded-2xl px-7 py-6 z-10"
-            style={{ background: C.crimson, color: '#fff', boxShadow: '0 12px 40px rgba(139,26,26,0.4)' }}
+            style={{ background: C.crimson, color: '#fff', boxShadow: '0 12px 40px rgba(var(--theme-primary-rgb, 139, 29, 29), 0.4)' }}
           >
             <div className="font-display font-black text-4xl leading-none">{new Date().getFullYear() - 2008}</div>
             <div className="text-xs font-semibold mt-2 uppercase tracking-wider opacity-90" style={{ fontFamily: 'Plus Jakarta Sans, sans-serif' }}>
@@ -86,7 +86,7 @@ export function Introduction({ imageUrl }: { imageUrl: string }) {
           {/* Decorative element */}
           <div
             className="absolute -top-4 -right-4 w-24 h-24 rounded-2xl pointer-events-none"
-            style={{ background: C.crimsonAlpha, border: `1px solid rgba(139,26,26,0.12)` }}
+            style={{ background: C.crimsonAlpha, border: '1px solid rgba(var(--theme-primary-rgb, 139, 29, 29), 0.12)' }}
           />
         </div>
       </div>

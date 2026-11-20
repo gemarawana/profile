@@ -23,7 +23,7 @@ export function OurStory({ milestones }: { milestones: HistoryItem[] }) {
               {/* Timeline dot */}
               <div
                 className="absolute left-3 md:left-1/2 top-2.5 w-4 h-4 rounded-full -translate-x-1/2 border-2 z-10"
-                style={{ background: C.crimson, borderColor: C.white, boxShadow: '0 0 0 4px rgba(139,26,26,0.15)' }}
+                style={{ background: C.crimson, borderColor: C.white, boxShadow: '0 0 0 4px rgba(var(--theme-primary-rgb, 139, 29, 29), 0.15)' }}
               />
 
               {/* Content */}
@@ -32,7 +32,7 @@ export function OurStory({ milestones }: { milestones: HistoryItem[] }) {
               >
                 <span
                   className="font-display font-black block"
-                  style={{ fontSize: 'clamp(3rem, 5vw, 5rem)', color: 'rgba(139,26,26,0.08)', lineHeight: 1 }}
+                  style={{ fontSize: 'clamp(3rem, 5vw, 5rem)', color: 'rgba(var(--theme-primary-rgb, 139, 29, 29), 0.08)', lineHeight: 1 }}
                 >
                   {h.year}
                 </span>

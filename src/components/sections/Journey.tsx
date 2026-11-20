@@ -93,7 +93,7 @@ export function Journey({ steps }: { steps: JourneyStep[] }) {
             >
               <span
                 className="font-display font-black block leading-none mb-2"
-                style={{ fontSize: '5rem', color: 'rgba(139,26,26,0.4)' }}
+                style={{ fontSize: '5rem', color: 'rgba(var(--theme-primary-rgb, 139, 29, 29), 0.4)' }}
               >
                 {activeStep.num}
               </span>

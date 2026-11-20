@@ -53,8 +53,7 @@ export function ShareArticleModal({ title, slug }: ShareArticleModalProps) {
       {/* Trigger button */}
       <button
         onClick={() => setIsOpen(true)}
-        className="ml-auto inline-flex items-center gap-1.5 text-xs font-bold px-3.5 py-2 rounded-full border transition-colors hover:bg-[#8B1A1A] hover:text-white hover:border-[#8B1A1A]"
-        style={{ borderColor: '#8B1A1A', color: '#8B1A1A' }}
+        className="ml-auto inline-flex items-center gap-1.5 text-xs font-bold px-3.5 py-2 rounded-full border border-crimson text-crimson transition-colors hover:bg-crimson hover:text-white hover:border-crimson"
         aria-label="Bagikan artikel ini"
       >
         {/* Share icon */}
@@ -118,7 +117,7 @@ export function ShareArticleModal({ title, slug }: ShareArticleModalProps) {
               />
               <button
                 onClick={handleCopy}
-                className="flex items-center justify-center w-10 h-[38px] bg-gray-100 border border-l-0 border-gray-200 rounded-r-xl text-gray-500 hover:text-[#8B1A1A] hover:bg-[#8B1A1A]/5 transition-colors flex-shrink-0"
+                className="flex items-center justify-center w-10 h-[38px] bg-gray-100 border border-l-0 border-gray-200 rounded-r-xl text-gray-500 hover:text-crimson hover:bg-crimson/5 transition-colors flex-shrink-0"
                 aria-label={copied ? 'Disalin!' : 'Salin URL'}
               >
                 {copied ? (

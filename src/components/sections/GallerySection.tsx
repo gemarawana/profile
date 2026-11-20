@@ -46,7 +46,7 @@ export function GallerySection({ items }: { items: GalleryItem[] }) {
             />
             <div
               className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10"
-              style={{ background: 'rgba(139,26,26,0.25)' }}
+              style={{ background: 'rgba(var(--theme-primary-rgb, 139, 29, 29), 0.25)' }}
             >
               <span className="text-white font-bold text-sm bg-black/40 rounded-full px-5 py-2 backdrop-blur-sm">
                 View
@@ -61,7 +61,7 @@ export function GallerySection({ items }: { items: GalleryItem[] }) {
           <button
             type="button"
             onClick={handleLoadMore}
-            className="w-full rounded-full border-[1.5px] border-[#8B1A1A] bg-transparent px-7 py-2 text-lg font-bold text-[#8B1A1A] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#8B1A1A] hover:text-white"
+            className="w-full rounded-full border-[1.5px] border-crimson bg-transparent px-7 py-2 text-lg font-bold text-crimson transition-all duration-300 hover:-translate-y-0.5 hover:bg-crimson hover:text-white"
           >
             See More
           </button>
@@ -85,7 +85,7 @@ export function GallerySection({ items }: { items: GalleryItem[] }) {
           */}
           <button
             type="button"
-            className="absolute top-6 right-6 z-[110] w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-2xl transition-all duration-200 hover:bg-[#8B1A1A] hover:scale-110 active:scale-95 shadow-lg cursor-pointer"
+            className="absolute top-6 right-6 z-[110] w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-2xl transition-all duration-200 hover:bg-crimson hover:scale-110 active:scale-95 shadow-lg cursor-pointer"
             style={{ background: 'rgba(250,245,245,0.2)' }}
             onClick={(e) => {
               e.stopPropagation()

@@ -32,8 +32,8 @@ function WhyCard({ card, delay }: { card: WhyCardType; delay: number }) {
         transitionProperty: 'opacity, transform, border-color, box-shadow',
       }}
       onMouseEnter={e => {
-        e.currentTarget.style.borderColor = 'rgba(139,26,26,0.22)'
-        e.currentTarget.style.boxShadow = '0 12px 40px rgba(139,26,26,0.08)'
+        e.currentTarget.style.borderColor = 'rgba(var(--theme-primary-rgb, 139, 29, 29), 0.22)'
+        e.currentTarget.style.boxShadow = '0 12px 40px rgba(var(--theme-primary-rgb, 139, 29, 29), 0.08)'
       }}
       onMouseLeave={e => {
         e.currentTarget.style.borderColor = C.border

@@ -38,7 +38,7 @@ export default async function ArticlesArchivePage() {
           <div className="mb-8">
             <Link
               href="/"
-              className="inline-flex items-center gap-2 text-sm font-bold text-[#8B1A1A] hover:text-[#6B1414] transition-colors py-2 px-4 rounded-full bg-[#8B1A1A]/5 hover:bg-[#8B1A1A]/10"
+              className="inline-flex items-center gap-2 text-sm font-bold text-crimson hover:text-crimson-dark transition-colors py-2 px-4 rounded-full bg-crimson/5 hover:bg-crimson/10"
             >
               <svg
                 width="16"
@@ -61,7 +61,7 @@ export default async function ArticlesArchivePage() {
           <div className="max-w-3xl mb-12">
             <div
               className="inline-block px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider mb-3"
-              style={{ background: 'rgba(139,26,26,0.08)', color: C.crimson, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
+              style={{ background: C.crimsonAlpha, color: C.crimson, fontFamily: 'Plus Jakarta Sans, sans-serif' }}
             >
               Journalism & Events
             </div>

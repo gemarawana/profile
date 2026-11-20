@@ -46,7 +46,7 @@ export function RecruitmentCTA({
           width: '600px',
           height: '600px',
           borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(139,26,26,0.25) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(var(--theme-primary-rgb, 139, 29, 29), 0.25) 0%, transparent 70%)',
           top: '50%',
           left: '50%',
           transform: 'translate(-50%, -50%)',
@@ -67,7 +67,7 @@ export function RecruitmentCTA({
             style={{ fontSize: 'clamp(2.75rem, 8vw, 6.5rem)', letterSpacing: '-0.02em' }}
           >
             YOUR NEXT<br />ADVENTURE<br />
-            <span style={{ color: C.crimson, textShadow: '0 0 80px rgba(139,26,26,0.6)' }}>STARTS HERE.</span>
+            <span style={{ color: C.crimson, textShadow: '0 0 80px rgba(var(--theme-primary-rgb, 139, 29, 29), 0.6)' }}>STARTS HERE.</span>
           </h2>
           <p className="text-lg md:text-xl mb-12 max-w-xl mx-auto leading-relaxed" style={{ color: C.onDarkDim }}>
             No need to wait to be ready. Start your journey with Gemarawana.
@@ -79,7 +79,7 @@ export function RecruitmentCTA({
               target={isExternal ? '_blank' : undefined}
               rel={isExternal ? 'noopener noreferrer' : undefined}
               className="inline-flex items-center gap-2 px-9 py-4 btn-primer text-base font-bold tracking-wide transition-all duration-200 hover:scale-105 active:scale-95"
-              style={{ background: C.crimson, color: '#fff', fontFamily: 'Plus Jakarta Sans, sans-serif', boxShadow: '0 4px 32px rgba(139,26,26,0.5)' }}
+              style={{ background: C.crimson, color: '#fff', fontFamily: 'Plus Jakarta Sans, sans-serif', boxShadow: '0 4px 32px rgba(var(--theme-primary-rgb, 139, 29, 29), 0.5)' }}
               onClick={e => {
                 if (!hasJoinUrl) {
                   e.preventDefault()

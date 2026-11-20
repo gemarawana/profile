@@ -51,7 +51,7 @@ export function Hero({ slides }: { slides: HeroSlide[] }) {
       {/* Overlays */}
       <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to bottom, rgba(20,6,6,0.5) 0%, transparent 35%, rgba(20,6,6,0.92) 100%)' }} />
       <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to right, rgba(20,6,6,0.55) 0%, transparent 65%)' }} />
-      <div className="absolute inset-0 pointer-events-none" style={{ background: 'rgba(139,26,26,0.08)' }} />
+      <div className="absolute inset-0 pointer-events-none" style={{ background: 'rgba(var(--theme-primary-rgb, 139, 29, 29), 0.08)' }} />
 
       <Container className="relative z-10">
         {/* Tag
@@ -81,7 +81,7 @@ export function Hero({ slides }: { slides: HeroSlide[] }) {
           }}
         >
           GEMA<br />
-          <span style={{ color: C.crimson, textShadow: '0 0 60px rgba(139,26,26,0.7)' }}>RAWANA.</span>
+          <span style={{ color: C.crimson, textShadow: '0 0 60px rgba(var(--theme-primary-rgb, 139, 29, 29), 0.7)' }}>RAWANA.</span>
         </h1>
 
         {/* Bottom row */}

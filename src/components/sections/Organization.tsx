@@ -283,8 +283,7 @@ export function Organization({ members }: { members: Leader[] }) {
             onClick={previous}
             aria-label="Previous member"
             disabled={isTransitioning}
-            className="absolute -left-4 top-1/2 z-25 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border bg-white transition-all duration-300 hover:-translate-x-1 hover:bg-[#8B1A1A] hover:text-white disabled:cursor-not-allowed disabled:opacity-50 lg:-left-6 shadow-md"
-            style={{ borderColor: C.crimson, color: C.crimson }}
+            className="absolute -left-4 top-1/2 z-25 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-crimson bg-white text-crimson transition-all duration-300 hover:-translate-x-1 hover:bg-crimson hover:text-white disabled:cursor-not-allowed disabled:opacity-50 lg:-left-6 shadow-md"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -311,8 +310,7 @@ export function Organization({ members }: { members: Leader[] }) {
             type="button"
             onClick={next}
             aria-label="Next story"
-            className="absolute -right-4 top-1/2 z-25 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border bg-white transition-all duration-300 hover:translate-x-1 hover:bg-[#8B1A1A] hover:text-white lg:-right-6 shadow-md"
-            style={{ borderColor: C.crimson, color: C.crimson }}
+            className="absolute -right-4 top-1/2 z-25 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full border border-crimson bg-white text-crimson transition-all duration-300 hover:translate-x-1 hover:bg-crimson hover:text-white lg:-right-6 shadow-md"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -344,8 +342,11 @@ export function Organization({ members }: { members: Leader[] }) {
               {index === currentIndex && !isPaused && (
                 <span
                   key={`progress-${currentIndex}`}
-                  className="absolute inset-y-0 left-0 rounded-full bg-[#C94A4A]"
-                  style={{ animation: `orgProgress ${AUTOPLAY_INTERVAL}ms linear forwards` }}
+                  className="absolute inset-y-0 left-0 rounded-full"
+                  style={{
+                    background: 'color-mix(in srgb, var(--theme-primary, #8B1D1D) 75%, white)',
+                    animation: `orgProgress ${AUTOPLAY_INTERVAL}ms linear forwards`,
+                  }}
                 />
               )}
             </button>
